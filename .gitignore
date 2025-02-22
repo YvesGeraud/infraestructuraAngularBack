@@ -1,0 +1,40 @@
+# Node modules
+node_modules/
+
+# Angular build output
+dist/
+tmp/
+out-tsc/
+
+# IDEs and editors
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.vscode/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Frontend Angular
+front-propuesta/
+FrontPropuesta/
+Front-Propuesta/
+
+# Ignorar carpeta FrontPropuesta
+FrontPropuesta/*
+
+# Pero mantener ciertos archivos si lo necesitas (ejemplos)
+!FrontPropuesta/README.md
+!FrontPropuesta/.gitignore 

@@ -10,4 +10,7 @@ router.route("/")
 router.route("/:id")
     .get(UnidadController.getById);
 
+router.route("/:id")
+    .put(UnidadController.update);
+
 export default router;

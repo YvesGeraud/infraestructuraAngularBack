@@ -1,0 +1,10 @@
+<h2>Listado de Unidades</h2>
+<input type="text" placeholder="Buscar por nombre" [(ngModel)]="searchNombre" />
+<input type="text" placeholder="Buscar por CCT" [(ngModel)]="searchCct" />
+<button (click)="buscar()">Buscar</button>
+<ul>
+  <li *ngFor="let unidad of unidades">
+    {{ unidad.nombre_unidad }} (CCT: {{ unidad.cct }})
+  </li>
+</ul>
+<div id="map" style="height: 400px; margin-top: 20px"></div>

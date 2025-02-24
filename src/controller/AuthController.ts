@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 import { Usuario } from "../entity/CtUsuario";
 
 // Puedes definir tu clave secreta en una variable de entorno; para el ejemplo se usa una fija.
-const JWT_SECRET = "tu_clave_secreta";
+const JWT_SECRET = "Si quedo para el lunes";
 
 export class AuthController {
     static async login(req: Request, res: Response): Promise<void> {

@@ -3,7 +3,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UsuarioService } from '../../services/usuario.service'; // Si tienes uno para unidades, o crea uno específico.
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import * as L from 'leaflet';
 import { UnidadService, Unidad } from '../../services/unidad.service';
 
@@ -20,7 +20,10 @@ export class UnidadMapComponent implements OnInit, AfterViewInit {
   searchCct: string = '';
   private map!: L.Map;
 
-  constructor(private unidadService: UnidadService) {}
+  constructor(
+    private unidadService: UnidadService,
+    private http: HttpClient
+  ) {}
 
   ngOnInit(): void {
     this.buscar();
@@ -41,10 +44,23 @@ export class UnidadMapComponent implements OnInit, AfterViewInit {
     L.Marker.prototype.options.icon = iconDefault;
 
     // Inicializar el mapa
-    this.map = L.map('map').setView([19.3137, -98.2411], 13);
+    this.map = L.map('map').setView([19.3137, -98.2411], 9);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors'
     }).addTo(this.map);
+
+    // vamos a añadir un geoJson
+    this.http.get('assets/TlaxcalaJ.json').subscribe((geojsonData: any) => {
+      // 4. Agregarlo como una capa en el mapa
+      L.geoJSON(geojsonData, {
+        style: {
+          color: 'blue',       // Color del contorno
+          weight: 2,           // Grosor de la línea
+          fillColor: 'blue',   // Color de relleno
+          fillOpacity: 0     // Opacidad del relleno
+        }
+      }).addTo(this.map);
+    });
   }
 
   buscar(): void {

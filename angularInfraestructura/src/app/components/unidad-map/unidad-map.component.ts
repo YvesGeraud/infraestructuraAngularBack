@@ -44,20 +44,20 @@ export class UnidadMapComponent implements OnInit, AfterViewInit {
     L.Marker.prototype.options.icon = iconDefault;
 
     // Inicializar el mapa
-    this.map = L.map('map').setView([19.3137, -98.2411], 9);
+    this.map = L.map('map').setView([19.4237, -98.1411], 9);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors'
     }).addTo(this.map);
 
     // vamos a añadir un geoJson
-    this.http.get('assets/TlaxcalaJ.json').subscribe((geojsonData: any) => {
+    this.http.get('assets/tlax_borde.geojson').subscribe((geojsonData: any) => {
       // 4. Agregarlo como una capa en el mapa
       L.geoJSON(geojsonData, {
         style: {
-          color: 'blue',       // Color del contorno
-          weight: 2,           // Grosor de la línea
-          fillColor: 'blue',   // Color de relleno
-          fillOpacity: 0     // Opacidad del relleno
+          color: 'green',       // Color del contorno
+          weight: 1,           // Grosor de la línea
+          fillColor: 'green',   // Color de relleno
+          fillOpacity: 0.1     // Opacidad del relleno
         }
       }).addTo(this.map);
     });

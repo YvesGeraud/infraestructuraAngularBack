@@ -8,5 +8,10 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts",
+    "angularInfraestructura"
+  ]
 }

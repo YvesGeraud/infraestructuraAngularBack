@@ -2,6 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { jwtDecode } from 'jwt-decode';
+
+interface TokenPayload {
+  exp: number;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +35,25 @@ export class AuthService {
   }
 
   getToken(): string | null {
-    return localStorage.getItem(this.tokenKey);
+    const token = localStorage.getItem(this.tokenKey);
+    if (!token || token === 'null' || token.trim() === '') {
+      localStorage.removeItem(this.tokenKey);
+      return null;
+    }
+    try {
+      const decoded = jwtDecode<TokenPayload>(token);
+      // exp se define en segundos desde epoch
+      if (decoded.exp * 1000 < Date.now()) {
+        // El token ha expirado
+        localStorage.removeItem(this.tokenKey);
+        return null;
+      }
+    } catch (error) {
+      // Si ocurre un error al decodificar, eliminamos el token
+      localStorage.removeItem(this.tokenKey);
+      return null;
+    }
+    return token;
   }
 
   private hasToken(): boolean {

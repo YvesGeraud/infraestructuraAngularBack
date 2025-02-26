@@ -1,0 +1,19 @@
+<header>
+  <div class="header-content">
+    <h1>Bienvenido a la aplicación de usuarios</h1>
+    <nav>
+      <a routerLink="/dashboard">Dashboard</a>
+      <a routerLink="/usuarios">Usuarios</a>
+      <a routerLink="/unidades">Unidades</a>
+      <button class="btn-cerrar-sesion" (click)="cerrarSesion()">
+        Cerrar Sesión
+      </button>
+    </nav>
+  </div>
+</header>
+<main>
+  <router-outlet></router-outlet>
+</main>
+<footer>
+  <!-- Pie de página -->
+</footer>

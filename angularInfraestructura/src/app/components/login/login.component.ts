@@ -9,19 +9,28 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  credentials = {usuario: '', contrasena: ''};
+  credentials = {
+    usuario: '',
+    contrasena: ''
+  };
   errorMessage: string = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   onSubmit() {
+    this.errorMessage = '';
     this.authService.login(this.credentials).subscribe({
-      next: () => this.router.navigate(['/dashboard']),
-      error: err => {
-        console.error(err);
+      next: () => {
+        this.router.navigate(['/dashboard']);
+      },
+      error: (error) => {
+        console.error('Error de login:', error);
         this.errorMessage = 'Usuario o contraseña incorrectos';
       }
     });

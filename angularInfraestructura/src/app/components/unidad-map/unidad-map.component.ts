@@ -8,11 +8,10 @@ import * as L from 'leaflet';
 import { UnidadService, Unidad } from '../../services/unidad.service';
 
 @Component({
-  selector: 'app-unidad-map',
-  standalone: true,
-  imports: [CommonModule, HttpClientModule, FormsModule],
-  templateUrl: './unidad-map.component.html',
-  styleUrls: ['./unidad-map.component.css']
+    selector: 'app-unidad-map',
+    imports: [CommonModule, HttpClientModule, FormsModule],
+    templateUrl: './unidad-map.component.html',
+    styleUrls: ['./unidad-map.component.css']
 })
 export class UnidadMapComponent implements OnInit, AfterViewInit {
   unidades: Unidad[] = [];

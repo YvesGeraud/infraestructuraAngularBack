@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { UsuarioService, Usuario } from '../../services/usuario.service';
 import { CommonModule } from '@angular/common';
 @Component({
-  selector: 'app-usuario-list',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './usuario-list.component.html',
-  styleUrl: './usuario-list.component.css'
+    selector: 'app-usuario-list',
+    imports: [CommonModule],
+    templateUrl: './usuario-list.component.html',
+    styleUrl: './usuario-list.component.css'
 })
 export class UsuarioListComponent implements OnInit {
   usuarios: Usuario[] = [];

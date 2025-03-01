@@ -1,13 +1,31 @@
 <div class="content-container">
   <h2>Listado de Unidades</h2>
   <div class="search-container">
-    <input type="text" placeholder="Buscar por nombre" [(ngModel)]="searchNombre" />
-    <input type="text" placeholder="Buscar por CCT" [(ngModel)]="searchCct" />
-    <button (click)="buscar()">Buscar</button>
+    <mat-form-field appearance="fill">
+      <mat-label>Buscar por nombre</mat-label>
+      <input type="text" matInput [formControl]="nombreControl" [matAutocomplete]="autoNombre">
+      <mat-autocomplete #autoNombre="matAutocomplete" [displayWith]="displayFn">
+        <mat-option *ngFor="let unidad of filteredUnidadesByNombre | async" [value]="unidad">
+          {{unidad.nombre_unidad}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Buscar por CCT</mat-label>
+      <input type="text" matInput [formControl]="cctControl" [matAutocomplete]="autoCct">
+      <mat-autocomplete #autoCct="matAutocomplete" [displayWith]="displayCctFn">
+        <mat-option *ngFor="let unidad of filteredUnidadesByCct | async" [value]="unidad">
+          {{unidad.cct}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
   </div>
+
   <div class="map-container">
     <div id="map" style="height: 400px"></div>
   </div>
+
   <ul>
     <li *ngFor="let unidad of unidades">
       {{ unidad.nombre_unidad }} (CCT: {{ unidad.cct }})

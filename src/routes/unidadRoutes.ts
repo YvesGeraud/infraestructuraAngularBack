@@ -10,6 +10,9 @@ router.route("/")
 router.route("/:id")
     .get(UnidadController.getById);
 
+router.route("/sugerencias")
+    .get(UnidadController.getSugerencias);
+
 router.route("/:id")
     .put(UnidadController.update);
 

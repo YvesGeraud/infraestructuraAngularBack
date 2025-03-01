@@ -8,19 +8,19 @@ export interface Unidad {
   id_unidad: number;
   cct: string;
   nombre_unidad: string;
-  ubicacion?: any // Se espera que el backend retorne estos datos ya parseados
-  // Otros campos...
+  ubicacion?: any;
+  municipio_id?: number;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class UnidadService {
-  private apiUrl = 'http://localhost:3000/api/unidades';
+  private apiUrl = 'http://localhost:3000/api';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  searchUnidades(filtros: { nombre?: string; cct?: string }): Observable<Unidad[]> {
+  searchUnidades(filtros: { nombre?: string; cct?: string; municipio_id?: number }): Observable<Unidad[]> {
     let params = new HttpParams();
     if (filtros.nombre) {
       params = params.set('nombre', filtros.nombre);
@@ -28,7 +28,10 @@ export class UnidadService {
     if (filtros.cct) {
       params = params.set('cct', filtros.cct);
     }
-    return this.http.get<Unidad[]>(this.apiUrl, { params }).pipe(
+    if (filtros.municipio_id) {
+      params = params.set('municipio_id', filtros.municipio_id.toString());
+    }
+    return this.http.get<Unidad[]>(`${this.apiUrl}/unidades`, { params }).pipe(
       map((unidades: Unidad[]) => unidades.map(u => ({
         ...u,
         ubicacion: parsePoint(u.ubicacion as string)

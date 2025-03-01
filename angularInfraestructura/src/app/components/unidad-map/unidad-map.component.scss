@@ -1,0 +1,17 @@
+#map {
+    height: 600px;
+}
+
+.search-container {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.search-field {
+    flex: 2;
+}
+
+.municipio-field {
+    flex: 1;
+}

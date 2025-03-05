@@ -7,7 +7,28 @@ export class UnidadController {
     static async getAll(req: Request, res: Response): Promise<void> {
         try {
             const unidadRepo = AppDataSource.getRepository(Unidad);
-            const unidades = await unidadRepo.find();
+            let query = unidadRepo.createQueryBuilder("unidad");
+
+            // Aplicar filtros si existen
+            if (req.query.nombre) {
+                query = query.andWhere("unidad.nombre_unidad LIKE :nombre", {
+                    nombre: `%${req.query.nombre}%`
+                });
+            }
+
+            if (req.query.cct) {
+                query = query.andWhere("unidad.cct = :cct", {
+                    cct: req.query.cct
+                });
+            }
+
+            if (req.query.municipio_id) {
+                query = query.andWhere("unidad.municipio_id = :municipio_id", {
+                    municipio_id: req.query.municipio_id
+                });
+            }
+
+            const unidades = await query.getMany();
             res.json(unidades);
         } catch (error) {
             console.error(error);
@@ -20,6 +41,22 @@ export class UnidadController {
             const { id } = req.params;
             const unidadRepo = AppDataSource.getRepository(Unidad);
             const unidad = await unidadRepo.findOne({ where: { id_unidad: parseInt(id) } });
+            if (!unidad) {
+                res.status(404).json({ error: "Unidad no encontrada" });
+                return;
+            }
+            res.json(unidad);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: "Error obteniendo unidad" });
+        }
+    }
+
+    static async getByCct(req: Request, res: Response): Promise<void> {
+        try {
+            const { cct } = req.params;
+            const unidadRepo = AppDataSource.getRepository(Unidad);
+            const unidad = await unidadRepo.findOne({ where: { cct: cct } });
             if (!unidad) {
                 res.status(404).json({ error: "Unidad no encontrada" });
                 return;

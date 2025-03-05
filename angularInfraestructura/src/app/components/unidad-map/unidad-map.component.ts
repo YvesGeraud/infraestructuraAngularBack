@@ -151,13 +151,14 @@ export class UnidadMapComponent implements OnInit, AfterViewInit {
     this.markers.forEach(marker => marker.remove());
     this.markers = [];
 
-    this.unidadService.searchUnidades({
-      nombre: searchTerm,
-      municipio_id: municipioId
-    }).subscribe({
-      next: (unidades) => {
-        unidades.forEach(unidad => {
-          if (unidad.ubicacion) {
+    // Determinar si el término de búsqueda es un CCT (11 dígitos)
+    const isCCT = searchTerm && /^\d{11}$/.test(searchTerm);
+
+    // Si es un CCT, usar el endpoint específico
+    if (isCCT) {
+      this.unidadService.getUnidadByCct(searchTerm).subscribe({
+        next: (unidad) => {
+          if (unidad && unidad.ubicacion) {
             const marker = L.marker([unidad.ubicacion.lat, unidad.ubicacion.lng])
               .bindPopup(`
                 <strong>${unidad.nombre_unidad}</strong><br>
@@ -165,13 +166,44 @@ export class UnidadMapComponent implements OnInit, AfterViewInit {
               `);
             marker.addTo(this.map);
             this.markers.push(marker);
+            // Centrar el mapa en la unidad encontrada
+            this.map.setView([unidad.ubicacion.lat, unidad.ubicacion.lng], 15);
           }
-        });
-      },
-      error: (error) => {
-        console.error('Error al buscar unidades:', error);
-      }
-    });
+        },
+        error: (error) => {
+          console.error('Error al buscar unidad por CCT:', error);
+        }
+      });
+    } else {
+      // Si no es CCT, usar la búsqueda general
+      this.unidadService.searchUnidades({
+        nombre: searchTerm,
+        municipio_id: municipioId
+      }).subscribe({
+        next: (unidades) => {
+          unidades.forEach(unidad => {
+            if (unidad.ubicacion) {
+              const marker = L.marker([unidad.ubicacion.lat, unidad.ubicacion.lng])
+                .bindPopup(`
+                  <strong>${unidad.nombre_unidad}</strong><br>
+                  CCT: ${unidad.cct}
+                `);
+              marker.addTo(this.map);
+              this.markers.push(marker);
+            }
+          });
+
+          // Si hay resultados, ajustar el mapa para mostrar todos los marcadores
+          if (this.markers.length > 0) {
+            const group = L.featureGroup(this.markers);
+            this.map.fitBounds(group.getBounds().pad(0.1));
+          }
+        },
+        error: (error) => {
+          console.error('Error al buscar unidades:', error);
+        }
+      });
+    }
   }
 }
 

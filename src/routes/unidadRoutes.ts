@@ -8,12 +8,12 @@ router.route("/")
     .post(UnidadController.create);
 
 router.route("/:id")
-    .get(UnidadController.getById);
-
-router.route("/sugerencias")
-    .get(UnidadController.getSugerencias);
-
-router.route("/:id")
+    .get(UnidadController.getById)
     .put(UnidadController.update);
+
+router.route("/cct/:cct")
+    .get(UnidadController.getByCct);
+
+router.get("/sugerencias", UnidadController.getSugerencias);
 
 export default router;

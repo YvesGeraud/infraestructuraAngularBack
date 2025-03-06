@@ -2,7 +2,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import * as L from 'leaflet';
 import { UnidadService, Unidad } from '../../services/unidad.service';
 import { MunicipioService, Municipio } from '../../services/municipio.service';
@@ -19,7 +18,6 @@ import { map, startWith, debounceTime, distinctUntilChanged, switchMap, filter }
   standalone: true,
   imports: [
     CommonModule,
-    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     MatAutocompleteModule,

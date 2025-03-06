@@ -20,10 +20,11 @@ export class MunicipioService {
   }
 
   getGeoJsonByMunicipio(municipioId: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/municipios/${municipioId}/geojson`);
+    const idFormateado = municipioId.toString().padStart(2, '0');
+    return this.http.get(`/assets/geojson/municipios/${idFormateado}.geojson`);
   }
 
   getEstadoGeoJson(): Observable<any> {
-    return this.http.get('/assets/tlax_borde.geojson');
+    return this.http.get('/assets/geojson/estado/Tlaxcala.geojson');
   }
 }

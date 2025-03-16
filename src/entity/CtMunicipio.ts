@@ -5,6 +5,10 @@ export class Municipio {
     @PrimaryGeneratedColumn()
     id_municipio!: number;
 
+    @Column({ length: 3 })
+    identificacion_inegi!: string;
+
     @Column({ length: 255 })
     nombre!: string;
+    
 } 

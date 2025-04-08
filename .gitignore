@@ -1,0 +1,13 @@
+# Ignorar dependencias de node_modules
+node_modules/
+
+# Ignorar archivos de configuración de entorno
+
+
+# Ignorar carpetas de distribución
+dist/
+
+# Ignorar archivos de registro
+logs/
+
+

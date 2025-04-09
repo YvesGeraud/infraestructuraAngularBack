@@ -1,5 +1,6 @@
 import { Router } from "express";
 import ctInfraestructuraUnidadController from "../controllers/ct_infraestructura_unidad.controller";
+import { authenticateJWT } from "../middlewares/auth.middleware";
 
 const router = Router();
 
@@ -10,18 +11,38 @@ router.get(
 );
 
 //* Crear una unidad
-router.post("/", ctInfraestructuraUnidadController.crearUnidad);
+router.post(
+  "/",
+  authenticateJWT,
+  ctInfraestructuraUnidadController.crearUnidad
+);
 
 //* Obtener una unidad por su ID
-router.get("/:id", ctInfraestructuraUnidadController.obtenerUnidadPorId);
+router.get(
+  "/:id",
+  authenticateJWT,
+  ctInfraestructuraUnidadController.obtenerUnidadPorId
+);
 
 //* Obtener todas las unidades
-router.get("/", ctInfraestructuraUnidadController.obtenerUnidades);
+router.get(
+  "/",
+  authenticateJWT,
+  ctInfraestructuraUnidadController.obtenerUnidades
+);
 
 //* Actualizar una unidad por su ID
-router.put("/:id", ctInfraestructuraUnidadController.actualizarUnidad);
+router.put(
+  "/:id",
+  authenticateJWT,
+  ctInfraestructuraUnidadController.actualizarUnidad
+);
 
 //* Eliminar una unidad por su ID
-router.delete("/:id", ctInfraestructuraUnidadController.eliminarUnidad);
+router.delete(
+  "/:id",
+  authenticateJWT,
+  ctInfraestructuraUnidadController.eliminarUnidad
+);
 
 export default router;

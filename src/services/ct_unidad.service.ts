@@ -44,10 +44,12 @@ class ctInfraestructuraUnidadService {
       attributes: ["id_unidad", "nombre_unidad", "ubicacion"],
       // Buscar en el nombre de la unidad
       where: {
-        nombre_unidad: {
-          [Op.like]: `%${termino}%`,
-        },
+        [Op.or]: [
+          { nombre_unidad: { [Op.like]: `%${termino}%` } },
+          { cct: { [Op.like]: `%${termino}%` } },
+        ],
       },
+      limit,
     });
   }
 

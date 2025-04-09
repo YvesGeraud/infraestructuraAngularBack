@@ -62,6 +62,30 @@ class ctInfraestructuraUnidadController {
     }
   }
 
+  //Metodo de autocompletado de unidades por Nombre
+  async autoCompletarUnidadesPorNombre(
+    req: Request,
+    res: Response
+  ): Promise<void> {
+    try {
+      // Suponemos que el termino viene como query param: /api/unidades/autocomplete?termino=
+      const termino = req.query.q as string;
+      if (!termino) {
+        res.status(400).json({ error: "Se requiere un termino de busqueda" });
+        return;
+      }
+      const resultados = await ctInfraestructuraUnidadService.buscarPorNombre(
+        termino
+      );
+      res.json(resultados);
+    } catch (error) {
+      console.error("Error al autocompletar unidades por nombre:", error);
+      res
+        .status(500)
+        .json({ error: "Error al autocompletar unidades por nombre" });
+    }
+  }
+
   async actualizarUnidad(req: Request, res: Response): Promise<void> {
     try {
       const id = Number(req.params.id);

@@ -4,6 +4,12 @@ import { authenticateJWT } from "../middlewares/auth.middleware";
 
 const router = Router();
 
+//* Autocompletar unidades por nombre
+router.get(
+  "/autocomplete",
+  ctInfraestructuraUnidadController.autoCompletarUnidadesPorNombre
+);
+
 //* Obtener todas las unidades con ubicación
 router.get(
   "/ubicaciones",

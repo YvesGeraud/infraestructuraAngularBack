@@ -2,6 +2,7 @@ import {
   ct_infraestructura_unidad,
   ct_infraestructura_unidadCreationAttributes,
 } from "../models/ct_infraestructura_unidad";
+import { Op } from "sequelize";
 
 class ctInfraestructuraUnidadService {
   //* Crear una unidad
@@ -34,6 +35,20 @@ class ctInfraestructuraUnidadService {
     } catch (error) {
       throw new Error("Error al obtener la unidad");
     }
+  }
+
+  //* Buscar unidades por nombre
+  async buscarPorNombre(termino: string, limit = 10) {
+    return await ct_infraestructura_unidad.findAll({
+      // Seleccionar solo los atributos necesarios
+      attributes: ["id_unidad", "nombre_unidad", "ubicacion"],
+      // Buscar en el nombre de la unidad
+      where: {
+        nombre_unidad: {
+          [Op.like]: `%${termino}%`,
+        },
+      },
+    });
   }
 
   //* Actualizar una unidad por su ID

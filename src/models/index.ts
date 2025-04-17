@@ -1,15 +1,24 @@
-// src/models/index.ts
+import { initModels } from "./init-models";
 import sequelize from "../config/database";
-import { ct_usuario } from "./ct_usuario";
-import { ct_infraestructura_unidad } from "./ct_infraestructura_unidad";
 
-ct_infraestructura_unidad.initModel(sequelize);
-ct_usuario.initModel(sequelize);
+// Inicializar todos los modelos
+const models = initModels(sequelize);
 
-//* Asociaciones
-ct_usuario.belongsTo(ct_infraestructura_unidad, {
-  foreignKey: "id_unidad",
-  as: "id_unidad_ct_infraestructura_unidad",
+const {
+  ct_infraestructura_unidad,
+  ct_infraestructura_sostenimiento,
+  ct_infraestructura_tipo_escuela,
+} = models;
+
+ct_infraestructura_unidad.belongsTo(ct_infraestructura_sostenimiento, {
+  foreignKey: "id_sostenimiento",
+  as: "sostenimiento",
 });
 
-export { ct_usuario, ct_infraestructura_unidad };
+ct_infraestructura_unidad.belongsTo(ct_infraestructura_tipo_escuela, {
+  foreignKey: "id_tipo_escuela",
+  as: "tipo_escuela",
+});
+
+export default models;
+export * from "./init-models";

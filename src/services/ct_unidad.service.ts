@@ -2,6 +2,8 @@ import {
   ct_infraestructura_unidad,
   ct_infraestructura_unidadCreationAttributes,
 } from "../models/ct_infraestructura_unidad";
+import { ct_infraestructura_sostenimiento } from "../models/ct_infraestructura_sostenimiento";
+import { ct_infraestructura_tipo_escuela } from "../models/ct_infraestructura_tipo_escuela";
 import { Op } from "sequelize";
 
 class ctInfraestructuraUnidadService {
@@ -22,7 +24,19 @@ class ctInfraestructuraUnidadService {
 
   async obtenerUnidadesUbicacion() {
     const unidades = await ct_infraestructura_unidad.findAll({
-      attributes: ["id_unidad", "nombre_unidad", "ubicacion"],
+      attributes: ["id_unidad", "nombre_unidad", "cct", "ubicacion"],
+      include: [
+        {
+          model: ct_infraestructura_sostenimiento,
+          as: "sostenimiento",
+          attributes: ["id_sostenimiento", "sostenimiento"],
+        },
+        {
+          model: ct_infraestructura_tipo_escuela,
+          as: "tipo_escuela",
+          attributes: ["id_tipo_escuela", "tipo_escuela"],
+        },
+      ],
     });
     return unidades;
   }
@@ -41,7 +55,7 @@ class ctInfraestructuraUnidadService {
   async buscarPorNombre(termino: string, limit = 10) {
     return await ct_infraestructura_unidad.findAll({
       // Seleccionar solo los atributos necesarios
-      attributes: ["id_unidad", "nombre_unidad", "ubicacion"],
+      attributes: ["id_unidad", "nombre_unidad", "cct", "ubicacion"],
       // Buscar en el nombre de la unidad
       where: {
         [Op.or]: [
@@ -49,6 +63,19 @@ class ctInfraestructuraUnidadService {
           { cct: { [Op.like]: `%${termino}%` } },
         ],
       },
+      // Incluir el sostenimiento de la unidad
+      include: [
+        {
+          model: ct_infraestructura_sostenimiento,
+          as: "sostenimiento",
+          attributes: ["id_sostenimiento", "sostenimiento"],
+        },
+        {
+          model: ct_infraestructura_tipo_escuela,
+          as: "tipo_escuela",
+          attributes: ["id_tipo_escuela", "tipo_escuela"],
+        },
+      ],
       limit,
     });
   }

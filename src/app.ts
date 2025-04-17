@@ -18,6 +18,7 @@ app.use(express.json());
 // monta las rutas bajo el path '/api/usuarios'
 app.use("/api/usuarios", usuarioRoutes);
 app.use("/api/unidades", unidadRoutes);
+
 // Sincroniza la base de datos y arranca el servidor
 sequelize
   .sync()

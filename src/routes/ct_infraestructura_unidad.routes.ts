@@ -24,11 +24,7 @@ router.post(
 );
 
 //* Obtener una unidad por su ID
-router.get(
-  "/:id",
-  authenticateJWT,
-  ctInfraestructuraUnidadController.obtenerUnidadPorId
-);
+router.get("/:id", ctInfraestructuraUnidadController.obtenerUnidadPorId);
 
 //* Obtener todas las unidades
 router.get(

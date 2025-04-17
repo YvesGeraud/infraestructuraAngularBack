@@ -39,6 +39,8 @@ import { ct_infraestructura_problema_edificio as _ct_infraestructura_problema_ed
 import type { ct_infraestructura_problema_edificioAttributes, ct_infraestructura_problema_edificioCreationAttributes } from "./ct_infraestructura_problema_edificio";
 import { ct_infraestructura_razon_no_construccion as _ct_infraestructura_razon_no_construccion } from "./ct_infraestructura_razon_no_construccion";
 import type { ct_infraestructura_razon_no_construccionAttributes, ct_infraestructura_razon_no_construccionCreationAttributes } from "./ct_infraestructura_razon_no_construccion";
+import { ct_infraestructura_sostenimiento as _ct_infraestructura_sostenimiento } from "./ct_infraestructura_sostenimiento";
+import type { ct_infraestructura_sostenimientoAttributes, ct_infraestructura_sostenimientoCreationAttributes } from "./ct_infraestructura_sostenimiento";
 import { ct_infraestructura_suministro_agua as _ct_infraestructura_suministro_agua } from "./ct_infraestructura_suministro_agua";
 import type { ct_infraestructura_suministro_aguaAttributes, ct_infraestructura_suministro_aguaCreationAttributes } from "./ct_infraestructura_suministro_agua";
 import { ct_infraestructura_suministro_energia as _ct_infraestructura_suministro_energia } from "./ct_infraestructura_suministro_energia";
@@ -51,6 +53,8 @@ import { ct_infraestructura_tipo_construccion as _ct_infraestructura_tipo_constr
 import type { ct_infraestructura_tipo_construccionAttributes, ct_infraestructura_tipo_construccionCreationAttributes } from "./ct_infraestructura_tipo_construccion";
 import { ct_infraestructura_tipo_descarga as _ct_infraestructura_tipo_descarga } from "./ct_infraestructura_tipo_descarga";
 import type { ct_infraestructura_tipo_descargaAttributes, ct_infraestructura_tipo_descargaCreationAttributes } from "./ct_infraestructura_tipo_descarga";
+import { ct_infraestructura_tipo_escuela as _ct_infraestructura_tipo_escuela } from "./ct_infraestructura_tipo_escuela";
+import type { ct_infraestructura_tipo_escuelaAttributes, ct_infraestructura_tipo_escuelaCreationAttributes } from "./ct_infraestructura_tipo_escuela";
 import { ct_infraestructura_unidad as _ct_infraestructura_unidad } from "./ct_infraestructura_unidad";
 import type { ct_infraestructura_unidadAttributes, ct_infraestructura_unidadCreationAttributes } from "./ct_infraestructura_unidad";
 import { ct_inventario_clasificacion as _ct_inventario_clasificacion } from "./ct_inventario_clasificacion";
@@ -91,6 +95,8 @@ import { rl_infraestructura_unidad_nivel as _rl_infraestructura_unidad_nivel } f
 import type { rl_infraestructura_unidad_nivelAttributes, rl_infraestructura_unidad_nivelCreationAttributes } from "./rl_infraestructura_unidad_nivel";
 import { rl_infraestructura_unidad_obra_mantenimiento as _rl_infraestructura_unidad_obra_mantenimiento } from "./rl_infraestructura_unidad_obra_mantenimiento";
 import type { rl_infraestructura_unidad_obra_mantenimientoAttributes, rl_infraestructura_unidad_obra_mantenimientoCreationAttributes } from "./rl_infraestructura_unidad_obra_mantenimiento";
+import { rl_infraestructura_unidad_suministro_agua as _rl_infraestructura_unidad_suministro_agua } from "./rl_infraestructura_unidad_suministro_agua";
+import type { rl_infraestructura_unidad_suministro_aguaAttributes, rl_infraestructura_unidad_suministro_aguaCreationAttributes } from "./rl_infraestructura_unidad_suministro_agua";
 
 export {
   _ct_infraestructura_almacenamiento_agua as ct_infraestructura_almacenamiento_agua,
@@ -113,12 +119,14 @@ export {
   _ct_infraestructura_obra_mantenimiento as ct_infraestructura_obra_mantenimiento,
   _ct_infraestructura_problema_edificio as ct_infraestructura_problema_edificio,
   _ct_infraestructura_razon_no_construccion as ct_infraestructura_razon_no_construccion,
+  _ct_infraestructura_sostenimiento as ct_infraestructura_sostenimiento,
   _ct_infraestructura_suministro_agua as ct_infraestructura_suministro_agua,
   _ct_infraestructura_suministro_energia as ct_infraestructura_suministro_energia,
   _ct_infraestructura_suministro_gas as ct_infraestructura_suministro_gas,
   _ct_infraestructura_supervisor as ct_infraestructura_supervisor,
   _ct_infraestructura_tipo_construccion as ct_infraestructura_tipo_construccion,
   _ct_infraestructura_tipo_descarga as ct_infraestructura_tipo_descarga,
+  _ct_infraestructura_tipo_escuela as ct_infraestructura_tipo_escuela,
   _ct_infraestructura_unidad as ct_infraestructura_unidad,
   _ct_inventario_clasificacion as ct_inventario_clasificacion,
   _ct_inventario_color as ct_inventario_color,
@@ -139,6 +147,7 @@ export {
   _rl_infraestructura_unidad_fin_inmueble as rl_infraestructura_unidad_fin_inmueble,
   _rl_infraestructura_unidad_nivel as rl_infraestructura_unidad_nivel,
   _rl_infraestructura_unidad_obra_mantenimiento as rl_infraestructura_unidad_obra_mantenimiento,
+  _rl_infraestructura_unidad_suministro_agua as rl_infraestructura_unidad_suministro_agua,
 };
 
 export type {
@@ -182,6 +191,8 @@ export type {
   ct_infraestructura_problema_edificioCreationAttributes,
   ct_infraestructura_razon_no_construccionAttributes,
   ct_infraestructura_razon_no_construccionCreationAttributes,
+  ct_infraestructura_sostenimientoAttributes,
+  ct_infraestructura_sostenimientoCreationAttributes,
   ct_infraestructura_suministro_aguaAttributes,
   ct_infraestructura_suministro_aguaCreationAttributes,
   ct_infraestructura_suministro_energiaAttributes,
@@ -194,6 +205,8 @@ export type {
   ct_infraestructura_tipo_construccionCreationAttributes,
   ct_infraestructura_tipo_descargaAttributes,
   ct_infraestructura_tipo_descargaCreationAttributes,
+  ct_infraestructura_tipo_escuelaAttributes,
+  ct_infraestructura_tipo_escuelaCreationAttributes,
   ct_infraestructura_unidadAttributes,
   ct_infraestructura_unidadCreationAttributes,
   ct_inventario_clasificacionAttributes,
@@ -234,6 +247,8 @@ export type {
   rl_infraestructura_unidad_nivelCreationAttributes,
   rl_infraestructura_unidad_obra_mantenimientoAttributes,
   rl_infraestructura_unidad_obra_mantenimientoCreationAttributes,
+  rl_infraestructura_unidad_suministro_aguaAttributes,
+  rl_infraestructura_unidad_suministro_aguaCreationAttributes,
 };
 
 export function initModels(sequelize: Sequelize) {
@@ -257,12 +272,14 @@ export function initModels(sequelize: Sequelize) {
   const ct_infraestructura_obra_mantenimiento = _ct_infraestructura_obra_mantenimiento.initModel(sequelize);
   const ct_infraestructura_problema_edificio = _ct_infraestructura_problema_edificio.initModel(sequelize);
   const ct_infraestructura_razon_no_construccion = _ct_infraestructura_razon_no_construccion.initModel(sequelize);
+  const ct_infraestructura_sostenimiento = _ct_infraestructura_sostenimiento.initModel(sequelize);
   const ct_infraestructura_suministro_agua = _ct_infraestructura_suministro_agua.initModel(sequelize);
   const ct_infraestructura_suministro_energia = _ct_infraestructura_suministro_energia.initModel(sequelize);
   const ct_infraestructura_suministro_gas = _ct_infraestructura_suministro_gas.initModel(sequelize);
   const ct_infraestructura_supervisor = _ct_infraestructura_supervisor.initModel(sequelize);
   const ct_infraestructura_tipo_construccion = _ct_infraestructura_tipo_construccion.initModel(sequelize);
   const ct_infraestructura_tipo_descarga = _ct_infraestructura_tipo_descarga.initModel(sequelize);
+  const ct_infraestructura_tipo_escuela = _ct_infraestructura_tipo_escuela.initModel(sequelize);
   const ct_infraestructura_unidad = _ct_infraestructura_unidad.initModel(sequelize);
   const ct_inventario_clasificacion = _ct_inventario_clasificacion.initModel(sequelize);
   const ct_inventario_color = _ct_inventario_color.initModel(sequelize);
@@ -283,6 +300,7 @@ export function initModels(sequelize: Sequelize) {
   const rl_infraestructura_unidad_fin_inmueble = _rl_infraestructura_unidad_fin_inmueble.initModel(sequelize);
   const rl_infraestructura_unidad_nivel = _rl_infraestructura_unidad_nivel.initModel(sequelize);
   const rl_infraestructura_unidad_obra_mantenimiento = _rl_infraestructura_unidad_obra_mantenimiento.initModel(sequelize);
+  const rl_infraestructura_unidad_suministro_agua = _rl_infraestructura_unidad_suministro_agua.initModel(sequelize);
 
   ct_infraestructura_almacenamiento_agua.belongsToMany(ct_infraestructura_unidad, { as: 'id_unidad_ct_infraestructura_unidads', through: rl_infraestructura_unidad_almacenamiento_agua, foreignKey: "id_almacenamiento", otherKey: "id_unidad" });
   ct_infraestructura_construccion_inmueble.belongsToMany(ct_infraestructura_unidad, { as: 'id_unidad_ct_infraestructura_unidad_rl_infraestructura_unidad_construccion_inmuebles', through: rl_infraestructura_unidad_construccion_inmueble, foreignKey: "id_construccion", otherKey: "id_unidad" });
@@ -292,6 +310,7 @@ export function initModels(sequelize: Sequelize) {
   ct_infraestructura_fin_inmueble.belongsToMany(ct_infraestructura_unidad, { as: 'id_unidad_ct_infraestructura_unidad_rl_infraestructura_unidad_fin_inmuebles', through: rl_infraestructura_unidad_fin_inmueble, foreignKey: "id_fin", otherKey: "id_unidad" });
   ct_infraestructura_obra_mantenimiento.belongsToMany(ct_infraestructura_unidad, { as: 'id_unidad_ct_infraestructura_unidad_rl_infraestructura_unidad_obra_mantenimientos', through: rl_infraestructura_unidad_obra_mantenimiento, foreignKey: "id_obra", otherKey: "id_unidad" });
   ct_infraestructura_problema_edificio.belongsToMany(ct_infraestructura_edificio, { as: 'id_edificio_ct_infraestructura_edificios', through: rl_infraestructura_edificio_problema, foreignKey: "id_problema", otherKey: "id_edificio" });
+  ct_infraestructura_suministro_agua.belongsToMany(ct_infraestructura_unidad, { as: 'id_unidad_ct_infraestructura_unidad_rl_infraestructura_unidad_suministro_aguas', through: rl_infraestructura_unidad_suministro_agua, foreignKey: "id_suministro_agua", otherKey: "id_unidad" });
   ct_infraestructura_tipo_construccion.belongsToMany(ct_infraestructura_unidad, { as: 'id_unidad_ct_infraestructura_unidad_rl_infraestructura_unidad_construccions', through: rl_infraestructura_unidad_construccion, foreignKey: "id_construccion", otherKey: "id_unidad" });
   ct_infraestructura_unidad.belongsToMany(ct_infraestructura_almacenamiento_agua, { as: 'id_almacenamiento_ct_infraestructura_almacenamiento_aguas', through: rl_infraestructura_unidad_almacenamiento_agua, foreignKey: "id_unidad", otherKey: "id_almacenamiento" });
   ct_infraestructura_unidad.belongsToMany(ct_infraestructura_construccion_inmueble, { as: 'id_construccion_ct_infraestructura_construccion_inmuebles', through: rl_infraestructura_unidad_construccion_inmueble, foreignKey: "id_unidad", otherKey: "id_construccion" });
@@ -299,6 +318,7 @@ export function initModels(sequelize: Sequelize) {
   ct_infraestructura_unidad.belongsToMany(ct_infraestructura_espacio_inmueble, { as: 'id_espacio_ct_infraestructura_espacio_inmuebles', through: rl_infraestructura_unidad_espacio_inmueble, foreignKey: "id_unidad", otherKey: "id_espacio" });
   ct_infraestructura_unidad.belongsToMany(ct_infraestructura_fin_inmueble, { as: 'id_fin_ct_infraestructura_fin_inmuebles', through: rl_infraestructura_unidad_fin_inmueble, foreignKey: "id_unidad", otherKey: "id_fin" });
   ct_infraestructura_unidad.belongsToMany(ct_infraestructura_obra_mantenimiento, { as: 'id_obra_ct_infraestructura_obra_mantenimientos', through: rl_infraestructura_unidad_obra_mantenimiento, foreignKey: "id_unidad", otherKey: "id_obra" });
+  ct_infraestructura_unidad.belongsToMany(ct_infraestructura_suministro_agua, { as: 'id_suministro_agua_ct_infraestructura_suministro_aguas', through: rl_infraestructura_unidad_suministro_agua, foreignKey: "id_unidad", otherKey: "id_suministro_agua" });
   ct_infraestructura_unidad.belongsToMany(ct_infraestructura_tipo_construccion, { as: 'id_construccion_ct_infraestructura_tipo_construccions', through: rl_infraestructura_unidad_construccion, foreignKey: "id_unidad", otherKey: "id_construccion" });
   rl_infraestructura_unidad_almacenamiento_agua.belongsTo(ct_infraestructura_almacenamiento_agua, { as: "id_almacenamiento_ct_infraestructura_almacenamiento_agua", foreignKey: "id_almacenamiento"});
   ct_infraestructura_almacenamiento_agua.hasMany(rl_infraestructura_unidad_almacenamiento_agua, { as: "rl_infraestructura_unidad_almacenamiento_aguas", foreignKey: "id_almacenamiento"});
@@ -338,8 +358,10 @@ export function initModels(sequelize: Sequelize) {
   ct_infraestructura_problema_edificio.hasMany(rl_infraestructura_edificio_problema, { as: "rl_infraestructura_edificio_problemas", foreignKey: "id_problema"});
   ct_infraestructura_unidad.belongsTo(ct_infraestructura_razon_no_construccion, { as: "id_razon_no_construccion_ct_infraestructura_razon_no_construccion", foreignKey: "id_razon_no_construccion"});
   ct_infraestructura_razon_no_construccion.hasMany(ct_infraestructura_unidad, { as: "ct_infraestructura_unidads", foreignKey: "id_razon_no_construccion"});
-  ct_infraestructura_unidad.belongsTo(ct_infraestructura_suministro_agua, { as: "id_suministro_agua_ct_infraestructura_suministro_agua", foreignKey: "id_suministro_agua"});
-  ct_infraestructura_suministro_agua.hasMany(ct_infraestructura_unidad, { as: "ct_infraestructura_unidads", foreignKey: "id_suministro_agua"});
+  ct_infraestructura_unidad.belongsTo(ct_infraestructura_sostenimiento, { as: "id_sostenimiento_ct_infraestructura_sostenimiento", foreignKey: "id_sostenimiento"});
+  ct_infraestructura_sostenimiento.hasMany(ct_infraestructura_unidad, { as: "ct_infraestructura_unidads", foreignKey: "id_sostenimiento"});
+  rl_infraestructura_unidad_suministro_agua.belongsTo(ct_infraestructura_suministro_agua, { as: "id_suministro_agua_ct_infraestructura_suministro_agua", foreignKey: "id_suministro_agua"});
+  ct_infraestructura_suministro_agua.hasMany(rl_infraestructura_unidad_suministro_agua, { as: "rl_infraestructura_unidad_suministro_aguas", foreignKey: "id_suministro_agua"});
   ct_infraestructura_unidad.belongsTo(ct_infraestructura_suministro_energia, { as: "id_suministro_energia_ct_infraestructura_suministro_energium", foreignKey: "id_suministro_energia"});
   ct_infraestructura_suministro_energia.hasMany(ct_infraestructura_unidad, { as: "ct_infraestructura_unidads", foreignKey: "id_suministro_energia"});
   ct_infraestructura_unidad.belongsTo(ct_infraestructura_suministro_gas, { as: "id_suministro_gas_ct_infraestructura_suministro_ga", foreignKey: "id_suministro_gas"});
@@ -350,6 +372,8 @@ export function initModels(sequelize: Sequelize) {
   ct_infraestructura_tipo_construccion.hasMany(rl_infraestructura_unidad_construccion, { as: "rl_infraestructura_unidad_construccions", foreignKey: "id_construccion"});
   ct_infraestructura_unidad.belongsTo(ct_infraestructura_tipo_descarga, { as: "id_tipo_descarga_ct_infraestructura_tipo_descarga", foreignKey: "id_tipo_descarga"});
   ct_infraestructura_tipo_descarga.hasMany(ct_infraestructura_unidad, { as: "ct_infraestructura_unidads", foreignKey: "id_tipo_descarga"});
+  ct_infraestructura_unidad.belongsTo(ct_infraestructura_tipo_escuela, { as: "id_tipo_escuela_ct_infraestructura_tipo_escuela", foreignKey: "id_tipo_escuela"});
+  ct_infraestructura_tipo_escuela.hasMany(ct_infraestructura_unidad, { as: "ct_infraestructura_unidads", foreignKey: "id_tipo_escuela"});
   ct_infraestructura_edificio.belongsTo(ct_infraestructura_unidad, { as: "id_unidad_ct_infraestructura_unidad", foreignKey: "id_unidad"});
   ct_infraestructura_unidad.hasMany(ct_infraestructura_edificio, { as: "ct_infraestructura_edificios", foreignKey: "id_unidad"});
   ct_usuario.belongsTo(ct_infraestructura_unidad, { as: "id_unidad_ct_infraestructura_unidad", foreignKey: "id_unidad"});
@@ -370,6 +394,8 @@ export function initModels(sequelize: Sequelize) {
   ct_infraestructura_unidad.hasMany(rl_infraestructura_unidad_fin_inmueble, { as: "rl_infraestructura_unidad_fin_inmuebles", foreignKey: "id_unidad"});
   rl_infraestructura_unidad_obra_mantenimiento.belongsTo(ct_infraestructura_unidad, { as: "id_unidad_ct_infraestructura_unidad", foreignKey: "id_unidad"});
   ct_infraestructura_unidad.hasMany(rl_infraestructura_unidad_obra_mantenimiento, { as: "rl_infraestructura_unidad_obra_mantenimientos", foreignKey: "id_unidad"});
+  rl_infraestructura_unidad_suministro_agua.belongsTo(ct_infraestructura_unidad, { as: "id_unidad_ct_infraestructura_unidad", foreignKey: "id_unidad"});
+  ct_infraestructura_unidad.hasMany(rl_infraestructura_unidad_suministro_agua, { as: "rl_infraestructura_unidad_suministro_aguas", foreignKey: "id_unidad"});
 
   return {
     ct_infraestructura_almacenamiento_agua: ct_infraestructura_almacenamiento_agua,
@@ -392,12 +418,14 @@ export function initModels(sequelize: Sequelize) {
     ct_infraestructura_obra_mantenimiento: ct_infraestructura_obra_mantenimiento,
     ct_infraestructura_problema_edificio: ct_infraestructura_problema_edificio,
     ct_infraestructura_razon_no_construccion: ct_infraestructura_razon_no_construccion,
+    ct_infraestructura_sostenimiento: ct_infraestructura_sostenimiento,
     ct_infraestructura_suministro_agua: ct_infraestructura_suministro_agua,
     ct_infraestructura_suministro_energia: ct_infraestructura_suministro_energia,
     ct_infraestructura_suministro_gas: ct_infraestructura_suministro_gas,
     ct_infraestructura_supervisor: ct_infraestructura_supervisor,
     ct_infraestructura_tipo_construccion: ct_infraestructura_tipo_construccion,
     ct_infraestructura_tipo_descarga: ct_infraestructura_tipo_descarga,
+    ct_infraestructura_tipo_escuela: ct_infraestructura_tipo_escuela,
     ct_infraestructura_unidad: ct_infraestructura_unidad,
     ct_inventario_clasificacion: ct_inventario_clasificacion,
     ct_inventario_color: ct_inventario_color,
@@ -418,5 +446,6 @@ export function initModels(sequelize: Sequelize) {
     rl_infraestructura_unidad_fin_inmueble: rl_infraestructura_unidad_fin_inmueble,
     rl_infraestructura_unidad_nivel: rl_infraestructura_unidad_nivel,
     rl_infraestructura_unidad_obra_mantenimiento: rl_infraestructura_unidad_obra_mantenimiento,
+    rl_infraestructura_unidad_suministro_agua: rl_infraestructura_unidad_suministro_agua,
   };
 }

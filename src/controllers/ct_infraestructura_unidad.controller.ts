@@ -69,7 +69,7 @@ class ctInfraestructuraUnidadController {
   ): Promise<void> {
     try {
       // Suponemos que el termino viene como query param: /api/unidades/autocomplete?termino=
-      const termino = req.query.q as string;
+      const termino = req.query.query as string;
       if (!termino) {
         res.status(400).json({ error: "Se requiere un termino de busqueda" });
         return;

@@ -4,6 +4,9 @@ import config from "./config";
 import sequelize from "./config/database";
 import usuarioRoutes from "./routes/ct_usuario.routes";
 import unidadRoutes from "./routes/ct_infraestructura_unidad.routes";
+import municipiosRoutes from "./routes/ct_municipios.routes";
+import localidadRoutes from "./routes/ct_localidad.routes";
+import { authenticateJWT } from "./middlewares/auth.middleware";
 import "./models";
 
 // crea la aplicacion express
@@ -16,8 +19,10 @@ app.use(cors());
 app.use(express.json());
 
 // monta las rutas bajo el path '/api/usuarios'
-app.use("/api/usuarios", usuarioRoutes);
-app.use("/api/unidades", unidadRoutes);
+app.use("/api/usuarios", /*authenticateJWT,*/ usuarioRoutes);
+app.use("/api/unidades", /*authenticateJWT,*/ unidadRoutes);
+app.use("/api/municipios", /*authenticateJWT,*/ municipiosRoutes);
+app.use("/api/localidades", /*authenticateJWT,*/ localidadRoutes);
 
 // Sincroniza la base de datos y arranca el servidor
 sequelize

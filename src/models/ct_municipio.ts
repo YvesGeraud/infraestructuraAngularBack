@@ -1,5 +1,6 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
+import type { ct_localidad, ct_localidadId } from './ct_localidad';
 
 export interface ct_municipioAttributes {
   id_municipio: number;
@@ -17,6 +18,18 @@ export class ct_municipio extends Model<ct_municipioAttributes, ct_municipioCrea
   identificacion_inegi!: string;
   nombre!: string;
 
+  // ct_municipio hasMany ct_localidad via id_municipio
+  ct_localidads!: ct_localidad[];
+  getCt_localidads!: Sequelize.HasManyGetAssociationsMixin<ct_localidad>;
+  setCt_localidads!: Sequelize.HasManySetAssociationsMixin<ct_localidad, ct_localidadId>;
+  addCt_localidad!: Sequelize.HasManyAddAssociationMixin<ct_localidad, ct_localidadId>;
+  addCt_localidads!: Sequelize.HasManyAddAssociationsMixin<ct_localidad, ct_localidadId>;
+  createCt_localidad!: Sequelize.HasManyCreateAssociationMixin<ct_localidad>;
+  removeCt_localidad!: Sequelize.HasManyRemoveAssociationMixin<ct_localidad, ct_localidadId>;
+  removeCt_localidads!: Sequelize.HasManyRemoveAssociationsMixin<ct_localidad, ct_localidadId>;
+  hasCt_localidad!: Sequelize.HasManyHasAssociationMixin<ct_localidad, ct_localidadId>;
+  hasCt_localidads!: Sequelize.HasManyHasAssociationsMixin<ct_localidad, ct_localidadId>;
+  countCt_localidads!: Sequelize.HasManyCountAssociationsMixin;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof ct_municipio {
     return ct_municipio.init({

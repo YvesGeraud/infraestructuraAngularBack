@@ -12,7 +12,6 @@ class CtUsuarioController {
         usuario,
         contrasena,
         estatus,
-        id_unidad,
       });
       console.log("Usuario creado exitosamente:", nuevoUsuario);
       res.status(201).json(nuevoUsuario);
@@ -50,7 +49,6 @@ class CtUsuarioController {
         usuario,
         contrasena,
         estatus,
-        id_unidad,
       });
       if (!usuarioActualizado) {
         res.status(404).json({ error: "Usuario no encontrado" });

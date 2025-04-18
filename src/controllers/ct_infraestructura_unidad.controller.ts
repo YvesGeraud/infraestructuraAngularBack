@@ -1,23 +1,11 @@
 import { Request, Response } from "express";
-import ctInfraestructuraUnidadService from "../services/ct_unidad.service";
+import ctInfraestructuraUnidadService from "../services/ct_infraestructura_unidad.service";
 
 class ctInfraestructuraUnidadController {
-  async crearUnidad(req: Request, res: Response): Promise<void> {
-    try {
-      const data = req.body;
-      const unidad = await ctInfraestructuraUnidadService.crearUnidad(data);
-      res.status(201).json(unidad);
-    } catch (error) {
-      console.error("Error al crear unidad:", error);
-      res.status(500).json({ error: "Error al crear unidad" });
-    }
-  }
-
   //* Obtener todas las unidades
   async obtenerUnidades(req: Request, res: Response): Promise<void> {
     try {
-      const unidades =
-        await ctInfraestructuraUnidadService.obtenerUnidadesUbicacion();
+      const unidades = await ctInfraestructuraUnidadService.obtenerUnidades();
       res.status(200).json(unidades);
     } catch (error) {
       console.error("Error al obtener unidades:", error);
@@ -25,20 +13,7 @@ class ctInfraestructuraUnidadController {
     }
   }
 
-  //* Obtener todas las unidades con ubicación
-  async obtenerUnidadesUbicacion(req: Request, res: Response): Promise<void> {
-    try {
-      const unidades =
-        await ctInfraestructuraUnidadService.obtenerUnidadesUbicacion();
-      res.status(200).json(unidades);
-    } catch (error) {
-      console.error("Error al obtener unidades con ubicación:", error);
-      res
-        .status(500)
-        .json({ error: "Error al obtener unidades con ubicación" });
-    }
-  }
-
+  //* Obtener una unidad por su ID
   async obtenerUnidadPorId(req: Request, res: Response): Promise<void> {
     try {
       const id = Number(req.params.id);
@@ -62,7 +37,7 @@ class ctInfraestructuraUnidadController {
     }
   }
 
-  //Metodo de autocompletado de unidades por Nombre
+  //* Metodo de autocompletado de unidades por Nombre
   async autoCompletarUnidadesPorNombre(
     req: Request,
     res: Response
@@ -86,6 +61,39 @@ class ctInfraestructuraUnidadController {
     }
   }
 
+  //* Obtener unidades por municipio
+  /*async obtenerUnidadesPorMunicipio(
+    req: Request,
+    res: Response
+  ): Promise<void> {
+    try {
+      const municipio = req.params.municipio;
+      const unidades =
+        await ctInfraestructuraUnidadService.obtenerUnidadesPorMunicipio(
+          municipio
+        );
+      res.status(200).json(unidades);
+    } catch (error) {
+      console.error("Error al obtener unidades por municipio:", error);
+      res
+        .status(500)
+        .json({ error: "Error al obtener unidades por municipio" });
+    }
+  }*/
+
+  //* Crear una unidad
+  async crearUnidad(req: Request, res: Response): Promise<void> {
+    try {
+      const data = req.body;
+      const unidad = await ctInfraestructuraUnidadService.crearUnidad(data);
+      res.status(201).json(unidad);
+    } catch (error) {
+      console.error("Error al crear unidad:", error);
+      res.status(500).json({ error: "Error al crear unidad" });
+    }
+  }
+
+  //* Actualizar una unidad
   async actualizarUnidad(req: Request, res: Response): Promise<void> {
     try {
       const id = Number(req.params.id);
@@ -112,6 +120,7 @@ class ctInfraestructuraUnidadController {
     }
   }
 
+  //* Eliminar una unidad
   async eliminarUnidad(req: Request, res: Response): Promise<void> {
     try {
       const id = Number(req.params.id);

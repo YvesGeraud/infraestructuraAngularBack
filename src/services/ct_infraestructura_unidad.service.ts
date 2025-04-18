@@ -5,39 +5,12 @@ import {
 import { ct_infraestructura_sostenimiento } from "../models/ct_infraestructura_sostenimiento";
 import { ct_infraestructura_tipo_escuela } from "../models/ct_infraestructura_tipo_escuela";
 import { Op } from "sequelize";
-
+import { ct_localidad } from "../models/ct_localidad";
+import { ct_municipio } from "../models/ct_municipio";
 class ctInfraestructuraUnidadService {
-  //* Crear una unidad
-  async crearUnidad(data: ct_infraestructura_unidadCreationAttributes) {
-    try {
-      const unidad = await ct_infraestructura_unidad.create(data);
-      return unidad;
-    } catch (error) {
-      throw new Error("Error al crear la unidad");
-    }
-  }
-
+  //* Obtener todas las unidades
   async obtenerUnidades() {
     const unidades = await ct_infraestructura_unidad.findAll();
-    return unidades;
-  }
-
-  async obtenerUnidadesUbicacion() {
-    const unidades = await ct_infraestructura_unidad.findAll({
-      attributes: ["id_unidad", "nombre_unidad", "cct", "ubicacion"],
-      include: [
-        {
-          model: ct_infraestructura_sostenimiento,
-          as: "sostenimiento",
-          attributes: ["id_sostenimiento", "sostenimiento"],
-        },
-        {
-          model: ct_infraestructura_tipo_escuela,
-          as: "tipo_escuela",
-          attributes: ["id_tipo_escuela", "tipo_escuela"],
-        },
-      ],
-    });
     return unidades;
   }
 
@@ -75,9 +48,51 @@ class ctInfraestructuraUnidadService {
           as: "tipo_escuela",
           attributes: ["id_tipo_escuela", "tipo_escuela"],
         },
+        {
+          model: ct_localidad,
+          as: "localidad",
+          attributes: ["id_localidad", "localidad"],
+          include: [
+            {
+              model: ct_municipio,
+              as: "municipio",
+              attributes: ["id_municipio", "nombre"],
+            },
+          ],
+        },
       ],
       limit,
     });
+  }
+
+  //* Obtener unidades por id_municipio
+  /*async obtenerUnidadesPorMunicipio(id_municipio: number) {
+    const unidades = await ct_infraestructura_unidad.findAll({
+      where: { id_municipio },
+      include: [
+        {
+          model: ct_infraestructura_sostenimiento,
+          as: "sostenimiento",
+          attributes: ["id_sostenimiento", "sostenimiento"],
+        },
+        {
+          model: ct_infraestructura_tipo_escuela,
+          as: "tipo_escuela",
+          attributes: ["id_tipo_escuela", "tipo_escuela"],
+        },
+      ],
+    });
+    return unidades;
+  }*/
+
+  //* Crear una unidad
+  async crearUnidad(data: ct_infraestructura_unidadCreationAttributes) {
+    try {
+      const unidad = await ct_infraestructura_unidad.create(data);
+      return unidad;
+    } catch (error) {
+      throw new Error("Error al crear la unidad");
+    }
   }
 
   //* Actualizar una unidad por su ID

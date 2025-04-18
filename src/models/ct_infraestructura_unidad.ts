@@ -18,7 +18,6 @@ import type { ct_infraestructura_suministro_gas, ct_infraestructura_suministro_g
 import type { ct_infraestructura_tipo_construccion, ct_infraestructura_tipo_construccionId } from './ct_infraestructura_tipo_construccion';
 import type { ct_infraestructura_tipo_descarga, ct_infraestructura_tipo_descargaId } from './ct_infraestructura_tipo_descarga';
 import type { ct_infraestructura_tipo_escuela, ct_infraestructura_tipo_escuelaId } from './ct_infraestructura_tipo_escuela';
-import type { ct_usuario, ct_usuarioId } from './ct_usuario';
 import type { rl_infraestructura_unidad_almacenamiento_agua, rl_infraestructura_unidad_almacenamiento_aguaId } from './rl_infraestructura_unidad_almacenamiento_agua';
 import type { rl_infraestructura_unidad_construccion, rl_infraestructura_unidad_construccionId } from './rl_infraestructura_unidad_construccion';
 import type { rl_infraestructura_unidad_construccion_inmueble, rl_infraestructura_unidad_construccion_inmuebleId } from './rl_infraestructura_unidad_construccion_inmueble';
@@ -43,6 +42,7 @@ export interface ct_infraestructura_unidadAttributes {
   codigo_postal?: number;
   ubicacion?: any;
   id_sostenimiento?: number;
+  vigente?: number;
   id_rupet_info?: number;
   num_centros_trabajo?: number;
   construido_para_uso_educativo?: number;
@@ -147,7 +147,7 @@ export interface ct_infraestructura_unidadAttributes {
 
 export type ct_infraestructura_unidadPk = "id_unidad";
 export type ct_infraestructura_unidadId = ct_infraestructura_unidad[ct_infraestructura_unidadPk];
-export type ct_infraestructura_unidadOptionalAttributes = "id_unidad" | "id_escuelaPlantel" | "id_tipo_escuela" | "calle" | "numero_exterior" | "numero_interior" | "id_localidad" | "colonia" | "codigo_postal" | "ubicacion" | "id_sostenimiento" | "id_rupet_info" | "num_centros_trabajo" | "construido_para_uso_educativo" | "uso_temporal_educacion_basica" | "id_razon_no_construccion" | "razon_no_construccion_otro" | "id_antiguedad_inmueble" | "id_dimension_terreno" | "num_edificios_educacion_basica" | "porcentaje_ocupacion_edificios" | "servicio_agua_regular" | "agua_potable_frecuente" | "id_suministro_energia" | "id_suministro_gas" | "suministro_gas_otro" | "id_tipo_descarga" | "tipo_descarga_otro" | "separacion_aguas" | "banios_hombres" | "banios_mujeres" | "banios_mixtos" | "tazas_sanitarias_uso" | "tazas_sanitarias_fuera_uso" | "mingitorios_uso" | "mingitorios_fuera_uso" | "letrinas_uso" | "letrinas_fuera_uso" | "tazas_hombres" | "tazas_mujeres" | "tazas_mixtos" | "tazas_alum" | "tazas_docadm" | "tazas_ambos" | "mingitorios_alum" | "mingitorios_docadm" | "mingitorios_ambos" | "letrinas_alum" | "letrinas_docadm" | "letrinas_ambos" | "lavamanos_hombres_uso" | "lavamanos_hombres_fuera_uso" | "lavamanos_mujeres_uso" | "lavamanos_mujeres_fuera_uso" | "lavamanos_mixtos_uso" | "lavamanos_mixtos_fuera_uso" | "bebederos_uso" | "bebederos_fuera_uso" | "area_mantenimiento" | "rehabilitacion_5_anios" | "reconversion_5_anios" | "id_frecuencia_limpieza" | "programa_proteccion_civil" | "alarmas_existentes" | "alarmas_uso" | "botiquines_existentes" | "botiquines_uso" | "extintores_existentes" | "extintores_uso" | "senales_emergencia_existentes" | "senales_emergencia_uso" | "salidas_emergencia_existentes" | "salidas_emergencia_uso" | "zonas_seguridad_existentes" | "zonas_seguridad_uso" | "estacionamiento" | "estacionamiento_estudiantes" | "estacionamiento_docentes" | "estacionamiento_personal" | "estacionamiento_proveedores" | "estacionamiento_otros" | "infraestructura_discapacidad" | "aulas_accesibles" | "biblioteca_accesible" | "laboratorios_accesibles" | "talleres_accesibles" | "direccion_accesible" | "sanitarios_accesibles" | "bebederos_accesibles" | "otras_areas_accesibles" | "otras_areas_accesibles_desc" | "banios_discap_hombres_uso" | "banios_discap_mujeres_uso" | "banios_discap_mixtos_uso" | "banios_discap_hombres_fuera_uso" | "banios_discap_mujeres_fuera_uso" | "banios_discap_mixtos_fuera_uso" | "senializacion_discapacidad" | "rampas" | "pavimento_tactil" | "barandales_pasamanos" | "area_braille" | "elevadores_plataformas" | "tira_antiderrapante" | "aula_especializada_discapacidad" | "seniales_mundial_ciegos" | "seniales_mundial_sordos" | "seniales_accesibilidad" | "seniales_telefono_texto_sordos" | "num_software_discapacidad" | "claves_centros_trabajo";
+export type ct_infraestructura_unidadOptionalAttributes = "id_unidad" | "id_escuelaPlantel" | "id_tipo_escuela" | "calle" | "numero_exterior" | "numero_interior" | "id_localidad" | "colonia" | "codigo_postal" | "ubicacion" | "id_sostenimiento" | "vigente" | "id_rupet_info" | "num_centros_trabajo" | "construido_para_uso_educativo" | "uso_temporal_educacion_basica" | "id_razon_no_construccion" | "razon_no_construccion_otro" | "id_antiguedad_inmueble" | "id_dimension_terreno" | "num_edificios_educacion_basica" | "porcentaje_ocupacion_edificios" | "servicio_agua_regular" | "agua_potable_frecuente" | "id_suministro_energia" | "id_suministro_gas" | "suministro_gas_otro" | "id_tipo_descarga" | "tipo_descarga_otro" | "separacion_aguas" | "banios_hombres" | "banios_mujeres" | "banios_mixtos" | "tazas_sanitarias_uso" | "tazas_sanitarias_fuera_uso" | "mingitorios_uso" | "mingitorios_fuera_uso" | "letrinas_uso" | "letrinas_fuera_uso" | "tazas_hombres" | "tazas_mujeres" | "tazas_mixtos" | "tazas_alum" | "tazas_docadm" | "tazas_ambos" | "mingitorios_alum" | "mingitorios_docadm" | "mingitorios_ambos" | "letrinas_alum" | "letrinas_docadm" | "letrinas_ambos" | "lavamanos_hombres_uso" | "lavamanos_hombres_fuera_uso" | "lavamanos_mujeres_uso" | "lavamanos_mujeres_fuera_uso" | "lavamanos_mixtos_uso" | "lavamanos_mixtos_fuera_uso" | "bebederos_uso" | "bebederos_fuera_uso" | "area_mantenimiento" | "rehabilitacion_5_anios" | "reconversion_5_anios" | "id_frecuencia_limpieza" | "programa_proteccion_civil" | "alarmas_existentes" | "alarmas_uso" | "botiquines_existentes" | "botiquines_uso" | "extintores_existentes" | "extintores_uso" | "senales_emergencia_existentes" | "senales_emergencia_uso" | "salidas_emergencia_existentes" | "salidas_emergencia_uso" | "zonas_seguridad_existentes" | "zonas_seguridad_uso" | "estacionamiento" | "estacionamiento_estudiantes" | "estacionamiento_docentes" | "estacionamiento_personal" | "estacionamiento_proveedores" | "estacionamiento_otros" | "infraestructura_discapacidad" | "aulas_accesibles" | "biblioteca_accesible" | "laboratorios_accesibles" | "talleres_accesibles" | "direccion_accesible" | "sanitarios_accesibles" | "bebederos_accesibles" | "otras_areas_accesibles" | "otras_areas_accesibles_desc" | "banios_discap_hombres_uso" | "banios_discap_mujeres_uso" | "banios_discap_mixtos_uso" | "banios_discap_hombres_fuera_uso" | "banios_discap_mujeres_fuera_uso" | "banios_discap_mixtos_fuera_uso" | "senializacion_discapacidad" | "rampas" | "pavimento_tactil" | "barandales_pasamanos" | "area_braille" | "elevadores_plataformas" | "tira_antiderrapante" | "aula_especializada_discapacidad" | "seniales_mundial_ciegos" | "seniales_mundial_sordos" | "seniales_accesibilidad" | "seniales_telefono_texto_sordos" | "num_software_discapacidad" | "claves_centros_trabajo";
 export type ct_infraestructura_unidadCreationAttributes = Optional<ct_infraestructura_unidadAttributes, ct_infraestructura_unidadOptionalAttributes>;
 
 export class ct_infraestructura_unidad extends Model<ct_infraestructura_unidadAttributes, ct_infraestructura_unidadCreationAttributes> implements ct_infraestructura_unidadAttributes {
@@ -164,6 +164,7 @@ export class ct_infraestructura_unidad extends Model<ct_infraestructura_unidadAt
   codigo_postal?: number;
   ubicacion?: any;
   id_sostenimiento?: number;
+  vigente?: number;
   id_rupet_info?: number;
   num_centros_trabajo?: number;
   construido_para_uso_educativo?: number;
@@ -418,18 +419,6 @@ export class ct_infraestructura_unidad extends Model<ct_infraestructura_unidadAt
   hasId_construccion_ct_infraestructura_tipo_construccion!: Sequelize.BelongsToManyHasAssociationMixin<ct_infraestructura_tipo_construccion, ct_infraestructura_tipo_construccionId>;
   hasId_construccion_ct_infraestructura_tipo_construccions!: Sequelize.BelongsToManyHasAssociationsMixin<ct_infraestructura_tipo_construccion, ct_infraestructura_tipo_construccionId>;
   countId_construccion_ct_infraestructura_tipo_construccions!: Sequelize.BelongsToManyCountAssociationsMixin;
-  // ct_infraestructura_unidad hasMany ct_usuario via id_unidad
-  ct_usuarios!: ct_usuario[];
-  getCt_usuarios!: Sequelize.HasManyGetAssociationsMixin<ct_usuario>;
-  setCt_usuarios!: Sequelize.HasManySetAssociationsMixin<ct_usuario, ct_usuarioId>;
-  addCt_usuario!: Sequelize.HasManyAddAssociationMixin<ct_usuario, ct_usuarioId>;
-  addCt_usuarios!: Sequelize.HasManyAddAssociationsMixin<ct_usuario, ct_usuarioId>;
-  createCt_usuario!: Sequelize.HasManyCreateAssociationMixin<ct_usuario>;
-  removeCt_usuario!: Sequelize.HasManyRemoveAssociationMixin<ct_usuario, ct_usuarioId>;
-  removeCt_usuarios!: Sequelize.HasManyRemoveAssociationsMixin<ct_usuario, ct_usuarioId>;
-  hasCt_usuario!: Sequelize.HasManyHasAssociationMixin<ct_usuario, ct_usuarioId>;
-  hasCt_usuarios!: Sequelize.HasManyHasAssociationsMixin<ct_usuario, ct_usuarioId>;
-  countCt_usuarios!: Sequelize.HasManyCountAssociationsMixin;
   // ct_infraestructura_unidad hasMany rl_infraestructura_unidad_almacenamiento_agua via id_unidad
   rl_infraestructura_unidad_almacenamiento_aguas!: rl_infraestructura_unidad_almacenamiento_agua[];
   getRl_infraestructura_unidad_almacenamiento_aguas!: Sequelize.HasManyGetAssociationsMixin<rl_infraestructura_unidad_almacenamiento_agua>;
@@ -604,6 +593,10 @@ export class ct_infraestructura_unidad extends Model<ct_infraestructura_unidadAt
         model: 'ct_infraestructura_sostenimiento',
         key: 'id_sostenimiento'
       }
+    },
+    vigente: {
+      type: DataTypes.TINYINT,
+      allowNull: true
     },
     id_rupet_info: {
       type: DataTypes.INTEGER,

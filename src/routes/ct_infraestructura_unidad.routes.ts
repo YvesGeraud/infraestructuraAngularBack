@@ -10,12 +10,6 @@ router.get(
   ctInfraestructuraUnidadController.autoCompletarUnidadesPorNombre
 );
 
-//* Obtener todas las unidades con ubicación
-router.get(
-  "/ubicaciones",
-  ctInfraestructuraUnidadController.obtenerUnidadesUbicacion
-);
-
 //* Crear una unidad
 router.post(
   "/",

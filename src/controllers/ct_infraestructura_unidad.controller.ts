@@ -62,24 +62,38 @@ class ctInfraestructuraUnidadController {
   }
 
   //* Obtener unidades por municipio
-  /*async obtenerUnidadesPorMunicipio(
+  async obtenerUnidadesPorMunicipio(
     req: Request,
     res: Response
   ): Promise<void> {
     try {
-      const municipio = req.params.municipio;
+      const idMunicipio = Number(req.params.idMunicipio);
+      if (isNaN(idMunicipio)) {
+        res.status(400).json({
+          error: "El parámetro ID del municipio debe ser un número válido.",
+        });
+        return;
+      }
+
       const unidades =
         await ctInfraestructuraUnidadService.obtenerUnidadesPorMunicipio(
-          municipio
+          idMunicipio
         );
-      res.status(200).json(unidades);
+
+      if (!unidades || unidades.length === 0) {
+        res.status(404).json({
+          mensaje: "No se encontraron unidades para este municipio",
+        });
+      } else {
+        res.json(unidades);
+      }
     } catch (error) {
       console.error("Error al obtener unidades por municipio:", error);
-      res
-        .status(500)
-        .json({ error: "Error al obtener unidades por municipio" });
+      res.status(500).json({
+        error: "Error al obtener las unidades del municipio",
+      });
     }
-  }*/
+  }
 
   //* Crear una unidad
   async crearUnidad(req: Request, res: Response): Promise<void> {
@@ -144,4 +158,6 @@ class ctInfraestructuraUnidadController {
   }
 }
 
-export default new ctInfraestructuraUnidadController();
+// Exportar una instancia de la clase
+const controller = new ctInfraestructuraUnidadController();
+export default controller;

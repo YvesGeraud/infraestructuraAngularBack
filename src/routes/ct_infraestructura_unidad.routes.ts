@@ -10,6 +10,12 @@ router.get(
   ctInfraestructuraUnidadController.autoCompletarUnidadesPorNombre
 );
 
+//* Obtener unidades por municipio
+router.get(
+  "/municipio/:idMunicipio",
+  ctInfraestructuraUnidadController.obtenerUnidadesPorMunicipio
+);
+
 //* Crear una unidad
 router.post(
   "/",

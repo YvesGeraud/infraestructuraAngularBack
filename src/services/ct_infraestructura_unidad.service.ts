@@ -66,24 +66,33 @@ class ctInfraestructuraUnidadService {
   }
 
   //* Obtener unidades por id_municipio
-  /*async obtenerUnidadesPorMunicipio(id_municipio: number) {
-    const unidades = await ct_infraestructura_unidad.findAll({
-      where: { id_municipio },
-      include: [
-        {
-          model: ct_infraestructura_sostenimiento,
-          as: "sostenimiento",
-          attributes: ["id_sostenimiento", "sostenimiento"],
-        },
-        {
-          model: ct_infraestructura_tipo_escuela,
-          as: "tipo_escuela",
-          attributes: ["id_tipo_escuela", "tipo_escuela"],
-        },
-      ],
-    });
-    return unidades;
-  }*/
+  async obtenerUnidadesPorMunicipio(idMunicipio: number) {
+    try {
+      const unidades = await ct_infraestructura_unidad.findAll({
+        include: [
+          {
+            model: ct_localidad,
+            as: "localidad",
+            required: true,
+            where: {
+              id_municipio: idMunicipio,
+            },
+            include: [
+              {
+                model: ct_municipio,
+                as: "municipio",
+                attributes: ["id_municipio", "nombre"],
+              },
+            ],
+          },
+        ],
+        attributes: ["id_unidad", "nombre_unidad", "cct", "ubicacion"],
+      });
+      return unidades;
+    } catch (error) {
+      throw new Error("Error al obtener unidades por municipio");
+    }
+  }
 
   //* Crear una unidad
   async crearUnidad(data: ct_infraestructura_unidadCreationAttributes) {

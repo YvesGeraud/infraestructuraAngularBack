@@ -4,9 +4,11 @@ import {
 } from "../models/ct_infraestructura_unidad";
 import { ct_infraestructura_sostenimiento } from "../models/ct_infraestructura_sostenimiento";
 import { ct_infraestructura_tipo_escuela } from "../models/ct_infraestructura_tipo_escuela";
-import { Op } from "sequelize";
+import { Op, Transaction } from "sequelize";
 import { ct_localidad } from "../models/ct_localidad";
 import { ct_municipio } from "../models/ct_municipio";
+import db from "../config/database";
+
 class ctInfraestructuraUnidadService {
   //* Obtener todas las unidades
   async obtenerUnidades() {
@@ -96,11 +98,16 @@ class ctInfraestructuraUnidadService {
 
   //* Crear una unidad
   async crearUnidad(data: ct_infraestructura_unidadCreationAttributes) {
+    const transaction = await db.transaction();
     try {
-      const unidad = await ct_infraestructura_unidad.create(data);
+      const unidad = await ct_infraestructura_unidad.create(data, {
+        transaction,
+      });
+      await transaction.commit();
       return unidad;
-    } catch (error) {
-      throw new Error("Error al crear la unidad");
+    } catch (error: any) {
+      await transaction.rollback();
+      throw new Error("Error al crear la unidad: " + error.message);
     }
   }
 
@@ -109,29 +116,41 @@ class ctInfraestructuraUnidadService {
     id: number,
     data: ct_infraestructura_unidadCreationAttributes
   ) {
+    const transaction = await db.transaction();
     try {
-      const unidad = await ct_infraestructura_unidad.findByPk(id);
+      const unidad = await ct_infraestructura_unidad.findByPk(id, {
+        transaction,
+      });
       if (!unidad) {
+        await transaction.rollback();
         throw new Error("Unidad no encontrada");
       }
-      await unidad.update(data);
+      await unidad.update(data, { transaction });
+      await transaction.commit();
       return unidad;
-    } catch (error) {
-      throw new Error("Error al actualizar la unidad");
+    } catch (error: any) {
+      await transaction.rollback();
+      throw new Error("Error al actualizar la unidad: " + error.message);
     }
   }
 
   //* Eliminar una unidad por su ID
   async eliminarUnidad(id: number) {
+    const transaction = await db.transaction();
     try {
-      const unidad = await ct_infraestructura_unidad.findByPk(id);
+      const unidad = await ct_infraestructura_unidad.findByPk(id, {
+        transaction,
+      });
       if (!unidad) {
+        await transaction.rollback();
         throw new Error("Unidad no encontrada");
       }
-      await unidad.destroy();
+      await unidad.destroy({ transaction });
+      await transaction.commit();
       return true;
-    } catch (error) {
-      throw new Error("Error al eliminar la unidad");
+    } catch (error: any) {
+      await transaction.rollback();
+      throw new Error("Error al eliminar la unidad: " + error.message);
     }
   }
 }

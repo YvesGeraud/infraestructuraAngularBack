@@ -1,5 +1,6 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
+import type { ct_infraestructura_unidad, ct_infraestructura_unidadId } from './ct_infraestructura_unidad';
 import type { ct_municipio, ct_municipioId } from './ct_municipio';
 
 export interface ct_localidadAttributes {
@@ -20,6 +21,18 @@ export class ct_localidad extends Model<ct_localidadAttributes, ct_localidadCrea
   ambito!: string;
   id_municipio!: number;
 
+  // ct_localidad hasMany ct_infraestructura_unidad via id_localidad
+  ct_infraestructura_unidads!: ct_infraestructura_unidad[];
+  getCt_infraestructura_unidads!: Sequelize.HasManyGetAssociationsMixin<ct_infraestructura_unidad>;
+  setCt_infraestructura_unidads!: Sequelize.HasManySetAssociationsMixin<ct_infraestructura_unidad, ct_infraestructura_unidadId>;
+  addCt_infraestructura_unidad!: Sequelize.HasManyAddAssociationMixin<ct_infraestructura_unidad, ct_infraestructura_unidadId>;
+  addCt_infraestructura_unidads!: Sequelize.HasManyAddAssociationsMixin<ct_infraestructura_unidad, ct_infraestructura_unidadId>;
+  createCt_infraestructura_unidad!: Sequelize.HasManyCreateAssociationMixin<ct_infraestructura_unidad>;
+  removeCt_infraestructura_unidad!: Sequelize.HasManyRemoveAssociationMixin<ct_infraestructura_unidad, ct_infraestructura_unidadId>;
+  removeCt_infraestructura_unidads!: Sequelize.HasManyRemoveAssociationsMixin<ct_infraestructura_unidad, ct_infraestructura_unidadId>;
+  hasCt_infraestructura_unidad!: Sequelize.HasManyHasAssociationMixin<ct_infraestructura_unidad, ct_infraestructura_unidadId>;
+  hasCt_infraestructura_unidads!: Sequelize.HasManyHasAssociationsMixin<ct_infraestructura_unidad, ct_infraestructura_unidadId>;
+  countCt_infraestructura_unidads!: Sequelize.HasManyCountAssociationsMixin;
   // ct_localidad belongsTo ct_municipio via id_municipio
   id_municipio_ct_municipio!: ct_municipio;
   getId_municipio_ct_municipio!: Sequelize.BelongsToGetAssociationMixin<ct_municipio>;

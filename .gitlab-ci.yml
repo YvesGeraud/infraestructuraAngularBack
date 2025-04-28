@@ -16,7 +16,7 @@ dependences_dev:
     paths:
       - node_modules
   script:
-    - npm install
+    - npm installgi
 
 build_dev:
   stage: build
@@ -35,8 +35,6 @@ build_dev:
         - dist
   script:
     - npx tsc
-    - cp -rf public dist/
-    - cp -rf mails dist/
     - cp -f .env dist/
 
 publish_dev:

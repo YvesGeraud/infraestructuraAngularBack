@@ -16,7 +16,7 @@ dependences_dev:
     paths:
       - node_modules
   script:
-    - npm installgi
+    - npm install
 
 build_dev:
   stage: build

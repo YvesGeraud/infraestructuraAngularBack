@@ -40,7 +40,7 @@ build_dev:
 publish_dev:
   variables:
     DEPLOY: "/var/www/api-dev"
-    FOLDER: "infraestructura-funhi"
+    FOLDER: "infraestructura"
   stage: publish
   rules:
     - if: $CI_COMMIT_BRANCH =~ /DEV/

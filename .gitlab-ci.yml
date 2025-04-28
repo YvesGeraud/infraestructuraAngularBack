@@ -47,6 +47,11 @@ publish_dev:
   tags:
     - dev
   cache:
+    - key:
+        files:
+          - package.json
+      paths:
+        - node_modules  
     - key: cache-$CI_COMMIT_REF_SLUG
       paths:
         - dist

@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(`${process.env.HOST}api/usuarios`, /*authenticateJWT,*/ usuarioRoutes);
 app.use(`${process.env.HOST}api/unidades0`, /*authenticateJWT,*/ unidadRoutes);
 app.use(`${process.env.HOST}api/unidades2`, /*authenticateJWT,*/ unidadRoutes);
-app.use(`${process.env.HOST}api/municipios`, /*authenticateJWT,*/ municipiosRoutes);
+app.use(`${process.env.HOST}api/municipios1`, /*authenticateJWT,*/ municipiosRoutes);
 app.use(`${process.env.HOST}api/localidades`, /*authenticateJWT,*/ localidadRoutes);
 
 // Sincroniza la base de datos y arranca el servidor

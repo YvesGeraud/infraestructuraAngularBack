@@ -1,4 +1,5 @@
 import express from "express";
+import retry from "async-retry";
 import cors from "cors";
 import config from "./config";
 import sequelize from "./config/database";
@@ -19,22 +20,36 @@ app.use(cors());
 app.use(express.json());
 
 // monta las rutas bajo el path '/api/usuarios'
-app.use("/api/usuarios", /*authenticateJWT,*/ usuarioRoutes);
-app.use("/api/unidades", /*authenticateJWT,*/ unidadRoutes);
-app.use("/api/municipios", /*authenticateJWT,*/ municipiosRoutes);
-app.use("/api/localidades", /*authenticateJWT,*/ localidadRoutes);
+app.use(`${process.env.HOST}api/usuarios`, /*authenticateJWT,*/ usuarioRoutes);
+app.use(`${process.env.HOST}api/unidades`, /*authenticateJWT,*/ unidadRoutes);
+app.use(`${process.env.HOST}api/municipios`, /*authenticateJWT,*/ municipiosRoutes);
+app.use(`${process.env.HOST}api/localidades`, /*authenticateJWT,*/ localidadRoutes);
 
 // Sincroniza la base de datos y arranca el servidor
-sequelize
-  .sync()
-  .then(() => {
-    console.log("Base de datos conectada");
+retry(
+  async () => {
+    console.log("Intentando conectar con la base de datos...");
+    await sequelize.authenticate(); // Intenta solo la conexión
+  },
+  {
+    retries: 5, // número de intentos
+    minTimeout: 3000, // 3 segundos entre intentos
+  }
+)
+  .then(async () => {
+    console.log("✅ Conexión a la base de datos establecida");
+    await sequelize.sync(); // Ahora sí sincroniza
+    console.log("✅ Sincronización completada");
+
     app.listen(config.port, () => {
       console.log(
-        `Servidor corriendo en el puerto ${config.port} en ambiente ${config.nodeEnv}`
+        `🚀 Servidor corriendo en el puerto ${config.port} (${config.nodeEnv})`
       );
     });
   })
-  .catch((error) => {
-    console.error("Error al conectar la base de datos:", error);
+  .catch((err: any) => {
+    console.error(
+      "❌ No se pudo conectar a la base de datos después de varios intentos:",
+      err
+    );
   });

@@ -4,6 +4,7 @@ import type { ct_infraestructura_departamento, ct_infraestructura_departamentoId
 import type { ct_infraestructura_direccion, ct_infraestructura_direccionId } from './ct_infraestructura_direccion';
 import type { ct_infraestructura_jefe_sector, ct_infraestructura_jefe_sectorId } from './ct_infraestructura_jefe_sector';
 import type { ct_infraestructura_supervisor, ct_infraestructura_supervisorId } from './ct_infraestructura_supervisor';
+import type { ct_infraestructura_unidad, ct_infraestructura_unidadId } from './ct_infraestructura_unidad';
 
 export interface rl_infraestructura_edificiosAttributes {
   id_edificios: number;
@@ -49,6 +50,11 @@ export class rl_infraestructura_edificios extends Model<rl_infraestructura_edifi
   getId_supervisor_ct_infraestructura_supervisor!: Sequelize.BelongsToGetAssociationMixin<ct_infraestructura_supervisor>;
   setId_supervisor_ct_infraestructura_supervisor!: Sequelize.BelongsToSetAssociationMixin<ct_infraestructura_supervisor, ct_infraestructura_supervisorId>;
   createId_supervisor_ct_infraestructura_supervisor!: Sequelize.BelongsToCreateAssociationMixin<ct_infraestructura_supervisor>;
+  // rl_infraestructura_edificios belongsTo ct_infraestructura_unidad via id_unidad
+  id_unidad_ct_infraestructura_unidad!: ct_infraestructura_unidad;
+  getId_unidad_ct_infraestructura_unidad!: Sequelize.BelongsToGetAssociationMixin<ct_infraestructura_unidad>;
+  setId_unidad_ct_infraestructura_unidad!: Sequelize.BelongsToSetAssociationMixin<ct_infraestructura_unidad, ct_infraestructura_unidadId>;
+  createId_unidad_ct_infraestructura_unidad!: Sequelize.BelongsToCreateAssociationMixin<ct_infraestructura_unidad>;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof rl_infraestructura_edificios {
     return rl_infraestructura_edificios.init({
@@ -92,7 +98,11 @@ export class rl_infraestructura_edificios extends Model<rl_infraestructura_edifi
     },
     id_unidad: {
       type: DataTypes.INTEGER,
-      allowNull: true
+      allowNull: true,
+      references: {
+        model: 'ct_infraestructura_unidad',
+        key: 'id_unidad'
+      }
     },
     descripcion: {
       type: DataTypes.TEXT,
@@ -137,6 +147,13 @@ export class rl_infraestructura_edificios extends Model<rl_infraestructura_edifi
         using: "BTREE",
         fields: [
           { name: "id_supervisor" },
+        ]
+      },
+      {
+        name: "id_unidad",
+        using: "BTREE",
+        fields: [
+          { name: "id_unidad" },
         ]
       },
     ]

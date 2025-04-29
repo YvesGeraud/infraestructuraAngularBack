@@ -1,0 +1,128 @@
+stages:
+  - dependences
+  - build
+  - publish
+
+dependences_dev:
+  stage: dependences
+  rules:
+    - if: $CI_COMMIT_BRANCH =~ /DEV/
+  tags:
+    - dev
+  cache:
+    key:
+      files:
+        - package.json
+    paths:
+      - node_modules
+  script:
+    - npm install
+
+build_dev:
+  stage: build
+  rules:
+    - if: $CI_COMMIT_BRANCH =~ /DEV/
+  tags:
+    - dev
+  cache:
+    - key:
+        files:
+          - package.json
+      paths:
+        - node_modules
+    - key: cache-$CI_COMMIT_REF_SLUG
+      paths:
+        - dist
+  script:
+    - npx tsc
+    - cp -f .env.development dist/
+
+publish_dev:
+  variables:
+    DEPLOY: "/var/www/api-dev"
+    FOLDER: "infraestructura"
+  stage: publish
+  rules:
+    - if: $CI_COMMIT_BRANCH =~ /DEV/
+  tags:
+    - dev
+  cache:
+    - key:
+        files:
+          - package.json
+      paths:
+        - node_modules  
+    - key: cache-$CI_COMMIT_REF_SLUG
+      paths:
+        - dist
+  script:
+    - echo "Desplegando a dev"
+    - mkdir -p $DEPLOY/$FOLDER/
+    - rm -rf $DEPLOY/$FOLDER/*
+    - cp -rf $CI_PROJECT_DIR/node_modules/ $DEPLOY/$FOLDER/
+    - cp -r $CI_PROJECT_DIR/dist/. $DEPLOY/$FOLDER/
+    - mkdir -p $DEPLOY/$FOLDER/tmp/
+    - touch $DEPLOY/$FOLDER/tmp/restart.txt
+
+dependences_prod:
+  stage: dependences
+  rules:
+    - if: $CI_COMMIT_BRANCH =~ /main/
+  tags:
+    - prod-funhi
+  cache:
+    key:
+      files:
+        - package.json
+    paths:
+      - node_modules
+  script:
+    - npm install
+
+build_prod:
+  stage: build
+  rules:
+    - if: $CI_COMMIT_BRANCH =~ /main/
+  tags:
+    - prod-funhi
+  cache:
+    - key:
+        files:
+          - package.json
+      paths:
+        - node_modules
+    - key: cache-$CI_COMMIT_REF_SLUG
+      paths:
+        - dist
+  script:
+    - npx tsc
+    - cp -rf public dist/
+    - cp -rf mails dist/
+    - cp -f .env dist/
+
+publish_prod:
+  variables:
+    DEPLOY: "/var/www/api"
+    FOLDER: "registro"
+  stage: publish
+  rules:
+    - if: $CI_COMMIT_BRANCH =~ /main/
+  tags:
+    - prod-funhi
+  cache:
+    - key:
+        files:
+          - package.json
+      paths:
+        - node_modules
+    - key: cache-$CI_COMMIT_REF_SLUG
+      paths:
+        - dist
+  script:
+    - echo "Desplegando a prod"
+    - mkdir -p $DEPLOY/$FOLDER/
+    - rm -rf $DEPLOY/$FOLDER/*
+    - cp -rf $CI_PROJECT_DIR/node_modules/ $DEPLOY/$FOLDER/
+    - cp -rf $CI_PROJECT_DIR/dist/. $DEPLOY/$FOLDER/
+    - mkdir -p $DEPLOY/$FOLDER/tmp/
+    - touch $DEPLOY/$FOLDER/tmp/restart.txt

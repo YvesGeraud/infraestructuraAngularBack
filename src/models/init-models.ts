@@ -382,6 +382,8 @@ export function initModels(sequelize: Sequelize) {
   ct_infraestructura_tipo_escuela.hasMany(ct_infraestructura_unidad, { as: "ct_infraestructura_unidads", foreignKey: "id_tipo_escuela"});
   ct_infraestructura_edificio.belongsTo(ct_infraestructura_unidad, { as: "id_unidad_ct_infraestructura_unidad", foreignKey: "id_unidad"});
   ct_infraestructura_unidad.hasMany(ct_infraestructura_edificio, { as: "ct_infraestructura_edificios", foreignKey: "id_unidad"});
+  rl_infraestructura_edificios.belongsTo(ct_infraestructura_unidad, { as: "id_unidad_ct_infraestructura_unidad", foreignKey: "id_unidad"});
+  ct_infraestructura_unidad.hasMany(rl_infraestructura_edificios, { as: "rl_infraestructura_edificios", foreignKey: "id_unidad"});
   rl_infraestructura_unidad_almacenamiento_agua.belongsTo(ct_infraestructura_unidad, { as: "id_unidad_ct_infraestructura_unidad", foreignKey: "id_unidad"});
   ct_infraestructura_unidad.hasMany(rl_infraestructura_unidad_almacenamiento_agua, { as: "rl_infraestructura_unidad_almacenamiento_aguas", foreignKey: "id_unidad"});
   rl_infraestructura_unidad_construccion.belongsTo(ct_infraestructura_unidad, { as: "id_unidad_ct_infraestructura_unidad", foreignKey: "id_unidad"});
@@ -400,6 +402,8 @@ export function initModels(sequelize: Sequelize) {
   ct_infraestructura_unidad.hasMany(rl_infraestructura_unidad_obra_mantenimiento, { as: "rl_infraestructura_unidad_obra_mantenimientos", foreignKey: "id_unidad"});
   rl_infraestructura_unidad_suministro_agua.belongsTo(ct_infraestructura_unidad, { as: "id_unidad_ct_infraestructura_unidad", foreignKey: "id_unidad"});
   ct_infraestructura_unidad.hasMany(rl_infraestructura_unidad_suministro_agua, { as: "rl_infraestructura_unidad_suministro_aguas", foreignKey: "id_unidad"});
+  ct_infraestructura_unidad.belongsTo(ct_localidad, { as: "id_localidad_ct_localidad", foreignKey: "id_localidad"});
+  ct_localidad.hasMany(ct_infraestructura_unidad, { as: "ct_infraestructura_unidads", foreignKey: "id_localidad"});
   ct_localidad.belongsTo(ct_municipio, { as: "id_municipio_ct_municipio", foreignKey: "id_municipio"});
   ct_municipio.hasMany(ct_localidad, { as: "ct_localidads", foreignKey: "id_municipio"});
 

@@ -22,6 +22,7 @@ app.use(express.json());
 // monta las rutas bajo el path '/api/usuarios'
 app.use(`${process.env.HOST}api/usuarios`, /*authenticateJWT,*/ usuarioRoutes);
 app.use(`${process.env.HOST}api/unidades`, /*authenticateJWT,*/ unidadRoutes);
+app.use(`${process.env.HOST}api/unidades2`, /*authenticateJWT,*/ unidadRoutes);
 app.use(`${process.env.HOST}api/municipios`, /*authenticateJWT,*/ municipiosRoutes);
 app.use(`${process.env.HOST}api/localidades`, /*authenticateJWT,*/ localidadRoutes);
 

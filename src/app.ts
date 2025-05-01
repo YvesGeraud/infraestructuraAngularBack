@@ -1,6 +1,5 @@
 import express from "express";
 import retry from "async-retry";
-import cors from "cors";
 import config from "./config";
 import sequelize from "./config/database";
 import usuarioRoutes from "./routes/ct_usuario.routes";
@@ -8,22 +7,28 @@ import unidadRoutes from "./routes/ct_infraestructura_unidad.routes";
 import municipiosRoutes from "./routes/ct_municipios.routes";
 import localidadRoutes from "./routes/ct_localidad.routes";
 import { authenticateJWT } from "./middlewares/auth.middleware";
+import corsMiddleware from "./middlewares/cors.middleware";
 import "./models";
 
 // crea la aplicacion express
 const app = express();
 
-// habilita cors para permitir solicitudes desde cualquier origen
-app.use(cors());
+// configura CORS usando el middleware
+app.use(corsMiddleware);
 
 // habilita el parseo de json en las solicitudes
 app.use(express.json());
 
 // monta las rutas bajo el path '/api/usuarios'
-app.use(`${process.env.HOST}api/usuarios`, /*authenticateJWT,*/ usuarioRoutes);
-app.use(`${process.env.HOST}api/unidades`, /*authenticateJWT,*/ unidadRoutes);
-app.use(`${process.env.HOST}api/municipios`, /*authenticateJWT,*/ municipiosRoutes);
-app.use(`${process.env.HOST}api/localidades`, /*authenticateJWT,*/ localidadRoutes);
+//*para produccion
+//!`${process.env.HOST}api/usuarios`
+//*para desarrollo
+//!`api/usuarios`
+
+app.use(`/api/usuarios`, /*authenticateJWT,*/ usuarioRoutes);
+app.use(`/api/unidades`, /*authenticateJWT,*/ unidadRoutes);
+app.use(`/api/municipios`, /*authenticateJWT,*/ municipiosRoutes);
+app.use(`/api/localidades`, /*authenticateJWT,*/ localidadRoutes);
 
 // Sincroniza la base de datos y arranca el servidor
 retry(

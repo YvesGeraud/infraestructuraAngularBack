@@ -75,7 +75,6 @@ class ctInfraestructuraUnidadService {
           {
             model: ct_localidad,
             as: "localidad",
-            required: true,
             where: {
               id_municipio: idMunicipio,
             },
@@ -86,6 +85,16 @@ class ctInfraestructuraUnidadService {
                 attributes: ["id_municipio", "nombre"],
               },
             ],
+          },
+          {
+            model: ct_infraestructura_sostenimiento,
+            as: "sostenimiento",
+            attributes: ["id_sostenimiento", "sostenimiento"],
+          },
+          {
+            model: ct_infraestructura_tipo_escuela,
+            as: "tipo_escuela",
+            attributes: ["id_tipo_escuela", "tipo_escuela"],
           },
         ],
         attributes: ["id_unidad", "nombre_unidad", "cct", "ubicacion"],

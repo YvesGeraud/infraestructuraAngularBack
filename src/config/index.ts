@@ -36,7 +36,11 @@ const config: Config = {
   nodeEnv: process.env.NODE_ENV || "development",
   allowedOrigins: process.env.ALLOWED_ORIGINS
     ? process.env.ALLOWED_ORIGINS.split(",")
-    : ["http://localhost:4200"],
+    : (() => {
+        throw new Error(
+          "ALLOWED_ORIGINS no está configurado en el archivo .env"
+        );
+      })(),
 };
 
 export default config;

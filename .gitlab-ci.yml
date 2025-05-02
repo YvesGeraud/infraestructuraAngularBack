@@ -35,7 +35,7 @@ build_dev:
         - dist
   script:
     - npx tsc
-    - cp -f .env.development dist/.env
+    - cp -f .env dist/
 
 publish_dev:
   variables:

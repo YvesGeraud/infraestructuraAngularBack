@@ -1,4 +1,5 @@
 import express from "express";
+import dotenv from 'dotenv';
 import retry from "async-retry";
 import config from "./config";
 import sequelize from "./config/database";
@@ -12,6 +13,9 @@ import nivelEducativoRoutes from "./routes/infraestructura/ct_nivel_educativo.ro
 import finInmuebleRoutes from "./routes/infraestructura/ct_fin_inmueble.routes";
 import razonNoConstruccionRoutes from "./routes/infraestructura/ct_razon_no_construccion.routes";
 import "./models";
+
+// Configurar variables de entorno
+dotenv.config();
 
 // crea la aplicacion express
 const app = express();

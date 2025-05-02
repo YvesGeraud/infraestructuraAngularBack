@@ -8,7 +8,8 @@ import { Op, Transaction } from "sequelize";
 import { ct_localidad } from "../../models/ct_localidad";
 import { ct_municipio } from "../../models/ct_municipio";
 import db from "../../config/database";
-
+import { ct_infraestructura_nivel_educativo } from "../../models/ct_infraestructura_nivel_educativo";
+import { rl_infraestructura_unidad_nivel } from "../../models/rl_infraestructura_unidad_nivel";
 class ctInfraestructuraUnidadService {
   //* Obtener todas las unidades
   async obtenerUnidades() {
@@ -103,6 +104,31 @@ class ctInfraestructuraUnidadService {
     } catch (error) {
       throw new Error("Error al obtener unidades por municipio");
     }
+  }
+
+  //* Obtener niveles educativos de una unidad
+  async obtenerNivelesEducativosDeUnaUnidad(idUnidad: number) {
+    const niveles = await ct_infraestructura_unidad.findOne({
+      attributes: ["id_unidad"],
+      where: {
+        id_unidad: idUnidad,
+      },
+      include: [
+        {
+          model: rl_infraestructura_unidad_nivel,
+          as: "niveles",
+          attributes: ["id_nivel"],
+          include: [
+            {
+              model: ct_infraestructura_nivel_educativo,
+              as: "nivel",
+              attributes: ["id_nivel", "descripcion"],
+            },
+          ],
+        },
+      ],
+    });
+    return niveles;
   }
 
   //* Crear una unidad

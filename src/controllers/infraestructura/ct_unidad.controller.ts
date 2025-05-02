@@ -95,6 +95,35 @@ class ctInfraestructuraUnidadController {
     }
   }
 
+  //* Obtener niveles educativos de una unidad
+  async obtenerNivelesEducativosDeUnaUnidad(
+    req: Request,
+    res: Response
+  ): Promise<void> {
+    try {
+      const idUnidad = Number(req.params.idUnidad);
+      if (isNaN(idUnidad)) {
+        res.status(400).json({
+          error: "El parámetro ID de la unidad debe ser un número válido.",
+        });
+        return;
+      }
+      const niveles =
+        await ctInfraestructuraUnidadService.obtenerNivelesEducativosDeUnaUnidad(
+          idUnidad
+        );
+      res.json(niveles);
+    } catch (error) {
+      console.error(
+        "Error al obtener niveles educativos de una unidad:",
+        error
+      );
+      res
+        .status(500)
+        .json({ error: "Error al obtener niveles educativos de una unidad" });
+    }
+  }
+
   //* Crear una unidad
   async crearUnidad(req: Request, res: Response): Promise<void> {
     try {

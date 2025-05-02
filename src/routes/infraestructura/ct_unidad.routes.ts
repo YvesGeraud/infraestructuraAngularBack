@@ -33,6 +33,12 @@ router.get(
   ctInfraestructuraUnidadController.obtenerUnidades
 );
 
+//* Obtener niveles educativos de una unidad
+router.get(
+  "/niveles/:idUnidad",
+  ctInfraestructuraUnidadController.obtenerNivelesEducativosDeUnaUnidad
+);
+
 //* Actualizar una unidad por su ID
 router.put(
   "/:id",

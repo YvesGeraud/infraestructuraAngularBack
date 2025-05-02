@@ -28,14 +28,14 @@ app.use(express.json());
 //*para desarrollo
 //!`api/usuarios`
 
-app.use(`/api/usuarios`, /*authenticateJWT,*/ usuarioRoutes);
-app.use(`/api/unidades`, /*authenticateJWT,*/ unidadRoutes);
-app.use(`/api/municipios`, /*authenticateJWT,*/ municipiosRoutes);
-app.use(`/api/localidades`, /*authenticateJWT,*/ localidadRoutes);
-app.use(`/api/niveles-educativos`, /*authenticateJWT,*/ nivelEducativoRoutes);
-app.use(`/api/fin-inmueble`, /*authenticateJWT,*/ finInmuebleRoutes);
+app.use(`${process.env.HOST}api/usuarios`, /*authenticateJWT,*/ usuarioRoutes);
+app.use(`${process.env.HOST}api/unidades`, /*authenticateJWT,*/ unidadRoutes);
+app.use(`${process.env.HOST}api/municipios`, /*authenticateJWT,*/ municipiosRoutes);
+app.use(`${process.env.HOST}api/localidades`, /*authenticateJWT,*/ localidadRoutes);
+app.use(`${process.env.HOST}api/niveles-educativos`, /*authenticateJWT,*/ nivelEducativoRoutes);
+app.use(`${process.env.HOST}api/fin-inmueble`, /*authenticateJWT,*/ finInmuebleRoutes);
 app.use(
-  `/api/razon-no-construccion`,
+  `${process.env.HOST}api/razon-no-construccion`,
   /*authenticateJWT,*/ razonNoConstruccionRoutes
 );
 

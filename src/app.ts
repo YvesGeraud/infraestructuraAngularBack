@@ -10,6 +10,7 @@ import { authenticateJWT } from "./middlewares/auth.middleware";
 import corsMiddleware from "./middlewares/cors.middleware";
 import nivelEducativoRoutes from "./routes/infraestructura/ct_nivel_educativo.routes";
 import finInmuebleRoutes from "./routes/infraestructura/ct_fin_inmueble.routes";
+import razonNoConstruccionRoutes from "./routes/infraestructura/ct_razon_no_construccion.routes";
 import "./models";
 
 // crea la aplicacion express
@@ -33,6 +34,10 @@ app.use(`/api/municipios`, /*authenticateJWT,*/ municipiosRoutes);
 app.use(`/api/localidades`, /*authenticateJWT,*/ localidadRoutes);
 app.use(`/api/niveles-educativos`, /*authenticateJWT,*/ nivelEducativoRoutes);
 app.use(`/api/fin-inmueble`, /*authenticateJWT,*/ finInmuebleRoutes);
+app.use(
+  `/api/razon-no-construccion`,
+  /*authenticateJWT,*/ razonNoConstruccionRoutes
+);
 
 //* Sincroniza la base de datos y arranca el servidor
 retry(

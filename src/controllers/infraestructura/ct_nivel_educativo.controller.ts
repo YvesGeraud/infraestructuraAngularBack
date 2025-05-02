@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import ctNivelEducativoService from "../services/ct_nivel_educativo.service";
+import ctNivelEducativoService from "../../services/infraestructura/ct_nivel_educativo.service";
 
 class ctNivelEducativoController {
   async obtenerNivelesEducativos(req: Request, res: Response) {

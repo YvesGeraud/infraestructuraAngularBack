@@ -1,6 +1,6 @@
 import { Router } from "express";
-import ctNivelEducativoController from "../controllers/ct_nivel_educativo.controller";
-import { authenticateJWT } from "../middlewares/auth.middleware";
+import ctNivelEducativoController from "../../controllers/infraestructura/ct_nivel_educativo.controller";
+import { authenticateJWT } from "../../middlewares/auth.middleware";
 
 const router = Router();
 

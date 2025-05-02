@@ -3,12 +3,13 @@ import retry from "async-retry";
 import config from "./config";
 import sequelize from "./config/database";
 import usuarioRoutes from "./routes/ct_usuario.routes";
-import unidadRoutes from "./routes/ct_infraestructura_unidad.routes";
+import unidadRoutes from "./routes/infraestructura/ct_unidad.routes";
 import municipiosRoutes from "./routes/ct_municipios.routes";
 import localidadRoutes from "./routes/ct_localidad.routes";
 import { authenticateJWT } from "./middlewares/auth.middleware";
 import corsMiddleware from "./middlewares/cors.middleware";
-import nivelEducativoRoutes from "./routes/ct_infraestructura_nivel_educativo.routes";
+import nivelEducativoRoutes from "./routes/infraestructura/ct_nivel_educativo.routes";
+import finInmuebleRoutes from "./routes/infraestructura/ct_fin_inmueble.routes";
 import "./models";
 
 // crea la aplicacion express
@@ -31,8 +32,9 @@ app.use(`/api/unidades`, /*authenticateJWT,*/ unidadRoutes);
 app.use(`/api/municipios`, /*authenticateJWT,*/ municipiosRoutes);
 app.use(`/api/localidades`, /*authenticateJWT,*/ localidadRoutes);
 app.use(`/api/niveles-educativos`, /*authenticateJWT,*/ nivelEducativoRoutes);
+app.use(`/api/fin-inmueble`, /*authenticateJWT,*/ finInmuebleRoutes);
 
-// Sincroniza la base de datos y arranca el servidor
+//* Sincroniza la base de datos y arranca el servidor
 retry(
   async () => {
     console.log("Intentando conectar con la base de datos...");

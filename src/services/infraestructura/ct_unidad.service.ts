@@ -1,13 +1,13 @@
 import {
   ct_infraestructura_unidad,
   ct_infraestructura_unidadCreationAttributes,
-} from "../models/ct_infraestructura_unidad";
-import { ct_infraestructura_sostenimiento } from "../models/ct_infraestructura_sostenimiento";
-import { ct_infraestructura_tipo_escuela } from "../models/ct_infraestructura_tipo_escuela";
+} from "../../models/ct_infraestructura_unidad";
+import { ct_infraestructura_sostenimiento } from "../../models/ct_infraestructura_sostenimiento";
+import { ct_infraestructura_tipo_escuela } from "../../models/ct_infraestructura_tipo_escuela";
 import { Op, Transaction } from "sequelize";
-import { ct_localidad } from "../models/ct_localidad";
-import { ct_municipio } from "../models/ct_municipio";
-import db from "../config/database";
+import { ct_localidad } from "../../models/ct_localidad";
+import { ct_municipio } from "../../models/ct_municipio";
+import db from "../../config/database";
 
 class ctInfraestructuraUnidadService {
   //* Obtener todas las unidades

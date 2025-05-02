@@ -1,6 +1,6 @@
 import { Router } from "express";
-import ctInfraestructuraUnidadController from "../controllers/ct_infraestructura_unidad.controller";
-import { authenticateJWT } from "../middlewares/auth.middleware";
+import ctInfraestructuraUnidadController from "../../controllers/infraestructura/ct_unidad.controller";
+import { authenticateJWT } from "../../middlewares/auth.middleware";
 
 const router = Router();
 

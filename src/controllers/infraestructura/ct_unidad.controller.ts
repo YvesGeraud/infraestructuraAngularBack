@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import ctInfraestructuraUnidadService from "../services/ct_infraestructura_unidad.service";
+import ctInfraestructuraUnidadService from "../../services/infraestructura/ct_unidad.service";
 
 class ctInfraestructuraUnidadController {
   //* Obtener todas las unidades

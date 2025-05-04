@@ -13,6 +13,7 @@ import nivelEducativoRoutes from "./routes/infraestructura/ct_nivel_educativo.ro
 import finInmuebleRoutes from "./routes/infraestructura/ct_fin_inmueble.routes";
 import razonNoConstruccionRoutes from "./routes/infraestructura/ct_razon_no_construccion.routes";
 import unidadNivelRoutes from "./routes/infraestructura/rl_unidad_nivel.routes";
+import espacioInmueblesRoutes from "./routes/infraestructura/ct_espacio_inmuebles.routes";
 import "./models";
 
 // Configurar variables de entorno
@@ -44,7 +45,7 @@ app.use(
   /*authenticateJWT,*/ localidadRoutes
 );
 app.use(
-  `${process.env.HOST}api/niveles-educativos`,
+  `${process.env.HOST}api/nivel-educativo`,
   /*authenticateJWT,*/ nivelEducativoRoutes
 );
 app.use(
@@ -58,6 +59,10 @@ app.use(
 app.use(
   `${process.env.HOST}api/unidad-nivel`,
   /*authenticateJWT,*/ unidadNivelRoutes
+);
+app.use(
+  `${process.env.HOST}api/espacio-inmueble`,
+  /*authenticateJWT,*/ espacioInmueblesRoutes
 );
 
 // Mostrar información de configuración de la base de datos

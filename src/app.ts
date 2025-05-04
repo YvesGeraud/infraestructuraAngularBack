@@ -12,6 +12,7 @@ import corsMiddleware from "./middlewares/cors.middleware";
 import nivelEducativoRoutes from "./routes/infraestructura/ct_nivel_educativo.routes";
 import finInmuebleRoutes from "./routes/infraestructura/ct_fin_inmueble.routes";
 import razonNoConstruccionRoutes from "./routes/infraestructura/ct_razon_no_construccion.routes";
+import unidadNivelRoutes from "./routes/infraestructura/rl_unidad_nivel.routes";
 import "./models";
 
 // Configurar variables de entorno
@@ -53,6 +54,10 @@ app.use(
 app.use(
   `${process.env.HOST}api/razon-no-construccion`,
   /*authenticateJWT,*/ razonNoConstruccionRoutes
+);
+app.use(
+  `${process.env.HOST}api/unidad-nivel`,
+  /*authenticateJWT,*/ unidadNivelRoutes
 );
 
 // Mostrar información de configuración de la base de datos

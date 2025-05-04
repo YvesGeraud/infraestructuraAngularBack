@@ -1,5 +1,5 @@
 import express from "express";
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 import retry from "async-retry";
 import config from "./config";
 import sequelize from "./config/database";
@@ -30,18 +30,38 @@ app.use(express.json());
 //*para produccion
 //!`${process.env.HOST}api/usuarios`
 //*para desarrollo
-//!`api/usuarios`
+//!`/api/usuarios`
 
 app.use(`${process.env.HOST}api/usuarios`, /*authenticateJWT,*/ usuarioRoutes);
 app.use(`${process.env.HOST}api/unidades`, /*authenticateJWT,*/ unidadRoutes);
-app.use(`${process.env.HOST}api/municipios`, /*authenticateJWT,*/ municipiosRoutes);
-app.use(`${process.env.HOST}api/localidades`, /*authenticateJWT,*/ localidadRoutes);
-app.use(`${process.env.HOST}api/niveles-educativos`, /*authenticateJWT,*/ nivelEducativoRoutes);
-app.use(`${process.env.HOST}api/fin-inmueble`, /*authenticateJWT,*/ finInmuebleRoutes);
+app.use(
+  `${process.env.HOST}api/municipios`,
+  /*authenticateJWT,*/ municipiosRoutes
+);
+app.use(
+  `${process.env.HOST}api/localidades`,
+  /*authenticateJWT,*/ localidadRoutes
+);
+app.use(
+  `${process.env.HOST}api/niveles-educativos`,
+  /*authenticateJWT,*/ nivelEducativoRoutes
+);
+app.use(
+  `${process.env.HOST}api/fin-inmueble`,
+  /*authenticateJWT,*/ finInmuebleRoutes
+);
 app.use(
   `${process.env.HOST}api/razon-no-construccion`,
   /*authenticateJWT,*/ razonNoConstruccionRoutes
 );
+
+// Mostrar información de configuración de la base de datos
+console.log("📝 Configuración de la base de datos:");
+console.log("- Nombre DB:", config.db.name);
+console.log("- Usuario:", config.db.user);
+console.log("- Host:", config.db.host);
+console.log("- Puerto:", config.db.port);
+console.log("- Entorno:", config.nodeEnv);
 
 //* Sincroniza la base de datos y arranca el servidor
 retry(

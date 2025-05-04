@@ -40,9 +40,9 @@ router.get(
 );
 
 //* Actualizar una unidad por su ID
-router.put(
+router.patch(
   "/:id",
-  authenticateJWT,
+  /*authenticateJWT,*/
   ctInfraestructuraUnidadController.actualizarUnidad
 );
 

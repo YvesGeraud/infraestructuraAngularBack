@@ -146,11 +146,8 @@ class ctInfraestructuraUnidadService {
     }
   }
 
-  //* Actualizar una unidad por su ID
-  async actualizarUnidad(
-    id: number,
-    data: ct_infraestructura_unidadCreationAttributes
-  ) {
+  //* Actualizar campos de una unidad
+  async actualizarCamposUnidad(id: number, campos: { [key: string]: any }) {
     const transaction = await db.transaction();
     try {
       const unidad = await ct_infraestructura_unidad.findByPk(id, {
@@ -160,13 +157,19 @@ class ctInfraestructuraUnidadService {
         await transaction.rollback();
         throw new Error("Unidad no encontrada");
       }
-      await unidad.update(data, { transaction });
+
+      await unidad.update(campos, { transaction });
       await transaction.commit();
-      return unidad;
+      return { message: "Unidad actualizada correctamente" };
     } catch (error: any) {
       await transaction.rollback();
-      throw new Error("Error al actualizar la unidad: " + error.message);
+      throw new Error(`Error al actualizar los campos: ${error.message}`);
     }
+  }
+
+  //* Helper para actualizar un solo campo
+  async actualizarCampoUnidad(id: number, campo: string, valor: any) {
+    return this.actualizarCamposUnidad(id, { [campo]: valor });
   }
 
   //* Eliminar una unidad por su ID

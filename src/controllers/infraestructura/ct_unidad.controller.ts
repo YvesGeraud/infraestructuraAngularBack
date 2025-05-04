@@ -146,20 +146,36 @@ class ctInfraestructuraUnidadController {
           .json({ error: "El parámetro ID debe ser un número válido." });
         return;
       }
-      const data = req.body;
-      const unidad = await ctInfraestructuraUnidadService.actualizarUnidad(
-        id,
-        data
-      );
-      if (!unidad) {
-        res.status(404).json({ error: "Unidad no encontrada" });
-        return;
+
+      const { campo, valor, campos } = req.body;
+      let unidad;
+
+      if (campos) {
+        // Actualizar múltiples campos
+        unidad = await ctInfraestructuraUnidadService.actualizarCamposUnidad(
+          id,
+          campos
+        );
+      } else if (campo && valor !== undefined) {
+        // Actualizar un solo campo
+        unidad = await ctInfraestructuraUnidadService.actualizarCampoUnidad(
+          id,
+          campo,
+          valor
+        );
       } else {
-        res.status(200).json(unidad);
+        res
+          .status(400)
+          .json({ error: "Debe proporcionar 'campo' y 'valor', o 'campos'" });
+        return;
       }
-    } catch (error) {
+
+      res.status(200).json(unidad);
+    } catch (error: any) {
       console.error("Error al actualizar unidad:", error);
-      res.status(500).json({ error: "Error al actualizar unidad" });
+      res
+        .status(500)
+        .json({ error: error.message || "Error al actualizar unidad" });
     }
   }
 

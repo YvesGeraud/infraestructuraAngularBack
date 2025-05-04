@@ -10,4 +10,16 @@ router.get(
   ctNivelEducativoController.obtenerNivelesEducativos
 );
 
+router.post(
+  "/",
+  /*authenticateJWT,*/
+  ctNivelEducativoController.guardarNivelAcademico
+);
+
+router.delete(
+  "/:id_unidad/:id_nivel",
+  /*authenticateJWT,*/
+  ctNivelEducativoController.eliminarNivelAcademico
+);
+
 export default router;

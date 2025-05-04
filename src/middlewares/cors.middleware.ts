@@ -24,7 +24,7 @@ const corsMiddleware = cors({
   //* Permite el envío de credenciales (cookies, headers de autenticación)
   credentials: true,
   //* Métodos HTTP permitidos
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   //* Headers permitidos en las solicitudes
   allowedHeaders: ["Content-Type", "Authorization"],
   //* Headers expuestos al cliente

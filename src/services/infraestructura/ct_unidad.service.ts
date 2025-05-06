@@ -7,7 +7,7 @@ import { ct_infraestructura_tipo_escuela } from "../../models/ct_infraestructura
 import { Op, Transaction } from "sequelize";
 import { ct_localidad } from "../../models/ct_localidad";
 import { ct_municipio } from "../../models/ct_municipio";
-import db from "../../config/database";
+import { sequelize } from "../../config/database";
 import { ct_infraestructura_nivel_educativo } from "../../models/ct_infraestructura_nivel_educativo";
 import { rl_infraestructura_unidad_nivel } from "../../models/rl_infraestructura_unidad_nivel";
 class ctInfraestructuraUnidadService {
@@ -133,7 +133,7 @@ class ctInfraestructuraUnidadService {
 
   //* Crear una unidad
   async crearUnidad(data: ct_infraestructura_unidadCreationAttributes) {
-    const transaction = await db.transaction();
+    const transaction = await sequelize.transaction();
     try {
       const unidad = await ct_infraestructura_unidad.create(data, {
         transaction,
@@ -148,7 +148,7 @@ class ctInfraestructuraUnidadService {
 
   //* Actualizar campos de una unidad
   async actualizarCamposUnidad(id: number, campos: { [key: string]: any }) {
-    const transaction = await db.transaction();
+    const transaction = await sequelize.transaction();
     try {
       const unidad = await ct_infraestructura_unidad.findByPk(id, {
         transaction,
@@ -174,7 +174,7 @@ class ctInfraestructuraUnidadService {
 
   //* Eliminar una unidad por su ID
   async eliminarUnidad(id: number) {
-    const transaction = await db.transaction();
+    const transaction = await sequelize.transaction();
     try {
       const unidad = await ct_infraestructura_unidad.findByPk(id, {
         transaction,

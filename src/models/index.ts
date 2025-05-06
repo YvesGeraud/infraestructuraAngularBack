@@ -1,5 +1,5 @@
 import { ct_infraestructura_nivel_educativo, initModels } from "./init-models";
-import sequelize from "../config/database";
+import { sequelize } from "../config/database";
 
 // Inicializar todos los modelos
 const models = initModels(sequelize);

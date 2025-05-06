@@ -14,6 +14,7 @@ import finInmuebleRoutes from "./routes/infraestructura/ct_fin_inmueble.routes";
 import razonNoConstruccionRoutes from "./routes/infraestructura/ct_razon_no_construccion.routes";
 import unidadNivelRoutes from "./routes/infraestructura/rl_unidad_nivel.routes";
 import espacioInmueblesRoutes from "./routes/infraestructura/ct_espacio_inmuebles.routes";
+import dimensionTerrenoRoutes from "./routes/infraestructura/ct_dimension_terreno.routes";
 import "./models";
 
 // Configurar variables de entorno
@@ -63,6 +64,10 @@ app.use(
 app.use(
   `${process.env.HOST}api/espacio-inmueble`,
   /*authenticateJWT,*/ espacioInmueblesRoutes
+);
+app.use(
+  `${process.env.HOST}api/dimension-terreno`,
+  /*authenticateJWT,*/ dimensionTerrenoRoutes
 );
 
 // Mostrar información de configuración de la base de datos

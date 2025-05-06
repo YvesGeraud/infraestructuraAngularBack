@@ -1,12 +1,13 @@
 import { Router } from "express";
-import CtEspacioInmueblesController from "../../controllers/infraestructura/ct_espacion_inmuebles.controller";
+import CtDimencionTerrenoController from "../../controllers/infraestructura/ct_dimension_terreno.controller";
 import { authenticateJWT } from "../../middlewares/auth.middleware";
+
 const router = Router();
 
 router.get(
   "/",
   /*authenticateJWT,*/
-  CtEspacioInmueblesController.obtenerEspaciosInmuebles
+  CtDimencionTerrenoController.obtenerDimencionTerreno
 );
 
 export default router;

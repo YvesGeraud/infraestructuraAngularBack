@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import retry from "async-retry";
 import config from "./config";
-import sequelize from "./config/database";
+import { sequelize, getConnection, closeConnection, checkConnection } from "./config/database";
 import usuarioRoutes from "./routes/ct_usuario.routes";
 import unidadRoutes from "./routes/infraestructura/ct_unidad.routes";
 import municipiosRoutes from "./routes/ct_municipios.routes";
@@ -82,23 +82,41 @@ console.log("- Entorno:", config.nodeEnv);
 retry(
   async () => {
     console.log("Intentando conectar con la base de datos...");
-    await sequelize.authenticate(); // Intenta solo la conexión
+    await getConnection();
   },
   {
-    retries: 5, // número de intentos
-    minTimeout: 3000, // 3 segundos entre intentos
+    retries: 5,
+    minTimeout: 3000,
   }
 )
   .then(async () => {
     console.log("✅ Conexión a la base de datos establecida");
-    await sequelize.sync(); // Ahora sí sincroniza
+    await sequelize.sync();
     console.log("✅ Sincronización completada");
 
-    app.listen(config.port, () => {
+    const server = app.listen(config.port, () => {
       console.log(
         `🚀 Servidor corriendo en el puerto ${config.port} (${config.nodeEnv})`
       );
     });
+
+    //! Manejo de cierre gracioso
+    process.on('SIGTERM', async () => {
+      console.log('Recibida señal SIGTERM. Cerrando servidor...');
+      server.close(async () => {
+        await closeConnection();
+        process.exit(0);
+      });
+    });
+
+    //! Verificación periódica de la conexión
+    setInterval(async () => {
+      const isConnected = await checkConnection();
+      if (!isConnected) {
+        console.log('⚠️ Conexión perdida, intentando reconectar...');
+        await getConnection();
+      }
+    }, 30000); // Verificar cada 30 segundos
   })
   .catch((err: any) => {
     console.error(

@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import retry from "async-retry";
 import config from "./config";
-import { sequelize, getConnection, closeConnection, checkConnection } from "./config/database";
+import { sequelize, checkConnection, closeAllConnections } from "./config/database";
 import usuarioRoutes from "./routes/ct_usuario.routes";
 import unidadRoutes from "./routes/infraestructura/ct_unidad.routes";
 import municipiosRoutes from "./routes/ct_municipios.routes";
@@ -82,7 +82,7 @@ console.log("- Entorno:", config.nodeEnv);
 retry(
   async () => {
     console.log("Intentando conectar con la base de datos...");
-    await getConnection();
+    await checkConnection();
   },
   {
     retries: 5,
@@ -104,7 +104,7 @@ retry(
     process.on('SIGTERM', async () => {
       console.log('Recibida señal SIGTERM. Cerrando servidor...');
       server.close(async () => {
-        await closeConnection();
+        await closeAllConnections();
         process.exit(0);
       });
     });
@@ -114,7 +114,7 @@ retry(
       const isConnected = await checkConnection();
       if (!isConnected) {
         console.log('⚠️ Conexión perdida, intentando reconectar...');
-        await getConnection();
+        await checkConnection();
       }
     }, 30000); // Verificar cada 30 segundos
   })

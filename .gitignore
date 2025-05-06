@@ -2,7 +2,7 @@
 node_modules/
 
 # Ignorar archivos de configuración de entorno
-.env
+
 .env.development
 .env.production
 

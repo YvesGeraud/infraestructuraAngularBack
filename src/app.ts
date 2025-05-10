@@ -2,7 +2,11 @@ import express from "express";
 import dotenv from "dotenv";
 import retry from "async-retry";
 import config from "./config";
-import { sequelize, checkConnection, closeAllConnections } from "./config/database";
+import {
+  sequelize,
+  checkConnection,
+  closeAllConnections,
+} from "./config/database";
 import usuarioRoutes from "./routes/ct_usuario.routes";
 import unidadRoutes from "./routes/infraestructura/ct_unidad.routes";
 import municipiosRoutes from "./routes/ct_municipios.routes";
@@ -15,6 +19,8 @@ import razonNoConstruccionRoutes from "./routes/infraestructura/ct_razon_no_cons
 import unidadNivelRoutes from "./routes/infraestructura/rl_unidad_nivel.routes";
 import espacioInmueblesRoutes from "./routes/infraestructura/ct_espacio_inmuebles.routes";
 import dimensionTerrenoRoutes from "./routes/infraestructura/ct_dimension_terreno.routes";
+import suministroDeAguaRoutes from "./routes/infraestructura/ct_suministro_de_agua.routes";
+import almacenamientoAguaRoutes from "./routes/infraestructura/ct_almacenamiento_agua.routes";
 import "./models";
 
 // Configurar variables de entorno
@@ -69,6 +75,14 @@ app.use(
   `${process.env.HOST}api/dimension-terreno`,
   /*authenticateJWT,*/ dimensionTerrenoRoutes
 );
+app.use(
+  `${process.env.HOST}api/suministro-de-agua`,
+  /*authenticateJWT,*/ suministroDeAguaRoutes
+);
+app.use(
+  `${process.env.HOST}api/almacenamiento-agua`,
+  /*authenticateJWT,*/ almacenamientoAguaRoutes
+);
 
 // Mostrar información de configuración de la base de datos
 console.log("📝 Configuración de la base de datos:");
@@ -101,8 +115,8 @@ retry(
     });
 
     //! Manejo de cierre gracioso
-    process.on('SIGTERM', async () => {
-      console.log('Recibida señal SIGTERM. Cerrando servidor...');
+    process.on("SIGTERM", async () => {
+      console.log("Recibida señal SIGTERM. Cerrando servidor...");
       server.close(async () => {
         await closeAllConnections();
         process.exit(0);
@@ -113,7 +127,7 @@ retry(
     setInterval(async () => {
       const isConnected = await checkConnection();
       if (!isConnected) {
-        console.log('⚠️ Conexión perdida, intentando reconectar...');
+        console.log("⚠️ Conexión perdida, intentando reconectar...");
         await checkConnection();
       }
     }, 30000); // Verificar cada 30 segundos

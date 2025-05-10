@@ -124,6 +124,66 @@ class ctInfraestructuraUnidadController {
     }
   }
 
+  //* Obtener suministros de agua de una unidad
+  async obtenerSuministrosDeAguaDeUnaUnidad(
+    req: Request,
+    res: Response
+  ): Promise<void> {
+    try {
+      const idUnidad = Number(req.params.idUnidad);
+      if (isNaN(idUnidad)) {
+        res.status(400).json({
+          error: "El parámetro ID de la unidad debe ser un número válido.",
+        });
+        return;
+      }
+      const suministros =
+        await ctInfraestructuraUnidadService.obtenerSuministrosDeAguaDeUnaUnidad(
+          idUnidad
+        );
+      res.json(suministros);
+    } catch (error) {
+      console.error(
+        "Error al obtener suministros de agua de una unidad:",
+        error
+      );
+      res
+        .status(500)
+        .json({ error: "Error al obtener suministros de agua de una unidad" });
+    }
+  }
+
+  //* Obtener almacenamiento de agua de una unidad
+  async obtenerAlmacenamientoAguaDeUnaUnidad(
+    req: Request,
+    res: Response
+  ): Promise<void> {
+    try {
+      const idUnidad = Number(req.params.idUnidad);
+      if (isNaN(idUnidad)) {
+        res.status(400).json({
+          error: "El parámetro ID de la unidad debe ser un número válido.",
+        });
+        return;
+      }
+      const almacenamientoAgua =
+        await ctInfraestructuraUnidadService.obtenerAlmacenamientoAguaDeUnaUnidad(
+          idUnidad
+        );
+      res.json(almacenamientoAgua);
+    } catch (error) {
+      console.error(
+        "Error al obtener almacenamiento de agua de una unidad:",
+        error
+      );
+      res
+        .status(500)
+        .json({
+          error: "Error al obtener almacenamiento de agua de una unidad",
+        });
+    }
+  }
+
   //* Crear una unidad
   async crearUnidad(req: Request, res: Response): Promise<void> {
     try {

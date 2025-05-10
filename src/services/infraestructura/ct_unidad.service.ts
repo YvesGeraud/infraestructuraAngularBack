@@ -10,6 +10,10 @@ import { ct_municipio } from "../../models/ct_municipio";
 import { sequelize } from "../../config/database";
 import { ct_infraestructura_nivel_educativo } from "../../models/ct_infraestructura_nivel_educativo";
 import { rl_infraestructura_unidad_nivel } from "../../models/rl_infraestructura_unidad_nivel";
+import { rl_infraestructura_unidad_suministro_agua } from "../../models/rl_infraestructura_unidad_suministro_agua";
+import { ct_infraestructura_suministro_agua } from "../../models/ct_infraestructura_suministro_agua";
+import { rl_infraestructura_unidad_almacenamiento_agua } from "../../models/rl_infraestructura_unidad_almacenamiento_agua";
+import { ct_infraestructura_almacenamiento_agua } from "../../models/ct_infraestructura_almacenamiento_agua";
 class ctInfraestructuraUnidadService {
   //* Obtener todas las unidades
   async obtenerUnidades() {
@@ -129,6 +133,52 @@ class ctInfraestructuraUnidadService {
       ],
     });
     return niveles;
+  }
+
+  //* Obtener suministros de agua de una unidad
+  async obtenerSuministrosDeAguaDeUnaUnidad(idUnidad: number) {
+    const suministros = await ct_infraestructura_unidad.findOne({
+      attributes: ["id_unidad"],
+      where: { id_unidad: idUnidad },
+      include: [
+        {
+          model: rl_infraestructura_unidad_suministro_agua,
+          as: "suministros",
+          attributes: ["id_suministro_agua"],
+          include: [
+            {
+              model: ct_infraestructura_suministro_agua,
+              as: "suministro",
+              attributes: ["id_suministro_agua", "descripcion"],
+            },
+          ],
+        },
+      ],
+    });
+    return suministros;
+  }
+
+  //* Obtener almacenamiento de agua de una unidad
+  async obtenerAlmacenamientoAguaDeUnaUnidad(idUnidad: number) {
+    const almacenamientoAgua = await ct_infraestructura_unidad.findOne({
+      attributes: ["id_unidad"],
+      where: { id_unidad: idUnidad },
+      include: [
+        {
+          model: rl_infraestructura_unidad_almacenamiento_agua,
+          as: "almacenamientos",
+          attributes: ["id_almacenamiento"],
+          include: [
+            {
+              model: ct_infraestructura_almacenamiento_agua,
+              as: "almacenamiento",
+              attributes: ["id_almacenamiento", "descripcion"],
+            },
+          ],
+        },
+      ],
+    });
+    return almacenamientoAgua;
   }
 
   //* Crear una unidad

@@ -39,6 +39,18 @@ router.get(
   ctInfraestructuraUnidadController.obtenerNivelesEducativosDeUnaUnidad
 );
 
+//* Obtener suministros de agua de una unidad
+router.get(
+  "/suministros/:idUnidad",
+  ctInfraestructuraUnidadController.obtenerSuministrosDeAguaDeUnaUnidad
+);
+
+//* Obtener almacenamiento de agua de una unidad
+router.get(
+  "/almacenamiento/:idUnidad",
+  ctInfraestructuraUnidadController.obtenerAlmacenamientoAguaDeUnaUnidad
+);
+
 //* Actualizar una unidad por su ID
 router.patch(
   "/:id",

@@ -5,6 +5,7 @@ node_modules/
 
 .env.development
 .env.production
+.env
 
 # Ignorar carpetas de distribución
 dist/

@@ -126,19 +126,35 @@ class ctInfraestructuraUnidadService {
       include: [
         {
           model: UnidadNivel,
-          as: "niveles",
+          as: "rl_infraestructura_unidad_nivels",
           attributes: ["id_nivel"],
           include: [
             {
               model: NivelEducativo,
-              as: "nivel",
+              as: "id_nivel_ct_infraestructura_nivel_educativo",
               attributes: ["id_nivel", "descripcion"],
             },
           ],
         },
       ],
     });
-    return niveles;
+
+    //! Transformación de la respuesta ya que la relacion requiere dejar esos atributos
+    if (niveles) {
+      return {
+        id_unidad: niveles.id_unidad,
+        niveles: niveles.rl_infraestructura_unidad_nivels.map((nivel) => ({
+          id_nivel: nivel.id_nivel,
+          nivel: {
+            id_nivel:
+              nivel.id_nivel_ct_infraestructura_nivel_educativo.id_nivel,
+            descripcion:
+              nivel.id_nivel_ct_infraestructura_nivel_educativo.descripcion,
+          },
+        })),
+      };
+    }
+    return null;
   }
 
   //* Obtener suministros de agua de una unidad
@@ -149,19 +165,39 @@ class ctInfraestructuraUnidadService {
       include: [
         {
           model: UnidadSuministroAgua,
-          as: "suministros",
+          as: "rl_infraestructura_unidad_suministro_aguas",
           attributes: ["id_suministro_agua"],
           include: [
             {
               model: SuministroAgua,
-              as: "suministro",
+              as: "id_suministro_agua_ct_infraestructura_suministro_agua",
               attributes: ["id_suministro_agua", "descripcion"],
             },
           ],
         },
       ],
     });
-    return suministros;
+
+    //! Transformación de la respuesta ya que la relacion requiere dejar esos atributos
+    if (suministros) {
+      return {
+        id_unidad: suministros.id_unidad,
+        suministros: suministros.rl_infraestructura_unidad_suministro_aguas.map(
+          (suministro) => ({
+            id_suministro_agua: suministro.id_suministro_agua,
+            suministro: {
+              id_suministro_agua:
+                suministro.id_suministro_agua_ct_infraestructura_suministro_agua
+                  .id_suministro_agua,
+              descripcion:
+                suministro.id_suministro_agua_ct_infraestructura_suministro_agua
+                  .descripcion,
+            },
+          })
+        ),
+      };
+    }
+    return null;
   }
 
   //* Obtener almacenamiento de agua de una unidad
@@ -172,19 +208,42 @@ class ctInfraestructuraUnidadService {
       include: [
         {
           model: UnidadAlmacenamientoAgua,
-          as: "almacenamientos",
+          as: "rl_infraestructura_unidad_almacenamiento_aguas",
           attributes: ["id_almacenamiento"],
           include: [
             {
               model: AlmacenamientoAgua,
-              as: "almacenamiento",
+              as: "id_almacenamiento_ct_infraestructura_almacenamiento_agua",
               attributes: ["id_almacenamiento", "descripcion"],
             },
           ],
         },
       ],
     });
-    return almacenamientoAgua;
+
+    //! Transformación de la respuesta ya que la relacion requiere dejar esos atributos
+    if (almacenamientoAgua) {
+      return {
+        id_unidad: almacenamientoAgua.id_unidad,
+        almacenamientos:
+          almacenamientoAgua.rl_infraestructura_unidad_almacenamiento_aguas.map(
+            (almacenamiento) => ({
+              id_almacenamiento: almacenamiento.id_almacenamiento,
+              almacenamiento: {
+                id_almacenamiento:
+                  almacenamiento
+                    .id_almacenamiento_ct_infraestructura_almacenamiento_agua
+                    .id_almacenamiento,
+                descripcion:
+                  almacenamiento
+                    .id_almacenamiento_ct_infraestructura_almacenamiento_agua
+                    .descripcion,
+              },
+            })
+          ),
+      };
+    }
+    return null;
   }
 
   //* Crear una unidad

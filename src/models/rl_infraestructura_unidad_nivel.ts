@@ -1,6 +1,7 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
 import type { ct_infraestructura_nivel_educativo, ct_infraestructura_nivel_educativoId } from './ct_infraestructura_nivel_educativo';
+import type { ct_infraestructura_unidad, ct_infraestructura_unidadId } from './ct_infraestructura_unidad';
 
 export interface rl_infraestructura_unidad_nivelAttributes {
   id_unidad: number;
@@ -20,13 +21,22 @@ export class rl_infraestructura_unidad_nivel extends Model<rl_infraestructura_un
   getId_nivel_ct_infraestructura_nivel_educativo!: Sequelize.BelongsToGetAssociationMixin<ct_infraestructura_nivel_educativo>;
   setId_nivel_ct_infraestructura_nivel_educativo!: Sequelize.BelongsToSetAssociationMixin<ct_infraestructura_nivel_educativo, ct_infraestructura_nivel_educativoId>;
   createId_nivel_ct_infraestructura_nivel_educativo!: Sequelize.BelongsToCreateAssociationMixin<ct_infraestructura_nivel_educativo>;
+  // rl_infraestructura_unidad_nivel belongsTo ct_infraestructura_unidad via id_unidad
+  id_unidad_ct_infraestructura_unidad!: ct_infraestructura_unidad;
+  getId_unidad_ct_infraestructura_unidad!: Sequelize.BelongsToGetAssociationMixin<ct_infraestructura_unidad>;
+  setId_unidad_ct_infraestructura_unidad!: Sequelize.BelongsToSetAssociationMixin<ct_infraestructura_unidad, ct_infraestructura_unidadId>;
+  createId_unidad_ct_infraestructura_unidad!: Sequelize.BelongsToCreateAssociationMixin<ct_infraestructura_unidad>;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof rl_infraestructura_unidad_nivel {
     return rl_infraestructura_unidad_nivel.init({
     id_unidad: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
+      references: {
+        model: 'ct_infraestructura_unidad',
+        key: 'id_unidad'
+      }
     },
     id_nivel: {
       type: DataTypes.INTEGER,

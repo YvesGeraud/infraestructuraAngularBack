@@ -1,5 +1,6 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
+import type { ct_infraestructura_unidad, ct_infraestructura_unidadId } from './ct_infraestructura_unidad';
 import type { rl_infraestructura_unidad_nivel, rl_infraestructura_unidad_nivelId } from './rl_infraestructura_unidad_nivel';
 
 export interface ct_infraestructura_nivel_educativoAttributes {
@@ -16,6 +17,18 @@ export class ct_infraestructura_nivel_educativo extends Model<ct_infraestructura
   id_nivel!: number;
   descripcion!: string;
 
+  // ct_infraestructura_nivel_educativo belongsToMany ct_infraestructura_unidad via id_nivel and id_unidad
+  id_unidad_ct_infraestructura_unidad_rl_infraestructura_unidad_nivels!: ct_infraestructura_unidad[];
+  getId_unidad_ct_infraestructura_unidad_rl_infraestructura_unidad_nivels!: Sequelize.BelongsToManyGetAssociationsMixin<ct_infraestructura_unidad>;
+  setId_unidad_ct_infraestructura_unidad_rl_infraestructura_unidad_nivels!: Sequelize.BelongsToManySetAssociationsMixin<ct_infraestructura_unidad, ct_infraestructura_unidadId>;
+  addId_unidad_ct_infraestructura_unidad_rl_infraestructura_unidad_nivel!: Sequelize.BelongsToManyAddAssociationMixin<ct_infraestructura_unidad, ct_infraestructura_unidadId>;
+  addId_unidad_ct_infraestructura_unidad_rl_infraestructura_unidad_nivels!: Sequelize.BelongsToManyAddAssociationsMixin<ct_infraestructura_unidad, ct_infraestructura_unidadId>;
+  createId_unidad_ct_infraestructura_unidad_rl_infraestructura_unidad_nivel!: Sequelize.BelongsToManyCreateAssociationMixin<ct_infraestructura_unidad>;
+  removeId_unidad_ct_infraestructura_unidad_rl_infraestructura_unidad_nivel!: Sequelize.BelongsToManyRemoveAssociationMixin<ct_infraestructura_unidad, ct_infraestructura_unidadId>;
+  removeId_unidad_ct_infraestructura_unidad_rl_infraestructura_unidad_nivels!: Sequelize.BelongsToManyRemoveAssociationsMixin<ct_infraestructura_unidad, ct_infraestructura_unidadId>;
+  hasId_unidad_ct_infraestructura_unidad_rl_infraestructura_unidad_nivel!: Sequelize.BelongsToManyHasAssociationMixin<ct_infraestructura_unidad, ct_infraestructura_unidadId>;
+  hasId_unidad_ct_infraestructura_unidad_rl_infraestructura_unidad_nivels!: Sequelize.BelongsToManyHasAssociationsMixin<ct_infraestructura_unidad, ct_infraestructura_unidadId>;
+  countId_unidad_ct_infraestructura_unidad_rl_infraestructura_unidad_nivels!: Sequelize.BelongsToManyCountAssociationsMixin;
   // ct_infraestructura_nivel_educativo hasMany rl_infraestructura_unidad_nivel via id_nivel
   rl_infraestructura_unidad_nivels!: rl_infraestructura_unidad_nivel[];
   getRl_infraestructura_unidad_nivels!: Sequelize.HasManyGetAssociationsMixin<rl_infraestructura_unidad_nivel>;

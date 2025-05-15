@@ -357,6 +357,7 @@ export function initModels(sequelize: Sequelize) {
   ct_infraestructura_espacio_educativo.belongsToMany(ct_infraestructura_unidad, { as: 'id_unidad_ct_infraestructura_unidad_rl_infraestructura_unidad_espacios_educativos', through: rl_infraestructura_unidad_espacios_educativos, foreignKey: "id_espacio", otherKey: "id_unidad" });
   ct_infraestructura_espacio_inmueble.belongsToMany(ct_infraestructura_unidad, { as: 'id_unidad_ct_infraestructura_unidad_rl_infraestructura_unidad_espacio_inmuebles', through: rl_infraestructura_unidad_espacio_inmueble, foreignKey: "id_espacio", otherKey: "id_unidad" });
   ct_infraestructura_fin_inmueble.belongsToMany(ct_infraestructura_unidad, { as: 'id_unidad_ct_infraestructura_unidad_rl_infraestructura_unidad_fin_inmuebles', through: rl_infraestructura_unidad_fin_inmueble, foreignKey: "id_fin", otherKey: "id_unidad" });
+  ct_infraestructura_nivel_educativo.belongsToMany(ct_infraestructura_unidad, { as: 'id_unidad_ct_infraestructura_unidad_rl_infraestructura_unidad_nivels', through: rl_infraestructura_unidad_nivel, foreignKey: "id_nivel", otherKey: "id_unidad" });
   ct_infraestructura_obra_mantenimiento.belongsToMany(ct_infraestructura_unidad, { as: 'id_unidad_ct_infraestructura_unidad_rl_infraestructura_unidad_obra_mantenimientos', through: rl_infraestructura_unidad_obra_mantenimiento, foreignKey: "id_obra", otherKey: "id_unidad" });
   ct_infraestructura_problema_edificio.belongsToMany(ct_infraestructura_edificio, { as: 'id_edificio_ct_infraestructura_edificios', through: rl_infraestructura_edificio_problema, foreignKey: "id_problema", otherKey: "id_edificio" });
   ct_infraestructura_suministro_agua.belongsToMany(ct_infraestructura_unidad, { as: 'id_unidad_ct_infraestructura_unidad_rl_infraestructura_unidad_suministro_aguas', through: rl_infraestructura_unidad_suministro_agua, foreignKey: "id_suministro_agua", otherKey: "id_unidad" });
@@ -367,6 +368,7 @@ export function initModels(sequelize: Sequelize) {
   ct_infraestructura_unidad.belongsToMany(ct_infraestructura_espacio_educativo, { as: 'id_espacio_ct_infraestructura_espacio_educativos', through: rl_infraestructura_unidad_espacios_educativos, foreignKey: "id_unidad", otherKey: "id_espacio" });
   ct_infraestructura_unidad.belongsToMany(ct_infraestructura_espacio_inmueble, { as: 'id_espacio_ct_infraestructura_espacio_inmuebles', through: rl_infraestructura_unidad_espacio_inmueble, foreignKey: "id_unidad", otherKey: "id_espacio" });
   ct_infraestructura_unidad.belongsToMany(ct_infraestructura_fin_inmueble, { as: 'id_fin_ct_infraestructura_fin_inmuebles', through: rl_infraestructura_unidad_fin_inmueble, foreignKey: "id_unidad", otherKey: "id_fin" });
+  ct_infraestructura_unidad.belongsToMany(ct_infraestructura_nivel_educativo, { as: 'id_nivel_ct_infraestructura_nivel_educativos', through: rl_infraestructura_unidad_nivel, foreignKey: "id_unidad", otherKey: "id_nivel" });
   ct_infraestructura_unidad.belongsToMany(ct_infraestructura_obra_mantenimiento, { as: 'id_obra_ct_infraestructura_obra_mantenimientos', through: rl_infraestructura_unidad_obra_mantenimiento, foreignKey: "id_unidad", otherKey: "id_obra" });
   ct_infraestructura_unidad.belongsToMany(ct_infraestructura_suministro_agua, { as: 'id_suministro_agua_ct_infraestructura_suministro_aguas', through: rl_infraestructura_unidad_suministro_agua, foreignKey: "id_unidad", otherKey: "id_suministro_agua" });
   ct_infraestructura_unidad.belongsToMany(ct_infraestructura_tipo_construccion, { as: 'id_construccion_ct_infraestructura_tipo_construccions', through: rl_infraestructura_unidad_construccion, foreignKey: "id_unidad", otherKey: "id_construccion" });
@@ -446,6 +448,8 @@ export function initModels(sequelize: Sequelize) {
   ct_infraestructura_unidad.hasMany(rl_infraestructura_unidad_espacios_educativos, { as: "rl_infraestructura_unidad_espacios_educativos", foreignKey: "id_unidad"});
   rl_infraestructura_unidad_fin_inmueble.belongsTo(ct_infraestructura_unidad, { as: "id_unidad_ct_infraestructura_unidad", foreignKey: "id_unidad"});
   ct_infraestructura_unidad.hasMany(rl_infraestructura_unidad_fin_inmueble, { as: "rl_infraestructura_unidad_fin_inmuebles", foreignKey: "id_unidad"});
+  rl_infraestructura_unidad_nivel.belongsTo(ct_infraestructura_unidad, { as: "id_unidad_ct_infraestructura_unidad", foreignKey: "id_unidad"});
+  ct_infraestructura_unidad.hasMany(rl_infraestructura_unidad_nivel, { as: "rl_infraestructura_unidad_nivels", foreignKey: "id_unidad"});
   rl_infraestructura_unidad_obra_mantenimiento.belongsTo(ct_infraestructura_unidad, { as: "id_unidad_ct_infraestructura_unidad", foreignKey: "id_unidad"});
   ct_infraestructura_unidad.hasMany(rl_infraestructura_unidad_obra_mantenimiento, { as: "rl_infraestructura_unidad_obra_mantenimientos", foreignKey: "id_unidad"});
   rl_infraestructura_unidad_suministro_agua.belongsTo(ct_infraestructura_unidad, { as: "id_unidad_ct_infraestructura_unidad", foreignKey: "id_unidad"});

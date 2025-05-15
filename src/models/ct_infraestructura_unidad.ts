@@ -10,6 +10,7 @@ import type { ct_infraestructura_espacio_educativo, ct_infraestructura_espacio_e
 import type { ct_infraestructura_espacio_inmueble, ct_infraestructura_espacio_inmuebleId } from './ct_infraestructura_espacio_inmueble';
 import type { ct_infraestructura_fin_inmueble, ct_infraestructura_fin_inmuebleId } from './ct_infraestructura_fin_inmueble';
 import type { ct_infraestructura_frecuencia_limpieza, ct_infraestructura_frecuencia_limpiezaId } from './ct_infraestructura_frecuencia_limpieza';
+import type { ct_infraestructura_nivel_educativo, ct_infraestructura_nivel_educativoId } from './ct_infraestructura_nivel_educativo';
 import type { ct_infraestructura_obra_mantenimiento, ct_infraestructura_obra_mantenimientoId } from './ct_infraestructura_obra_mantenimiento';
 import type { ct_infraestructura_razon_no_construccion, ct_infraestructura_razon_no_construccionId } from './ct_infraestructura_razon_no_construccion';
 import type { ct_infraestructura_sostenimiento, ct_infraestructura_sostenimientoId } from './ct_infraestructura_sostenimiento';
@@ -28,6 +29,7 @@ import type { rl_infraestructura_unidad_equipo_discapacidad, rl_infraestructura_
 import type { rl_infraestructura_unidad_espacio_inmueble, rl_infraestructura_unidad_espacio_inmuebleId } from './rl_infraestructura_unidad_espacio_inmueble';
 import type { rl_infraestructura_unidad_espacios_educativos, rl_infraestructura_unidad_espacios_educativosId } from './rl_infraestructura_unidad_espacios_educativos';
 import type { rl_infraestructura_unidad_fin_inmueble, rl_infraestructura_unidad_fin_inmuebleId } from './rl_infraestructura_unidad_fin_inmueble';
+import type { rl_infraestructura_unidad_nivel, rl_infraestructura_unidad_nivelId } from './rl_infraestructura_unidad_nivel';
 import type { rl_infraestructura_unidad_obra_mantenimiento, rl_infraestructura_unidad_obra_mantenimientoId } from './rl_infraestructura_unidad_obra_mantenimiento';
 import type { rl_infraestructura_unidad_suministro_agua, rl_infraestructura_unidad_suministro_aguaId } from './rl_infraestructura_unidad_suministro_agua';
 
@@ -398,6 +400,18 @@ export class ct_infraestructura_unidad extends Model<ct_infraestructura_unidadAt
   hasId_fin_ct_infraestructura_fin_inmueble!: Sequelize.BelongsToManyHasAssociationMixin<ct_infraestructura_fin_inmueble, ct_infraestructura_fin_inmuebleId>;
   hasId_fin_ct_infraestructura_fin_inmuebles!: Sequelize.BelongsToManyHasAssociationsMixin<ct_infraestructura_fin_inmueble, ct_infraestructura_fin_inmuebleId>;
   countId_fin_ct_infraestructura_fin_inmuebles!: Sequelize.BelongsToManyCountAssociationsMixin;
+  // ct_infraestructura_unidad belongsToMany ct_infraestructura_nivel_educativo via id_unidad and id_nivel
+  id_nivel_ct_infraestructura_nivel_educativos!: ct_infraestructura_nivel_educativo[];
+  getId_nivel_ct_infraestructura_nivel_educativos!: Sequelize.BelongsToManyGetAssociationsMixin<ct_infraestructura_nivel_educativo>;
+  setId_nivel_ct_infraestructura_nivel_educativos!: Sequelize.BelongsToManySetAssociationsMixin<ct_infraestructura_nivel_educativo, ct_infraestructura_nivel_educativoId>;
+  addId_nivel_ct_infraestructura_nivel_educativo!: Sequelize.BelongsToManyAddAssociationMixin<ct_infraestructura_nivel_educativo, ct_infraestructura_nivel_educativoId>;
+  addId_nivel_ct_infraestructura_nivel_educativos!: Sequelize.BelongsToManyAddAssociationsMixin<ct_infraestructura_nivel_educativo, ct_infraestructura_nivel_educativoId>;
+  createId_nivel_ct_infraestructura_nivel_educativo!: Sequelize.BelongsToManyCreateAssociationMixin<ct_infraestructura_nivel_educativo>;
+  removeId_nivel_ct_infraestructura_nivel_educativo!: Sequelize.BelongsToManyRemoveAssociationMixin<ct_infraestructura_nivel_educativo, ct_infraestructura_nivel_educativoId>;
+  removeId_nivel_ct_infraestructura_nivel_educativos!: Sequelize.BelongsToManyRemoveAssociationsMixin<ct_infraestructura_nivel_educativo, ct_infraestructura_nivel_educativoId>;
+  hasId_nivel_ct_infraestructura_nivel_educativo!: Sequelize.BelongsToManyHasAssociationMixin<ct_infraestructura_nivel_educativo, ct_infraestructura_nivel_educativoId>;
+  hasId_nivel_ct_infraestructura_nivel_educativos!: Sequelize.BelongsToManyHasAssociationsMixin<ct_infraestructura_nivel_educativo, ct_infraestructura_nivel_educativoId>;
+  countId_nivel_ct_infraestructura_nivel_educativos!: Sequelize.BelongsToManyCountAssociationsMixin;
   // ct_infraestructura_unidad belongsToMany ct_infraestructura_obra_mantenimiento via id_unidad and id_obra
   id_obra_ct_infraestructura_obra_mantenimientos!: ct_infraestructura_obra_mantenimiento[];
   getId_obra_ct_infraestructura_obra_mantenimientos!: Sequelize.BelongsToManyGetAssociationsMixin<ct_infraestructura_obra_mantenimiento>;
@@ -530,6 +544,18 @@ export class ct_infraestructura_unidad extends Model<ct_infraestructura_unidadAt
   hasRl_infraestructura_unidad_fin_inmueble!: Sequelize.HasManyHasAssociationMixin<rl_infraestructura_unidad_fin_inmueble, rl_infraestructura_unidad_fin_inmuebleId>;
   hasRl_infraestructura_unidad_fin_inmuebles!: Sequelize.HasManyHasAssociationsMixin<rl_infraestructura_unidad_fin_inmueble, rl_infraestructura_unidad_fin_inmuebleId>;
   countRl_infraestructura_unidad_fin_inmuebles!: Sequelize.HasManyCountAssociationsMixin;
+  // ct_infraestructura_unidad hasMany rl_infraestructura_unidad_nivel via id_unidad
+  rl_infraestructura_unidad_nivels!: rl_infraestructura_unidad_nivel[];
+  getRl_infraestructura_unidad_nivels!: Sequelize.HasManyGetAssociationsMixin<rl_infraestructura_unidad_nivel>;
+  setRl_infraestructura_unidad_nivels!: Sequelize.HasManySetAssociationsMixin<rl_infraestructura_unidad_nivel, rl_infraestructura_unidad_nivelId>;
+  addRl_infraestructura_unidad_nivel!: Sequelize.HasManyAddAssociationMixin<rl_infraestructura_unidad_nivel, rl_infraestructura_unidad_nivelId>;
+  addRl_infraestructura_unidad_nivels!: Sequelize.HasManyAddAssociationsMixin<rl_infraestructura_unidad_nivel, rl_infraestructura_unidad_nivelId>;
+  createRl_infraestructura_unidad_nivel!: Sequelize.HasManyCreateAssociationMixin<rl_infraestructura_unidad_nivel>;
+  removeRl_infraestructura_unidad_nivel!: Sequelize.HasManyRemoveAssociationMixin<rl_infraestructura_unidad_nivel, rl_infraestructura_unidad_nivelId>;
+  removeRl_infraestructura_unidad_nivels!: Sequelize.HasManyRemoveAssociationsMixin<rl_infraestructura_unidad_nivel, rl_infraestructura_unidad_nivelId>;
+  hasRl_infraestructura_unidad_nivel!: Sequelize.HasManyHasAssociationMixin<rl_infraestructura_unidad_nivel, rl_infraestructura_unidad_nivelId>;
+  hasRl_infraestructura_unidad_nivels!: Sequelize.HasManyHasAssociationsMixin<rl_infraestructura_unidad_nivel, rl_infraestructura_unidad_nivelId>;
+  countRl_infraestructura_unidad_nivels!: Sequelize.HasManyCountAssociationsMixin;
   // ct_infraestructura_unidad hasMany rl_infraestructura_unidad_obra_mantenimiento via id_unidad
   rl_infraestructura_unidad_obra_mantenimientos!: rl_infraestructura_unidad_obra_mantenimiento[];
   getRl_infraestructura_unidad_obra_mantenimientos!: Sequelize.HasManyGetAssociationsMixin<rl_infraestructura_unidad_obra_mantenimiento>;

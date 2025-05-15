@@ -1,5 +1,6 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
+import type { ct_infraestructura_espacio_educativo, ct_infraestructura_espacio_educativoId } from './ct_infraestructura_espacio_educativo';
 import type { ct_infraestructura_unidad, ct_infraestructura_unidadId } from './ct_infraestructura_unidad';
 
 export interface rl_infraestructura_unidad_espacios_educativosAttributes {
@@ -22,6 +23,11 @@ export class rl_infraestructura_unidad_espacios_educativos extends Model<rl_infr
   en_uso?: number;
   descripcion_otro?: string;
 
+  // rl_infraestructura_unidad_espacios_educativos belongsTo ct_infraestructura_espacio_educativo via id_espacio
+  id_espacio_ct_infraestructura_espacio_educativo!: ct_infraestructura_espacio_educativo;
+  getId_espacio_ct_infraestructura_espacio_educativo!: Sequelize.BelongsToGetAssociationMixin<ct_infraestructura_espacio_educativo>;
+  setId_espacio_ct_infraestructura_espacio_educativo!: Sequelize.BelongsToSetAssociationMixin<ct_infraestructura_espacio_educativo, ct_infraestructura_espacio_educativoId>;
+  createId_espacio_ct_infraestructura_espacio_educativo!: Sequelize.BelongsToCreateAssociationMixin<ct_infraestructura_espacio_educativo>;
   // rl_infraestructura_unidad_espacios_educativos belongsTo ct_infraestructura_unidad via id_unidad
   id_unidad_ct_infraestructura_unidad!: ct_infraestructura_unidad;
   getId_unidad_ct_infraestructura_unidad!: Sequelize.BelongsToGetAssociationMixin<ct_infraestructura_unidad>;
@@ -42,7 +48,11 @@ export class rl_infraestructura_unidad_espacios_educativos extends Model<rl_infr
     id_espacio: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
+      references: {
+        model: 'ct_infraestructura_espacio_educativo',
+        key: 'id_espacio'
+      }
     },
     total: {
       type: DataTypes.INTEGER,
@@ -69,6 +79,13 @@ export class rl_infraestructura_unidad_espacios_educativos extends Model<rl_infr
         using: "BTREE",
         fields: [
           { name: "id_unidad" },
+          { name: "id_espacio" },
+        ]
+      },
+      {
+        name: "rl_infraestructura_unidad_espacios_educativos_ibfk_2",
+        using: "BTREE",
+        fields: [
           { name: "id_espacio" },
         ]
       },

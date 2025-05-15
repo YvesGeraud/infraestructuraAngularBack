@@ -1,16 +1,26 @@
-import { ct_usuario, ct_usuarioCreationAttributes } from "../models/ct_usuario";
+import {
+  ct_usuarioCreationAttributes,
+  initModels,
+} from "../models/init-models";
+import { sequelize } from "../config/database";
+
+//! Inicializar los modelos
+const models = initModels(sequelize);
+
+//! Desestructurar los modelos que necesitamos
+const { ct_usuario: Usuario } = models;
 
 class CtUsuarioService {
-  // Crear un nuevo usuario
+  //* Crear un nuevo usuario
   async crearUsuario(data: ct_usuarioCreationAttributes) {
     // Aqui se podria agregar logica adicional, como validaciones o hasheo de contraseña pero como no es necesario se omite
-    const nuevoUsuario = await ct_usuario.create(data);
+    const nuevoUsuario = await Usuario.create(data);
     return nuevoUsuario;
   }
 
   // Obtener un usuario por su ID
   async obtenerUsuarioPorId(id: number) {
-    const usuarioEncontrado = await ct_usuario.findByPk(id);
+    const usuarioEncontrado = await Usuario.findByPk(id);
     if (!usuarioEncontrado) {
       throw new Error("Usuario no encontrado");
     }
@@ -22,7 +32,7 @@ class CtUsuarioService {
     id: number,
     data: Partial<ct_usuarioCreationAttributes>
   ) {
-    const usuarioEncontrado = await ct_usuario.findByPk(id);
+    const usuarioEncontrado = await Usuario.findByPk(id);
     if (!usuarioEncontrado) {
       throw new Error("Usuario no encontrado");
     }
@@ -32,7 +42,7 @@ class CtUsuarioService {
 
   // Eliminar un usuario
   async eliminarUsuario(id: number) {
-    const usuarioEncontrado = await ct_usuario.findByPk(id);
+    const usuarioEncontrado = await Usuario.findByPk(id);
     if (!usuarioEncontrado) {
       throw new Error("Usuario no encontrado");
     }

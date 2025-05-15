@@ -21,7 +21,6 @@ import espacioInmueblesRoutes from "./routes/infraestructura/ct_espacio_inmueble
 import dimensionTerrenoRoutes from "./routes/infraestructura/ct_dimension_terreno.routes";
 import suministroDeAguaRoutes from "./routes/infraestructura/ct_suministro_de_agua.routes";
 import almacenamientoAguaRoutes from "./routes/infraestructura/ct_almacenamiento_agua.routes";
-import "./models";
 
 // Configurar variables de entorno
 dotenv.config();

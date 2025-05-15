@@ -1,30 +1,39 @@
 import {
-  ct_infraestructura_unidad,
   ct_infraestructura_unidadCreationAttributes,
-} from "../../models/ct_infraestructura_unidad";
-import { ct_infraestructura_sostenimiento } from "../../models/ct_infraestructura_sostenimiento";
-import { ct_infraestructura_tipo_escuela } from "../../models/ct_infraestructura_tipo_escuela";
-import { Op, Transaction } from "sequelize";
-import { ct_localidad } from "../../models/ct_localidad";
-import { ct_municipio } from "../../models/ct_municipio";
+  initModels,
+} from "../../models/init-models";
+import { Op } from "sequelize";
 import { sequelize } from "../../config/database";
-import { ct_infraestructura_nivel_educativo } from "../../models/ct_infraestructura_nivel_educativo";
-import { rl_infraestructura_unidad_nivel } from "../../models/rl_infraestructura_unidad_nivel";
-import { rl_infraestructura_unidad_suministro_agua } from "../../models/rl_infraestructura_unidad_suministro_agua";
-import { ct_infraestructura_suministro_agua } from "../../models/ct_infraestructura_suministro_agua";
-import { rl_infraestructura_unidad_almacenamiento_agua } from "../../models/rl_infraestructura_unidad_almacenamiento_agua";
-import { ct_infraestructura_almacenamiento_agua } from "../../models/ct_infraestructura_almacenamiento_agua";
+
+//! Inicializar los modelos
+const models = initModels(sequelize);
+
+//! Desestructurar los modelos que necesitamos
+const {
+  ct_infraestructura_unidad: Unidad,
+  ct_infraestructura_sostenimiento: Sostenimiento,
+  ct_infraestructura_tipo_escuela: TipoEscuela,
+  ct_localidad: Localidad,
+  ct_municipio: Municipio,
+  ct_infraestructura_nivel_educativo: NivelEducativo,
+  rl_infraestructura_unidad_nivel: UnidadNivel,
+  rl_infraestructura_unidad_suministro_agua: UnidadSuministroAgua,
+  ct_infraestructura_suministro_agua: SuministroAgua,
+  rl_infraestructura_unidad_almacenamiento_agua: UnidadAlmacenamientoAgua,
+  ct_infraestructura_almacenamiento_agua: AlmacenamientoAgua,
+} = models;
+
 class ctInfraestructuraUnidadService {
   //* Obtener todas las unidades
   async obtenerUnidades() {
-    const unidades = await ct_infraestructura_unidad.findAll();
+    const unidades = await Unidad.findAll();
     return unidades;
   }
 
   //* Obtener una unidad por su ID
   async obtenerUnidadPorId(id: number) {
     try {
-      const unidad = await ct_infraestructura_unidad.findByPk(id);
+      const unidad = await Unidad.findByPk(id);
       return unidad;
     } catch (error) {
       throw new Error("Error al obtener la unidad");
@@ -33,35 +42,32 @@ class ctInfraestructuraUnidadService {
 
   //* Buscar unidades por nombre
   async buscarPorNombre(termino: string, limit = 10) {
-    return await ct_infraestructura_unidad.findAll({
-      // Seleccionar solo los atributos necesarios
+    return await Unidad.findAll({
       attributes: ["id_unidad", "nombre_unidad", "cct", "ubicacion"],
-      // Buscar en el nombre de la unidad
       where: {
         [Op.or]: [
           { nombre_unidad: { [Op.like]: `%${termino}%` } },
           { cct: { [Op.like]: `%${termino}%` } },
         ],
       },
-      // Incluir el sostenimiento de la unidad
       include: [
         {
-          model: ct_infraestructura_sostenimiento,
+          model: Sostenimiento,
           as: "sostenimiento",
           attributes: ["id_sostenimiento", "sostenimiento"],
         },
         {
-          model: ct_infraestructura_tipo_escuela,
+          model: TipoEscuela,
           as: "tipo_escuela",
           attributes: ["id_tipo_escuela", "tipo_escuela"],
         },
         {
-          model: ct_localidad,
+          model: Localidad,
           as: "localidad",
           attributes: ["id_localidad", "localidad"],
           include: [
             {
-              model: ct_municipio,
+              model: Municipio,
               as: "municipio",
               attributes: ["id_municipio", "nombre"],
             },
@@ -75,29 +81,29 @@ class ctInfraestructuraUnidadService {
   //* Obtener unidades por id_municipio
   async obtenerUnidadesPorMunicipio(idMunicipio: number) {
     try {
-      const unidades = await ct_infraestructura_unidad.findAll({
+      const unidades = await Unidad.findAll({
         include: [
           {
-            model: ct_localidad,
+            model: Localidad,
             as: "localidad",
             where: {
               id_municipio: idMunicipio,
             },
             include: [
               {
-                model: ct_municipio,
+                model: Municipio,
                 as: "municipio",
                 attributes: ["id_municipio", "nombre"],
               },
             ],
           },
           {
-            model: ct_infraestructura_sostenimiento,
+            model: Sostenimiento,
             as: "sostenimiento",
             attributes: ["id_sostenimiento", "sostenimiento"],
           },
           {
-            model: ct_infraestructura_tipo_escuela,
+            model: TipoEscuela,
             as: "tipo_escuela",
             attributes: ["id_tipo_escuela", "tipo_escuela"],
           },
@@ -112,19 +118,19 @@ class ctInfraestructuraUnidadService {
 
   //* Obtener niveles educativos de una unidad
   async obtenerNivelesEducativosDeUnaUnidad(idUnidad: number) {
-    const niveles = await ct_infraestructura_unidad.findOne({
+    const niveles = await Unidad.findOne({
       attributes: ["id_unidad"],
       where: {
         id_unidad: idUnidad,
       },
       include: [
         {
-          model: rl_infraestructura_unidad_nivel,
+          model: UnidadNivel,
           as: "niveles",
           attributes: ["id_nivel"],
           include: [
             {
-              model: ct_infraestructura_nivel_educativo,
+              model: NivelEducativo,
               as: "nivel",
               attributes: ["id_nivel", "descripcion"],
             },
@@ -137,17 +143,17 @@ class ctInfraestructuraUnidadService {
 
   //* Obtener suministros de agua de una unidad
   async obtenerSuministrosDeAguaDeUnaUnidad(idUnidad: number) {
-    const suministros = await ct_infraestructura_unidad.findOne({
+    const suministros = await Unidad.findOne({
       attributes: ["id_unidad"],
       where: { id_unidad: idUnidad },
       include: [
         {
-          model: rl_infraestructura_unidad_suministro_agua,
+          model: UnidadSuministroAgua,
           as: "suministros",
           attributes: ["id_suministro_agua"],
           include: [
             {
-              model: ct_infraestructura_suministro_agua,
+              model: SuministroAgua,
               as: "suministro",
               attributes: ["id_suministro_agua", "descripcion"],
             },
@@ -160,17 +166,17 @@ class ctInfraestructuraUnidadService {
 
   //* Obtener almacenamiento de agua de una unidad
   async obtenerAlmacenamientoAguaDeUnaUnidad(idUnidad: number) {
-    const almacenamientoAgua = await ct_infraestructura_unidad.findOne({
+    const almacenamientoAgua = await Unidad.findOne({
       attributes: ["id_unidad"],
       where: { id_unidad: idUnidad },
       include: [
         {
-          model: rl_infraestructura_unidad_almacenamiento_agua,
+          model: UnidadAlmacenamientoAgua,
           as: "almacenamientos",
           attributes: ["id_almacenamiento"],
           include: [
             {
-              model: ct_infraestructura_almacenamiento_agua,
+              model: AlmacenamientoAgua,
               as: "almacenamiento",
               attributes: ["id_almacenamiento", "descripcion"],
             },
@@ -185,7 +191,7 @@ class ctInfraestructuraUnidadService {
   async crearUnidad(data: ct_infraestructura_unidadCreationAttributes) {
     const transaction = await sequelize.transaction();
     try {
-      const unidad = await ct_infraestructura_unidad.create(data, {
+      const unidad = await Unidad.create(data, {
         transaction,
       });
       await transaction.commit();
@@ -200,7 +206,7 @@ class ctInfraestructuraUnidadService {
   async actualizarCamposUnidad(id: number, campos: { [key: string]: any }) {
     const transaction = await sequelize.transaction();
     try {
-      const unidad = await ct_infraestructura_unidad.findByPk(id, {
+      const unidad = await Unidad.findByPk(id, {
         transaction,
       });
       if (!unidad) {
@@ -226,7 +232,7 @@ class ctInfraestructuraUnidadService {
   async eliminarUnidad(id: number) {
     const transaction = await sequelize.transaction();
     try {
-      const unidad = await ct_infraestructura_unidad.findByPk(id, {
+      const unidad = await Unidad.findByPk(id, {
         transaction,
       });
       if (!unidad) {

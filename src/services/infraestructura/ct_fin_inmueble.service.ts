@@ -1,13 +1,21 @@
-import { ct_infraestructura_fin_inmueble } from "../../models/ct_infraestructura_fin_inmueble";
-import { Op } from "sequelize";
+import { initModels } from "../../models/init-models";
+import { sequelize } from "../../config/database";
+
+//! Inicializar los modelos
+const models = initModels(sequelize);
+
+//! Desestructurar los modelos que necesitamos
+const { ct_infraestructura_fin_inmueble: FinInmueble } = models;
 
 class ctInfraestructuraFinInmuebleService {
   //* Obtener todos los tipos de fin de inmueble
   async obtenerTiposFinInmueble() {
     try {
-      return await ct_infraestructura_fin_inmueble.findAll();
+      const tiposFinInmueble = await FinInmueble.findAll();
+      return tiposFinInmueble;
     } catch (error) {
-      throw new Error("Error al obtener los tipos de fin de inmueble");
+      console.error("Error al obtener los tipos de fin de inmueble:", error);
+      throw error;
     }
   }
 }

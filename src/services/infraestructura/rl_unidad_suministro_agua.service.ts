@@ -1,14 +1,22 @@
-import { rl_infraestructura_unidad_suministro_agua } from "../../models/rl_infraestructura_unidad_suministro_agua";
-import { Op } from "sequelize";
+import { initModels } from "../../models/init-models";
+import { sequelize } from "../../config/database";
+
+//! Inicializar los modelos
+const models = initModels(sequelize);
+
+//! Desestructurar los modelos que necesitamos
+const { rl_infraestructura_unidad_suministro_agua: UnidadSuministroAgua } =
+  models;
 
 class rlSuministroDeAguaService {
+  //* Obtener todos los suministros de agua
   async obtenerSuministrosDeAgua() {
     try {
-      const suministrosDeAgua =
-        await rl_infraestructura_unidad_suministro_agua.findAll();
+      const suministrosDeAgua = await UnidadSuministroAgua.findAll();
       return suministrosDeAgua;
     } catch (error) {
-      throw new Error("Error al obtener los suministros de agua");
+      console.error("Error al obtener los suministros de agua:", error);
+      throw error;
     }
   }
 }

@@ -118,43 +118,47 @@ class ctInfraestructuraUnidadService {
 
   //* Obtener niveles educativos de una unidad
   async obtenerNivelesEducativosDeUnaUnidad(idUnidad: number) {
-    const niveles = await Unidad.findOne({
-      attributes: ["id_unidad"],
-      where: {
-        id_unidad: idUnidad,
-      },
-      include: [
-        {
-          model: UnidadNivel,
-          as: "rl_infraestructura_unidad_nivels",
-          attributes: ["id_nivel"],
-          include: [
-            {
-              model: NivelEducativo,
-              as: "id_nivel_ct_infraestructura_nivel_educativo",
-              attributes: ["id_nivel", "descripcion"],
-            },
-          ],
+    try {
+      const niveles = await Unidad.findOne({
+        attributes: ["id_unidad"],
+        where: {
+          id_unidad: idUnidad,
         },
-      ],
-    });
-
-    //! Transformación de la respuesta ya que la relacion requiere dejar esos atributos
-    if (niveles) {
-      return {
-        id_unidad: niveles.id_unidad,
-        niveles: niveles.rl_infraestructura_unidad_nivels.map((nivel) => ({
-          id_nivel: nivel.id_nivel,
-          nivel: {
-            id_nivel:
-              nivel.id_nivel_ct_infraestructura_nivel_educativo.id_nivel,
-            descripcion:
-              nivel.id_nivel_ct_infraestructura_nivel_educativo.descripcion,
+        include: [
+          {
+            model: UnidadNivel,
+            as: "rl_infraestructura_unidad_nivels",
+            attributes: ["id_nivel"],
+            include: [
+              {
+                model: NivelEducativo,
+                as: "id_nivel_ct_infraestructura_nivel_educativo",
+                attributes: ["id_nivel", "descripcion"],
+              },
+            ],
           },
-        })),
-      };
+        ],
+      });
+
+      //! Transformación de la respuesta ya que la relacion requiere dejar esos atributos
+      if (niveles) {
+        return {
+          id_unidad: niveles.id_unidad,
+          niveles: niveles.rl_infraestructura_unidad_nivels.map((nivel) => ({
+            id_nivel: nivel.id_nivel,
+            nivel: {
+              id_nivel:
+                nivel.id_nivel_ct_infraestructura_nivel_educativo.id_nivel,
+              descripcion:
+                nivel.id_nivel_ct_infraestructura_nivel_educativo.descripcion,
+            },
+          })),
+        };
+      }
+      return null;
+    } catch (error) {
+      throw new Error("Error al obtener niveles educativos de una unidad");
     }
-    return null;
   }
 
   //* Obtener suministros de agua de una unidad

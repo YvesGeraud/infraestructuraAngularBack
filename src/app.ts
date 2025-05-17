@@ -21,6 +21,8 @@ import espacioInmueblesRoutes from "./routes/infraestructura/ct_espacio_inmueble
 import dimensionTerrenoRoutes from "./routes/infraestructura/ct_dimension_terreno.routes";
 import suministroDeAguaRoutes from "./routes/infraestructura/ct_suministro_de_agua.routes";
 import almacenamientoAguaRoutes from "./routes/infraestructura/ct_almacenamiento_agua.routes";
+import direccionRoutes from "./routes/infraestructura/ct_direccion.routes";
+import departamentoRoutes from "./routes/infraestructura/ct_departamento.routes";
 
 // Configurar variables de entorno
 dotenv.config();
@@ -81,6 +83,16 @@ app.use(
 app.use(
   `${process.env.HOST}api/almacenamiento-agua`,
   /*authenticateJWT,*/ almacenamientoAguaRoutes
+);
+
+app.use(
+  `${process.env.HOST}api/direcciones`,
+  /*authenticateJWT,*/ direccionRoutes
+);
+
+app.use(
+  `${process.env.HOST}api/departamentos`,
+  /*authenticateJWT,*/ departamentoRoutes
 );
 
 // Mostrar información de configuración de la base de datos

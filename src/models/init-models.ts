@@ -1,4 +1,6 @@
 import type { Sequelize } from "sequelize";
+import { ctUnidadAdmin as _ctUnidadAdmin } from "./ctUnidadAdmin";
+import type { ctUnidadAdminAttributes, ctUnidadAdminCreationAttributes } from "./ctUnidadAdmin";
 import { ct_accion as _ct_accion } from "./ct_accion";
 import type { ct_accionAttributes, ct_accionCreationAttributes } from "./ct_accion";
 import { ct_infraestructura_almacenamiento_agua as _ct_infraestructura_almacenamiento_agua } from "./ct_infraestructura_almacenamiento_agua";
@@ -115,6 +117,7 @@ import { rl_infraestructura_unidad_suministro_agua as _rl_infraestructura_unidad
 import type { rl_infraestructura_unidad_suministro_aguaAttributes, rl_infraestructura_unidad_suministro_aguaCreationAttributes } from "./rl_infraestructura_unidad_suministro_agua";
 
 export {
+  _ctUnidadAdmin as ctUnidadAdmin,
   _ct_accion as ct_accion,
   _ct_infraestructura_almacenamiento_agua as ct_infraestructura_almacenamiento_agua,
   _ct_infraestructura_antiguedad_inmueble as ct_infraestructura_antiguedad_inmueble,
@@ -175,6 +178,8 @@ export {
 };
 
 export type {
+  ctUnidadAdminAttributes,
+  ctUnidadAdminCreationAttributes,
   ct_accionAttributes,
   ct_accionCreationAttributes,
   ct_infraestructura_almacenamiento_aguaAttributes,
@@ -292,6 +297,7 @@ export type {
 };
 
 export function initModels(sequelize: Sequelize) {
+  const ctUnidadAdmin = _ctUnidadAdmin.initModel(sequelize);
   const ct_accion = _ct_accion.initModel(sequelize);
   const ct_infraestructura_almacenamiento_agua = _ct_infraestructura_almacenamiento_agua.initModel(sequelize);
   const ct_infraestructura_antiguedad_inmueble = _ct_infraestructura_antiguedad_inmueble.initModel(sequelize);
@@ -476,6 +482,7 @@ export function initModels(sequelize: Sequelize) {
   rl_infraestructura_edificios.hasMany(ct_inventario, { as: "ct_inventarios", foreignKey: "id_edificios"});
 
   return {
+    ctUnidadAdmin: ctUnidadAdmin,
     ct_accion: ct_accion,
     ct_infraestructura_almacenamiento_agua: ct_infraestructura_almacenamiento_agua,
     ct_infraestructura_antiguedad_inmueble: ct_infraestructura_antiguedad_inmueble,

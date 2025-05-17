@@ -10,11 +10,14 @@ export interface ct_infraestructura_departamentoAttributes {
   nombre: string;
   id_puesto?: number;
   id_direccion?: number;
+  estado?: number;
+  fecha_in?: Date;
+  fecha_at?: Date;
 }
 
 export type ct_infraestructura_departamentoPk = "id_departamento";
 export type ct_infraestructura_departamentoId = ct_infraestructura_departamento[ct_infraestructura_departamentoPk];
-export type ct_infraestructura_departamentoOptionalAttributes = "id_departamento" | "id_puesto" | "id_direccion";
+export type ct_infraestructura_departamentoOptionalAttributes = "id_departamento" | "id_puesto" | "id_direccion" | "estado" | "fecha_in" | "fecha_at";
 export type ct_infraestructura_departamentoCreationAttributes = Optional<ct_infraestructura_departamentoAttributes, ct_infraestructura_departamentoOptionalAttributes>;
 
 export class ct_infraestructura_departamento extends Model<ct_infraestructura_departamentoAttributes, ct_infraestructura_departamentoCreationAttributes> implements ct_infraestructura_departamentoAttributes {
@@ -22,6 +25,9 @@ export class ct_infraestructura_departamento extends Model<ct_infraestructura_de
   nombre!: string;
   id_puesto?: number;
   id_direccion?: number;
+  estado?: number;
+  fecha_in?: Date;
+  fecha_at?: Date;
 
   // ct_infraestructura_departamento hasMany ct_infraestructura_jefe_sector via id_departamento
   ct_infraestructura_jefe_sectors!: ct_infraestructura_jefe_sector[];
@@ -75,7 +81,8 @@ export class ct_infraestructura_departamento extends Model<ct_infraestructura_de
     },
     nombre: {
       type: DataTypes.STRING(255),
-      allowNull: false
+      allowNull: false,
+      unique: "nombre"
     },
     id_puesto: {
       type: DataTypes.INTEGER,
@@ -88,6 +95,20 @@ export class ct_infraestructura_departamento extends Model<ct_infraestructura_de
         model: 'ct_infraestructura_direccion',
         key: 'id_direccion'
       }
+    },
+    estado: {
+      type: DataTypes.TINYINT,
+      allowNull: true,
+      defaultValue: 1
+    },
+    fecha_in: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: Sequelize.Sequelize.fn('current_timestamp')
+    },
+    fecha_at: {
+      type: DataTypes.DATE,
+      allowNull: true
     }
   }, {
     sequelize,
@@ -100,6 +121,14 @@ export class ct_infraestructura_departamento extends Model<ct_infraestructura_de
         using: "BTREE",
         fields: [
           { name: "id_departamento" },
+        ]
+      },
+      {
+        name: "nombre",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "nombre" },
         ]
       },
       {

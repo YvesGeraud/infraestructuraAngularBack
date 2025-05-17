@@ -17,7 +17,7 @@ router.post(
 );
 
 router.delete(
-  "/:id_unidad/:id_nivel",
+  "/:idUnidad/:idNivel",
   /*authenticateJWT,*/
   ctNivelEducativoController.eliminarNivelAcademico
 );

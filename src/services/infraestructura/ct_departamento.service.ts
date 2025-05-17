@@ -1,5 +1,11 @@
 import { initModels } from "../../models/init-models";
 import { sequelize } from "../../config/database";
+import {
+  IDepartamento,
+  IDepartamentoResponse,
+  IDepartamentoConDireccion,
+  IDepartamentosPorDireccion,
+} from "../../interfaces/ct_departamento.interface";
 
 //! Inicializar los modelos
 const models = initModels(sequelize);
@@ -12,64 +18,118 @@ const {
 
 export class CtDepartamentoService {
   //* Obtener todos los departamentos
-
-  async obtenerDepartamentos() {
+  async obtenerDepartamentos(): Promise<IDepartamentoResponse[]> {
     try {
-      const departamentos = await Departamento.findAll();
-      return departamentos;
+      const departamentos = await Departamento.findAll({
+        attributes: ["id_departamento", "nombre"],
+        where: { estado: 1 },
+        order: [["nombre", "ASC"]],
+      });
+
+      return departamentos.map((departamento) => ({
+        id_departamento: departamento.id_departamento,
+        nombre: departamento.nombre,
+      }));
     } catch (error) {
-      console.error("Error al obtener departamentos:", error);
-      throw error;
+      if (error instanceof Error) {
+        console.error(`Error al obtener departamentos: ${error.message}`);
+        throw new Error(`Error al obtener departamentos: ${error.message}`);
+      }
+      console.error("Error inesperado al obtener departamentos:", error);
+      throw new Error("Error inesperado al obtener departamentos");
     }
   }
 
   //* Obtener un departamento por su ID
-  async obtenerDepartamentoPorId(id: number) {
+  async obtenerDepartamentoPorId(
+    id: number
+  ): Promise<IDepartamentoConDireccion> {
     try {
-      const departamento = await Departamento.findByPk(id);
-      if (!departamento) {
-        throw new Error("Departamento no encontrado");
+      if (!id || id <= 0) {
+        throw new Error("ID de departamento inválido");
       }
-      return departamento;
+
+      const departamento = await Departamento.findOne({
+        attributes: ["id_departamento", "nombre", "id_direccion", "estado"],
+        where: {
+          id_departamento: id,
+          estado: 1,
+        },
+      });
+
+      if (!departamento) {
+        throw new Error(`No se encontró el departamento con ID: ${id}`);
+      }
+
+      // Obtener la dirección
+      const direccion = await Direccion.findByPk(departamento.id_direccion);
+
+      return {
+        id_departamento: departamento.id_departamento,
+        nombre: departamento.nombre,
+        direccion: {
+          id_direccion: direccion?.id_direccion || 0,
+          nombre: direccion?.nombre || "",
+        },
+      };
     } catch (error) {
-      console.error("Error al obtener el departamento:", error);
-      throw error;
+      if (error instanceof Error) {
+        console.error(`Error al obtener el departamento: ${error.message}`);
+        throw new Error(`Error al obtener el departamento: ${error.message}`);
+      }
+      console.error("Error inesperado al obtener el departamento:", error);
+      throw new Error("Error inesperado al obtener el departamento");
     }
   }
 
   //* Obtener un departamento por Direccion
-  async obtenerDepartamentoPorDireccion(id_direccion: number) {
+  async obtenerDepartamentoPorDireccion(
+    id_direccion: number
+  ): Promise<IDepartamentosPorDireccion> {
     try {
+      // Validar que el id_direccion sea un número válido
+      if (!id_direccion || id_direccion <= 0) {
+        throw new Error("ID de dirección inválido");
+      }
+
+      // Primero obtenemos la dirección
+      const direccion = await Direccion.findByPk(id_direccion);
+
+      // Validar que la dirección exista
+      if (!direccion) {
+        throw new Error(`No se encontró la dirección con ID: ${id_direccion}`);
+      }
+
+      // Luego obtenemos los departamentos
       const departamentos = await Departamento.findAll({
         attributes: ["id_departamento", "nombre"],
-        where: { id_direccion },
-        include: [
-          {
-            model: Direccion,
-            as: "id_direccion_ct_infraestructura_direccion",
-            attributes: ["id_direccion", "nombre"],
-          },
-        ],
+        where: {
+          id_direccion,
+          estado: 1,
+        },
+        order: [["nombre", "ASC"]],
       });
 
-      //! Transformación de la respuesta ya que la relacion requiere dejar esos atributos
-      if (departamentos && departamentos.length > 0) {
-        return departamentos.map((departamento) => ({
+      return {
+        id_direccion: id_direccion,
+        nombre_direccion: direccion.nombre,
+        departamentos: departamentos.map((departamento) => ({
           id_departamento: departamento.id_departamento,
           nombre: departamento.nombre,
-          direccion: {
-            id_direccion:
-              departamento.id_direccion_ct_infraestructura_direccion
-                .id_direccion,
-            nombre:
-              departamento.id_direccion_ct_infraestructura_direccion.nombre,
-          },
-        }));
-      }
-      return [];
+        })),
+      };
     } catch (error) {
-      console.error("Error al obtener departamentos por dirección:", error);
-      throw error;
+      if (error instanceof Error) {
+        console.error(
+          `Error al obtener departamentos por dirección: ${error.message}`
+        );
+        throw new Error(`Error al obtener departamentos: ${error.message}`);
+      }
+      console.error(
+        "Error inesperado al obtener departamentos por dirección:",
+        error
+      );
+      throw new Error("Error inesperado al obtener departamentos");
     }
   }
 }

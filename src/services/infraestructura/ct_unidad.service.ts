@@ -140,68 +140,79 @@ class ctInfraestructuraUnidadService {
         ],
       });
 
-      //! Transformación de la respuesta ya que la relacion requiere dejar esos atributos
-      if (niveles) {
-        return {
-          id_unidad: niveles.id_unidad,
-          niveles: niveles.rl_infraestructura_unidad_nivels.map((nivel) => ({
-            id_nivel: nivel.id_nivel,
-            nivel: {
-              id_nivel:
-                nivel.id_nivel_ct_infraestructura_nivel_educativo.id_nivel,
-              descripcion:
-                nivel.id_nivel_ct_infraestructura_nivel_educativo.descripcion,
-            },
-          })),
-        };
+      if (!niveles) {
+        throw new Error(`No se encontró la unidad con ID: ${idUnidad}`);
       }
-      return null;
+
+      //! Transformación de la respuesta ya que la relacion requiere dejar esos atributos
+      return {
+        id_unidad: niveles.id_unidad,
+        niveles: niveles.rl_infraestructura_unidad_nivels.map((nivel) => ({
+          id_nivel: nivel.id_nivel,
+          nivel: {
+            id_nivel:
+              nivel.id_nivel_ct_infraestructura_nivel_educativo.id_nivel,
+            descripcion:
+              nivel.id_nivel_ct_infraestructura_nivel_educativo.descripcion,
+          },
+        })),
+      };
     } catch (error) {
-      throw new Error("Error al obtener niveles educativos de una unidad");
+      if (error instanceof Error) {
+        throw new Error(
+          `Error al obtener niveles educativos: ${error.message}`
+        );
+      }
+      throw new Error("Error inesperado al obtener niveles educativos");
     }
   }
 
   //* Obtener suministros de agua de una unidad
   async obtenerSuministrosDeAguaDeUnaUnidad(idUnidad: number) {
-    const suministros = await Unidad.findOne({
-      attributes: ["id_unidad"],
-      where: { id_unidad: idUnidad },
-      include: [
-        {
-          model: UnidadSuministroAgua,
-          as: "rl_infraestructura_unidad_suministro_aguas",
-          attributes: ["id_suministro_agua"],
-          include: [
-            {
-              model: SuministroAgua,
-              as: "id_suministro_agua_ct_infraestructura_suministro_agua",
-              attributes: ["id_suministro_agua", "descripcion"],
-            },
-          ],
-        },
-      ],
-    });
+    try {
+      const suministros = await Unidad.findOne({
+        attributes: ["id_unidad"],
+        where: { id_unidad: idUnidad },
+        include: [
+          {
+            model: UnidadSuministroAgua,
+            as: "rl_infraestructura_unidad_suministro_aguas",
+            attributes: ["id_suministro_agua"],
+            include: [
+              {
+                model: SuministroAgua,
+                as: "id_suministro_agua_ct_infraestructura_suministro_agua",
+                attributes: ["id_suministro_agua", "descripcion"],
+              },
+            ],
+          },
+        ],
+      });
 
-    //! Transformación de la respuesta ya que la relacion requiere dejar esos atributos
-    if (suministros) {
+      //! Validación de la respuesta
+      if (!suministros) {
+        throw new Error(`No se encontró la unidad con ID: ${idUnidad}`);
+      }
+      //! Transformación de la respuesta ya que la relacion requiere dejar esos atributos
       return {
         id_unidad: suministros.id_unidad,
         suministros: suministros.rl_infraestructura_unidad_suministro_aguas.map(
           (suministro) => ({
             id_suministro_agua: suministro.id_suministro_agua,
-            suministro: {
-              id_suministro_agua:
-                suministro.id_suministro_agua_ct_infraestructura_suministro_agua
-                  .id_suministro_agua,
-              descripcion:
-                suministro.id_suministro_agua_ct_infraestructura_suministro_agua
-                  .descripcion,
-            },
+            suministro:
+              suministro.id_suministro_agua_ct_infraestructura_suministro_agua
+                .descripcion,
           })
         ),
       };
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(
+          `Error al obtener suministros de agua: ${error.message}`
+        );
+      }
+      throw new Error("Error inesperado al obtener suministros de agua");
     }
-    return null;
   }
 
   //* Obtener almacenamiento de agua de una unidad

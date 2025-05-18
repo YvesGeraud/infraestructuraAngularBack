@@ -4,17 +4,17 @@ import type { ct_infraestructura_unidad, ct_infraestructura_unidadId } from './c
 import type { rl_infraestructura_unidad_fin_inmueble, rl_infraestructura_unidad_fin_inmuebleId } from './rl_infraestructura_unidad_fin_inmueble';
 
 export interface ct_infraestructura_fin_inmuebleAttributes {
-  id_infraestructura_fin: number;
+  id_fin: number;
   descripcion: string;
 }
 
-export type ct_infraestructura_fin_inmueblePk = "id_infraestructura_fin";
+export type ct_infraestructura_fin_inmueblePk = "id_fin";
 export type ct_infraestructura_fin_inmuebleId = ct_infraestructura_fin_inmueble[ct_infraestructura_fin_inmueblePk];
-export type ct_infraestructura_fin_inmuebleOptionalAttributes = "id_infraestructura_fin";
+export type ct_infraestructura_fin_inmuebleOptionalAttributes = "id_fin";
 export type ct_infraestructura_fin_inmuebleCreationAttributes = Optional<ct_infraestructura_fin_inmuebleAttributes, ct_infraestructura_fin_inmuebleOptionalAttributes>;
 
 export class ct_infraestructura_fin_inmueble extends Model<ct_infraestructura_fin_inmuebleAttributes, ct_infraestructura_fin_inmuebleCreationAttributes> implements ct_infraestructura_fin_inmuebleAttributes {
-  id_infraestructura_fin!: number;
+  id_fin!: number;
   descripcion!: string;
 
   // ct_infraestructura_fin_inmueble belongsToMany ct_infraestructura_unidad via id_fin and id_unidad
@@ -44,7 +44,7 @@ export class ct_infraestructura_fin_inmueble extends Model<ct_infraestructura_fi
 
   static initModel(sequelize: Sequelize.Sequelize): typeof ct_infraestructura_fin_inmueble {
     return ct_infraestructura_fin_inmueble.init({
-    id_infraestructura_fin: {
+    id_fin: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -64,7 +64,7 @@ export class ct_infraestructura_fin_inmueble extends Model<ct_infraestructura_fi
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "id_infraestructura_fin" },
+          { name: "id_fin" },
         ]
       },
     ]

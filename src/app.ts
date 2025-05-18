@@ -53,35 +53,35 @@ app.use(
   /*authenticateJWT,*/ localidadRoutes
 );
 app.use(
-  `${process.env.HOST}api/nivel-educativo`,
+  `${process.env.HOST}api/nivelEducativo`,
   /*authenticateJWT,*/ nivelEducativoRoutes
 );
 app.use(
-  `${process.env.HOST}api/fin-inmueble`,
+  `${process.env.HOST}api/finInmueble`,
   /*authenticateJWT,*/ finInmuebleRoutes
 );
 app.use(
-  `${process.env.HOST}api/razon-no-construccion`,
+  `${process.env.HOST}api/razonNoConstruccion`,
   /*authenticateJWT,*/ razonNoConstruccionRoutes
 );
 app.use(
-  `${process.env.HOST}api/unidad-nivel`,
+  `${process.env.HOST}api/unidadNivel`,
   /*authenticateJWT,*/ unidadNivelRoutes
 );
 app.use(
-  `${process.env.HOST}api/espacio-inmueble`,
+  `${process.env.HOST}api/espacioInmueble`,
   /*authenticateJWT,*/ espacioInmueblesRoutes
 );
 app.use(
-  `${process.env.HOST}api/dimension-terreno`,
+  `${process.env.HOST}api/dimensionTerreno`,
   /*authenticateJWT,*/ dimensionTerrenoRoutes
 );
 app.use(
-  `${process.env.HOST}api/suministro-de-agua`,
+  `${process.env.HOST}api/suministroDeAgua`,
   /*authenticateJWT,*/ suministroDeAguaRoutes
 );
 app.use(
-  `${process.env.HOST}api/almacenamiento-agua`,
+  `${process.env.HOST}api/almacenamientoAgua`,
   /*authenticateJWT,*/ almacenamientoAguaRoutes
 );
 

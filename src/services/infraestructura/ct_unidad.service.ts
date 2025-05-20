@@ -1,14 +1,8 @@
-import {
-  ct_infraestructura_unidadCreationAttributes,
-  initModels,
-} from "../../models/init-models";
 import { Op } from "sequelize";
-import { sequelize } from "../../config/database";
+import models, { sequelize } from "../../models";
+import type { ct_infraestructura_unidadCreationAttributes } from "../../models/init-models";
 
-//! Inicializar los modelos
-const models = initModels(sequelize);
-
-//! Desestructurar los modelos que necesitamos
+// Desestructurar los modelos que necesitamos
 const {
   ct_infraestructura_unidad: Unidad,
   ct_infraestructura_sostenimiento: Sostenimiento,
@@ -21,26 +15,93 @@ const {
   ct_infraestructura_suministro_agua: SuministroAgua,
   rl_infraestructura_unidad_almacenamiento_agua: UnidadAlmacenamientoAgua,
   ct_infraestructura_almacenamiento_agua: AlmacenamientoAgua,
+  ct_infraestructura_direccion: Direccion,
+  ct_infraestructura_departamento: Departamento,
 } = models;
 
 class ctInfraestructuraUnidadService {
-  //* Obtener todas las unidades
+  //* Obtener todas las unidades con sus relaciones básicas
   async obtenerUnidades() {
-    const unidades = await Unidad.findAll();
-    return unidades;
+    return await Unidad.findAll({
+      include: [
+        {
+          model: Sostenimiento,
+          as: "sostenimiento",
+          attributes: ["id_sostenimiento", "sostenimiento"],
+        },
+        {
+          model: TipoEscuela,
+          as: "tipo_escuela",
+          attributes: ["id_tipo_escuela", "tipo_escuela"],
+        },
+        {
+          model: Localidad,
+          as: "localidad",
+          attributes: ["id_localidad", "localidad"],
+          include: [
+            {
+              model: Municipio,
+              as: "municipio",
+              attributes: ["id_municipio", "nombre"],
+            },
+          ],
+        },
+      ],
+    });
   }
 
-  //* Obtener una unidad por su ID
+  //* Obtener una unidad por su ID con todas sus relaciones
   async obtenerUnidadPorId(id: number) {
     try {
-      const unidad = await Unidad.findByPk(id);
+      const unidad = await Unidad.findByPk(id, {
+        include: [
+          {
+            model: Sostenimiento,
+            as: "sostenimiento",
+            attributes: ["id_sostenimiento", "sostenimiento"],
+          },
+          {
+            model: TipoEscuela,
+            as: "tipo_escuela",
+            attributes: ["id_tipo_escuela", "tipo_escuela"],
+          },
+          {
+            model: Localidad,
+            as: "localidad",
+            attributes: ["id_localidad", "localidad"],
+            include: [
+              {
+                model: Municipio,
+                as: "municipio",
+                attributes: ["id_municipio", "nombre"],
+              },
+            ],
+          },
+          {
+            model: Direccion,
+            as: "unidad",
+            attributes: [
+              "id_direccion",
+              "calle",
+              "numero_exterior",
+              "numero_interior",
+              "codigo_postal",
+            ],
+          },
+          {
+            model: Departamento,
+            as: "unidad",
+            attributes: ["id_departamento", "nombre_departamento"],
+          },
+        ],
+      });
       return unidad;
     } catch (error) {
       throw new Error("Error al obtener la unidad");
     }
   }
 
-  //* Buscar unidades por nombre
+  //* Buscar unidades por nombre o CCT
   async buscarPorNombre(termino: string, limit = 10) {
     return await Unidad.findAll({
       attributes: ["id_unidad", "nombre_unidad", "cct", "ubicacion"],
@@ -78,17 +139,15 @@ class ctInfraestructuraUnidadService {
     });
   }
 
-  //* Obtener unidades por id_municipio
+  //* Obtener unidades por municipio
   async obtenerUnidadesPorMunicipio(idMunicipio: number) {
     try {
-      const unidades = await Unidad.findAll({
+      return await Unidad.findAll({
         include: [
           {
             model: Localidad,
             as: "localidad",
-            where: {
-              id_municipio: idMunicipio,
-            },
+            where: { id_municipio: idMunicipio },
             include: [
               {
                 model: Municipio,
@@ -110,7 +169,6 @@ class ctInfraestructuraUnidadService {
         ],
         attributes: ["id_unidad", "nombre_unidad", "cct", "ubicacion"],
       });
-      return unidades;
     } catch (error) {
       throw new Error("Error al obtener unidades por municipio");
     }
@@ -121,18 +179,15 @@ class ctInfraestructuraUnidadService {
     try {
       const niveles = await Unidad.findOne({
         attributes: ["id_unidad"],
-        where: {
-          id_unidad: idUnidad,
-        },
+        where: { id_unidad: idUnidad },
         include: [
           {
             model: UnidadNivel,
-            as: "rl_infraestructura_unidad_nivels",
-            attributes: ["id_nivel"],
+            as: "niveles",
             include: [
               {
                 model: NivelEducativo,
-                as: "id_nivel_ct_infraestructura_nivel_educativo",
+                as: "nivel",
                 attributes: ["id_nivel", "descripcion"],
               },
             ],
@@ -140,22 +195,9 @@ class ctInfraestructuraUnidadService {
         ],
       });
 
-      //! Transformación de la respuesta ya que la relacion requiere dejar esos atributos
-      if (niveles) {
-        return {
-          id_unidad: niveles.id_unidad,
-          niveles: niveles.rl_infraestructura_unidad_nivels.map((nivel) => ({
-            id_nivel: nivel.id_nivel,
-            nivel: {
-              id_nivel:
-                nivel.id_nivel_ct_infraestructura_nivel_educativo.id_nivel,
-              descripcion:
-                nivel.id_nivel_ct_infraestructura_nivel_educativo.descripcion,
-            },
-          })),
-        };
-      }
-      return null;
+      if (!niveles) return null;
+
+      return niveles;
     } catch (error) {
       throw new Error("Error al obtener niveles educativos de una unidad");
     }
@@ -169,12 +211,11 @@ class ctInfraestructuraUnidadService {
       include: [
         {
           model: UnidadSuministroAgua,
-          as: "rl_infraestructura_unidad_suministro_aguas",
-          attributes: ["id_suministro_agua"],
+          as: "suministros_agua",
           include: [
             {
               model: SuministroAgua,
-              as: "id_suministro_agua_ct_infraestructura_suministro_agua",
+              as: "suministro",
               attributes: ["id_suministro_agua", "descripcion"],
             },
           ],
@@ -182,26 +223,9 @@ class ctInfraestructuraUnidadService {
       ],
     });
 
-    //! Transformación de la respuesta ya que la relacion requiere dejar esos atributos
-    if (suministros) {
-      return {
-        id_unidad: suministros.id_unidad,
-        suministros: suministros.rl_infraestructura_unidad_suministro_aguas.map(
-          (suministro) => ({
-            id_suministro_agua: suministro.id_suministro_agua,
-            suministro: {
-              id_suministro_agua:
-                suministro.id_suministro_agua_ct_infraestructura_suministro_agua
-                  .id_suministro_agua,
-              descripcion:
-                suministro.id_suministro_agua_ct_infraestructura_suministro_agua
-                  .descripcion,
-            },
-          })
-        ),
-      };
-    }
-    return null;
+    if (!suministros) return null;
+
+    return suministros;
   }
 
   //* Obtener almacenamiento de agua de una unidad
@@ -212,12 +236,11 @@ class ctInfraestructuraUnidadService {
       include: [
         {
           model: UnidadAlmacenamientoAgua,
-          as: "rl_infraestructura_unidad_almacenamiento_aguas",
-          attributes: ["id_almacenamiento"],
+          as: "almacenamientos_agua",
           include: [
             {
               model: AlmacenamientoAgua,
-              as: "id_almacenamiento_ct_infraestructura_almacenamiento_agua",
+              as: "almacenamiento",
               attributes: ["id_almacenamiento", "descripcion"],
             },
           ],
@@ -225,38 +248,16 @@ class ctInfraestructuraUnidadService {
       ],
     });
 
-    //! Transformación de la respuesta ya que la relacion requiere dejar esos atributos
-    if (almacenamientoAgua) {
-      return {
-        id_unidad: almacenamientoAgua.id_unidad,
-        almacenamientos:
-          almacenamientoAgua.rl_infraestructura_unidad_almacenamiento_aguas.map(
-            (almacenamiento) => ({
-              id_almacenamiento: almacenamiento.id_almacenamiento,
-              almacenamiento: {
-                id_almacenamiento:
-                  almacenamiento
-                    .id_almacenamiento_ct_infraestructura_almacenamiento_agua
-                    .id_almacenamiento,
-                descripcion:
-                  almacenamiento
-                    .id_almacenamiento_ct_infraestructura_almacenamiento_agua
-                    .descripcion,
-              },
-            })
-          ),
-      };
-    }
-    return null;
+    if (!almacenamientoAgua) return null;
+
+    return almacenamientoAgua;
   }
 
   //* Crear una unidad
   async crearUnidad(data: ct_infraestructura_unidadCreationAttributes) {
     const transaction = await sequelize.transaction();
     try {
-      const unidad = await Unidad.create(data, {
-        transaction,
-      });
+      const unidad = await Unidad.create(data, { transaction });
       await transaction.commit();
       return unidad;
     } catch (error: any) {
@@ -269,9 +270,7 @@ class ctInfraestructuraUnidadService {
   async actualizarCamposUnidad(id: number, campos: { [key: string]: any }) {
     const transaction = await sequelize.transaction();
     try {
-      const unidad = await Unidad.findByPk(id, {
-        transaction,
-      });
+      const unidad = await Unidad.findByPk(id, { transaction });
       if (!unidad) {
         await transaction.rollback();
         throw new Error("Unidad no encontrada");
@@ -295,9 +294,7 @@ class ctInfraestructuraUnidadService {
   async eliminarUnidad(id: number) {
     const transaction = await sequelize.transaction();
     try {
-      const unidad = await Unidad.findByPk(id, {
-        transaction,
-      });
+      const unidad = await Unidad.findByPk(id, { transaction });
       if (!unidad) {
         await transaction.rollback();
         throw new Error("Unidad no encontrada");

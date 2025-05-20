@@ -16,6 +16,9 @@ export class ctInfraestructuraArea {
     async obtenerAreaById(id: number) {
         try {
             const area = await ct_infraestructura_area.findByPk(id);
+            if (!area) {
+                throw new Error("Área no encontrada");
+            }
             return area;
         } catch (error) {
             throw new Error("Error al obtener la área");

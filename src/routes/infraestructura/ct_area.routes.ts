@@ -5,4 +5,6 @@ const router = Router();
 
 router.get("/", CtAreaController.obtenerArea);
 
+router.get("/:id", CtAreaController.obtenerAreaById);
+
 export default router;

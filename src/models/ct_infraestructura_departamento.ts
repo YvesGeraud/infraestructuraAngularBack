@@ -1,5 +1,6 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
+import type { ct_infraestructura_area, ct_infraestructura_areaId } from './ct_infraestructura_area';
 import type { ct_infraestructura_direccion, ct_infraestructura_direccionId } from './ct_infraestructura_direccion';
 import type { ct_infraestructura_jefe_sector, ct_infraestructura_jefe_sectorId } from './ct_infraestructura_jefe_sector';
 import type { ct_infraestructura_supervisor, ct_infraestructura_supervisorId } from './ct_infraestructura_supervisor';
@@ -29,6 +30,18 @@ export class ct_infraestructura_departamento extends Model<ct_infraestructura_de
   fecha_in?: Date;
   fecha_at?: Date;
 
+  // ct_infraestructura_departamento hasMany ct_infraestructura_area via id_departamento
+  ct_infraestructura_areas!: ct_infraestructura_area[];
+  getCt_infraestructura_areas!: Sequelize.HasManyGetAssociationsMixin<ct_infraestructura_area>;
+  setCt_infraestructura_areas!: Sequelize.HasManySetAssociationsMixin<ct_infraestructura_area, ct_infraestructura_areaId>;
+  addCt_infraestructura_area!: Sequelize.HasManyAddAssociationMixin<ct_infraestructura_area, ct_infraestructura_areaId>;
+  addCt_infraestructura_areas!: Sequelize.HasManyAddAssociationsMixin<ct_infraestructura_area, ct_infraestructura_areaId>;
+  createCt_infraestructura_area!: Sequelize.HasManyCreateAssociationMixin<ct_infraestructura_area>;
+  removeCt_infraestructura_area!: Sequelize.HasManyRemoveAssociationMixin<ct_infraestructura_area, ct_infraestructura_areaId>;
+  removeCt_infraestructura_areas!: Sequelize.HasManyRemoveAssociationsMixin<ct_infraestructura_area, ct_infraestructura_areaId>;
+  hasCt_infraestructura_area!: Sequelize.HasManyHasAssociationMixin<ct_infraestructura_area, ct_infraestructura_areaId>;
+  hasCt_infraestructura_areas!: Sequelize.HasManyHasAssociationsMixin<ct_infraestructura_area, ct_infraestructura_areaId>;
+  countCt_infraestructura_areas!: Sequelize.HasManyCountAssociationsMixin;
   // ct_infraestructura_departamento hasMany ct_infraestructura_jefe_sector via id_departamento
   ct_infraestructura_jefe_sectors!: ct_infraestructura_jefe_sector[];
   getCt_infraestructura_jefe_sectors!: Sequelize.HasManyGetAssociationsMixin<ct_infraestructura_jefe_sector>;
@@ -97,9 +110,15 @@ export class ct_infraestructura_departamento extends Model<ct_infraestructura_de
       }
     },
     estado: {
+<<<<<<< HEAD
       type: DataTypes.TINYINT,
       allowNull: true,
       defaultValue: 1
+=======
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: 0
+>>>>>>> recupera-mis-cambios
     },
     fecha_in: {
       type: DataTypes.DATE,

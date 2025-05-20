@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Op } from "sequelize";
 import models, { sequelize } from "../../models";
 import type { ct_infraestructura_unidadCreationAttributes } from "../../models/init-models";
@@ -48,11 +49,40 @@ class ctInfraestructuraUnidadService {
         },
       ],
     });
+=======
+import {
+  ct_infraestructura_unidad,
+  ct_infraestructura_unidadCreationAttributes,
+} from "../../models/ct_infraestructura_unidad";
+import { ct_infraestructura_sostenimiento } from "../../models/ct_infraestructura_sostenimiento";
+import { ct_infraestructura_tipo_escuela } from "../../models/ct_infraestructura_tipo_escuela";
+import { Op } from "sequelize";
+import { ct_localidad } from "../../models/ct_localidad";
+import { ct_municipio } from "../../models/ct_municipio";
+import { sequelize } from "../../config/database";
+import { ct_infraestructura_nivel_educativo } from "../../models/ct_infraestructura_nivel_educativo";
+import { rl_infraestructura_unidad_nivel } from "../../models/rl_infraestructura_unidad_nivel";
+import { rl_infraestructura_unidad_suministro_agua } from "../../models/rl_infraestructura_unidad_suministro_agua";
+import { ct_infraestructura_suministro_agua } from "../../models/ct_infraestructura_suministro_agua";
+import { rl_infraestructura_unidad_almacenamiento_agua } from "../../models/rl_infraestructura_unidad_almacenamiento_agua";
+import { ct_infraestructura_almacenamiento_agua } from "../../models/ct_infraestructura_almacenamiento_agua";
+
+export class ctInfraestructuraUnidadService {
+  //* Obtener todas las unidades
+  async obtenerUnidades() {
+    try {
+      const unidades = await ct_infraestructura_unidad.findAll();
+      return unidades;
+    } catch (error) {
+      throw new Error("Error al obtener las unidades");
+    }
+>>>>>>> recupera-mis-cambios
   }
 
   //* Obtener una unidad por su ID con todas sus relaciones
   async obtenerUnidadPorId(id: number) {
     try {
+<<<<<<< HEAD
       const unidad = await Unidad.findByPk(id, {
         include: [
           {
@@ -95,6 +125,12 @@ class ctInfraestructuraUnidadService {
           },
         ],
       });
+=======
+      const unidad = await ct_infraestructura_unidad.findByPk(id);
+      if (!unidad) {
+        throw new Error("Unidad no encontrada");
+      }
+>>>>>>> recupera-mis-cambios
       return unidad;
     } catch (error) {
       throw new Error("Error al obtener la unidad");
@@ -103,6 +139,7 @@ class ctInfraestructuraUnidadService {
 
   //* Buscar unidades por nombre o CCT
   async buscarPorNombre(termino: string, limit = 10) {
+<<<<<<< HEAD
     return await Unidad.findAll({
       attributes: ["id_unidad", "nombre_unidad", "cct", "ubicacion"],
       where: {
@@ -132,11 +169,46 @@ class ctInfraestructuraUnidadService {
               as: "municipio",
               attributes: ["id_municipio", "nombre"],
             },
+=======
+    try {
+      return await ct_infraestructura_unidad.findAll({
+        attributes: ["id_unidad", "nombre_unidad", "cct", "ubicacion"],
+        where: {
+          [Op.or]: [
+            { nombre_unidad: { [Op.like]: `%${termino}%` } },
+            { cct: { [Op.like]: `%${termino}%` } },
+>>>>>>> recupera-mis-cambios
           ],
         },
-      ],
-      limit,
-    });
+        include: [
+          {
+            model: ct_infraestructura_sostenimiento,
+            as: "sostenimiento",
+            attributes: ["id_sostenimiento", "sostenimiento"],
+          },
+          {
+            model: ct_infraestructura_tipo_escuela,
+            as: "tipo_escuela",
+            attributes: ["id_tipo_escuela", "tipo_escuela"],
+          },
+          {
+            model: ct_localidad,
+            as: "localidad",
+            attributes: ["id_localidad", "localidad"],
+            include: [
+              {
+                model: ct_municipio,
+                as: "municipio",
+                attributes: ["id_municipio", "nombre"],
+              },
+            ],
+          },
+        ],
+        limit,
+      });
+    } catch (error) {
+      throw new Error("Error al buscar unidades por nombre");
+    }
   }
 
   //* Obtener unidades por municipio
@@ -177,16 +249,29 @@ class ctInfraestructuraUnidadService {
   //* Obtener niveles educativos de una unidad
   async obtenerNivelesEducativosDeUnaUnidad(idUnidad: number) {
     try {
+<<<<<<< HEAD
       const niveles = await Unidad.findOne({
+=======
+      const niveles = await ct_infraestructura_unidad.findOne({
+>>>>>>> recupera-mis-cambios
         attributes: ["id_unidad"],
         where: { id_unidad: idUnidad },
         include: [
           {
+<<<<<<< HEAD
             model: UnidadNivel,
             as: "niveles",
             include: [
               {
                 model: NivelEducativo,
+=======
+            model: rl_infraestructura_unidad_nivel,
+            as: "niveles",
+            attributes: ["id_nivel"],
+            include: [
+              {
+                model: ct_infraestructura_nivel_educativo,
+>>>>>>> recupera-mis-cambios
                 as: "nivel",
                 attributes: ["id_nivel", "descripcion"],
               },
@@ -194,17 +279,27 @@ class ctInfraestructuraUnidadService {
           },
         ],
       });
+<<<<<<< HEAD
 
       if (!niveles) return null;
 
       return niveles;
     } catch (error) {
       throw new Error("Error al obtener niveles educativos de una unidad");
+=======
+      if (!niveles) {
+        throw new Error("Unidad no encontrada");
+      }
+      return niveles;
+    } catch (error) {
+      throw new Error("Error al obtener niveles educativos de la unidad");
+>>>>>>> recupera-mis-cambios
     }
   }
 
   //* Obtener suministros de agua de una unidad
   async obtenerSuministrosDeAguaDeUnaUnidad(idUnidad: number) {
+<<<<<<< HEAD
     const suministros = await Unidad.findOne({
       attributes: ["id_unidad"],
       where: { id_unidad: idUnidad },
@@ -226,10 +321,39 @@ class ctInfraestructuraUnidadService {
     if (!suministros) return null;
 
     return suministros;
+=======
+    try {
+      const suministros = await ct_infraestructura_unidad.findOne({
+        attributes: ["id_unidad"],
+        where: { id_unidad: idUnidad },
+        include: [
+          {
+            model: rl_infraestructura_unidad_suministro_agua,
+            as: "suministros",
+            attributes: ["id_suministro_agua"],
+            include: [
+              {
+                model: ct_infraestructura_suministro_agua,
+                as: "suministro",
+                attributes: ["id_suministro_agua", "descripcion"],
+              },
+            ],
+          },
+        ],
+      });
+      if (!suministros) {
+        throw new Error("Unidad no encontrada");
+      }
+      return suministros;
+    } catch (error) {
+      throw new Error("Error al obtener suministros de agua de la unidad");
+    }
+>>>>>>> recupera-mis-cambios
   }
 
   //* Obtener almacenamiento de agua de una unidad
   async obtenerAlmacenamientoAguaDeUnaUnidad(idUnidad: number) {
+<<<<<<< HEAD
     const almacenamientoAgua = await Unidad.findOne({
       attributes: ["id_unidad"],
       where: { id_unidad: idUnidad },
@@ -251,6 +375,34 @@ class ctInfraestructuraUnidadService {
     if (!almacenamientoAgua) return null;
 
     return almacenamientoAgua;
+=======
+    try {
+      const almacenamientoAgua = await ct_infraestructura_unidad.findOne({
+        attributes: ["id_unidad"],
+        where: { id_unidad: idUnidad },
+        include: [
+          {
+            model: rl_infraestructura_unidad_almacenamiento_agua,
+            as: "almacenamientos",
+            attributes: ["id_almacenamiento"],
+            include: [
+              {
+                model: ct_infraestructura_almacenamiento_agua,
+                as: "almacenamiento",
+                attributes: ["id_almacenamiento", "descripcion"],
+              },
+            ],
+          },
+        ],
+      });
+      if (!almacenamientoAgua) {
+        throw new Error("Unidad no encontrada");
+      }
+      return almacenamientoAgua;
+    } catch (error) {
+      throw new Error("Error al obtener almacenamiento de agua de la unidad");
+    }
+>>>>>>> recupera-mis-cambios
   }
 
   //* Crear una unidad

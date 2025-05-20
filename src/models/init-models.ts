@@ -1,12 +1,17 @@
 import type { Sequelize } from "sequelize";
+<<<<<<< HEAD
 import { ctUnidadAdmin as _ctUnidadAdmin } from "./ctUnidadAdmin";
 import type { ctUnidadAdminAttributes, ctUnidadAdminCreationAttributes } from "./ctUnidadAdmin";
+=======
+>>>>>>> recupera-mis-cambios
 import { ct_accion as _ct_accion } from "./ct_accion";
 import type { ct_accionAttributes, ct_accionCreationAttributes } from "./ct_accion";
 import { ct_infraestructura_almacenamiento_agua as _ct_infraestructura_almacenamiento_agua } from "./ct_infraestructura_almacenamiento_agua";
 import type { ct_infraestructura_almacenamiento_aguaAttributes, ct_infraestructura_almacenamiento_aguaCreationAttributes } from "./ct_infraestructura_almacenamiento_agua";
 import { ct_infraestructura_antiguedad_inmueble as _ct_infraestructura_antiguedad_inmueble } from "./ct_infraestructura_antiguedad_inmueble";
 import type { ct_infraestructura_antiguedad_inmuebleAttributes, ct_infraestructura_antiguedad_inmuebleCreationAttributes } from "./ct_infraestructura_antiguedad_inmueble";
+import { ct_infraestructura_area as _ct_infraestructura_area } from "./ct_infraestructura_area";
+import type { ct_infraestructura_areaAttributes, ct_infraestructura_areaCreationAttributes } from "./ct_infraestructura_area";
 import { ct_infraestructura_construccion_inmueble as _ct_infraestructura_construccion_inmueble } from "./ct_infraestructura_construccion_inmueble";
 import type { ct_infraestructura_construccion_inmuebleAttributes, ct_infraestructura_construccion_inmuebleCreationAttributes } from "./ct_infraestructura_construccion_inmueble";
 import { ct_infraestructura_departamento as _ct_infraestructura_departamento } from "./ct_infraestructura_departamento";
@@ -87,6 +92,11 @@ import { ct_municipio as _ct_municipio } from "./ct_municipio";
 import type { ct_municipioAttributes, ct_municipioCreationAttributes } from "./ct_municipio";
 import { ct_usuario as _ct_usuario } from "./ct_usuario";
 import type { ct_usuarioAttributes, ct_usuarioCreationAttributes } from "./ct_usuario";
+<<<<<<< HEAD
+=======
+import { ctunidadadmin as _ctunidadadmin } from "./ctunidadadmin";
+import type { ctunidadadminAttributes, ctunidadadminCreationAttributes } from "./ctunidadadmin";
+>>>>>>> recupera-mis-cambios
 import { dt_bitacora as _dt_bitacora } from "./dt_bitacora";
 import type { dt_bitacoraAttributes, dt_bitacoraCreationAttributes } from "./dt_bitacora";
 import { migrations as _migrations } from "./migrations";
@@ -117,10 +127,14 @@ import { rl_infraestructura_unidad_suministro_agua as _rl_infraestructura_unidad
 import type { rl_infraestructura_unidad_suministro_aguaAttributes, rl_infraestructura_unidad_suministro_aguaCreationAttributes } from "./rl_infraestructura_unidad_suministro_agua";
 
 export {
+<<<<<<< HEAD
   _ctUnidadAdmin as ctUnidadAdmin,
+=======
+>>>>>>> recupera-mis-cambios
   _ct_accion as ct_accion,
   _ct_infraestructura_almacenamiento_agua as ct_infraestructura_almacenamiento_agua,
   _ct_infraestructura_antiguedad_inmueble as ct_infraestructura_antiguedad_inmueble,
+  _ct_infraestructura_area as ct_infraestructura_area,
   _ct_infraestructura_construccion_inmueble as ct_infraestructura_construccion_inmueble,
   _ct_infraestructura_departamento as ct_infraestructura_departamento,
   _ct_infraestructura_dimension_terreno as ct_infraestructura_dimension_terreno,
@@ -161,6 +175,10 @@ export {
   _ct_localidad as ct_localidad,
   _ct_municipio as ct_municipio,
   _ct_usuario as ct_usuario,
+<<<<<<< HEAD
+=======
+  _ctunidadadmin as ctunidadadmin,
+>>>>>>> recupera-mis-cambios
   _dt_bitacora as dt_bitacora,
   _migrations as migrations,
   _rl_infraestructura_edificio_problema as rl_infraestructura_edificio_problema,
@@ -178,14 +196,19 @@ export {
 };
 
 export type {
+<<<<<<< HEAD
   ctUnidadAdminAttributes,
   ctUnidadAdminCreationAttributes,
+=======
+>>>>>>> recupera-mis-cambios
   ct_accionAttributes,
   ct_accionCreationAttributes,
   ct_infraestructura_almacenamiento_aguaAttributes,
   ct_infraestructura_almacenamiento_aguaCreationAttributes,
   ct_infraestructura_antiguedad_inmuebleAttributes,
   ct_infraestructura_antiguedad_inmuebleCreationAttributes,
+  ct_infraestructura_areaAttributes,
+  ct_infraestructura_areaCreationAttributes,
   ct_infraestructura_construccion_inmuebleAttributes,
   ct_infraestructura_construccion_inmuebleCreationAttributes,
   ct_infraestructura_departamentoAttributes,
@@ -266,6 +289,11 @@ export type {
   ct_municipioCreationAttributes,
   ct_usuarioAttributes,
   ct_usuarioCreationAttributes,
+<<<<<<< HEAD
+=======
+  ctunidadadminAttributes,
+  ctunidadadminCreationAttributes,
+>>>>>>> recupera-mis-cambios
   dt_bitacoraAttributes,
   dt_bitacoraCreationAttributes,
   migrationsAttributes,
@@ -297,10 +325,14 @@ export type {
 };
 
 export function initModels(sequelize: Sequelize) {
+<<<<<<< HEAD
   const ctUnidadAdmin = _ctUnidadAdmin.initModel(sequelize);
+=======
+>>>>>>> recupera-mis-cambios
   const ct_accion = _ct_accion.initModel(sequelize);
   const ct_infraestructura_almacenamiento_agua = _ct_infraestructura_almacenamiento_agua.initModel(sequelize);
   const ct_infraestructura_antiguedad_inmueble = _ct_infraestructura_antiguedad_inmueble.initModel(sequelize);
+  const ct_infraestructura_area = _ct_infraestructura_area.initModel(sequelize);
   const ct_infraestructura_construccion_inmueble = _ct_infraestructura_construccion_inmueble.initModel(sequelize);
   const ct_infraestructura_departamento = _ct_infraestructura_departamento.initModel(sequelize);
   const ct_infraestructura_dimension_terreno = _ct_infraestructura_dimension_terreno.initModel(sequelize);
@@ -341,6 +373,10 @@ export function initModels(sequelize: Sequelize) {
   const ct_localidad = _ct_localidad.initModel(sequelize);
   const ct_municipio = _ct_municipio.initModel(sequelize);
   const ct_usuario = _ct_usuario.initModel(sequelize);
+<<<<<<< HEAD
+=======
+  const ctunidadadmin = _ctunidadadmin.initModel(sequelize);
+>>>>>>> recupera-mis-cambios
   const dt_bitacora = _dt_bitacora.initModel(sequelize);
   const migrations = _migrations.initModel(sequelize);
   const rl_infraestructura_edificio_problema = _rl_infraestructura_edificio_problema.initModel(sequelize);
@@ -386,6 +422,8 @@ export function initModels(sequelize: Sequelize) {
   ct_infraestructura_antiguedad_inmueble.hasMany(ct_infraestructura_unidad, { as: "ct_infraestructura_unidads", foreignKey: "id_antiguedad_inmueble"});
   rl_infraestructura_unidad_construccion_inmueble.belongsTo(ct_infraestructura_construccion_inmueble, { as: "id_construccion_ct_infraestructura_construccion_inmueble", foreignKey: "id_construccion"});
   ct_infraestructura_construccion_inmueble.hasMany(rl_infraestructura_unidad_construccion_inmueble, { as: "rl_infraestructura_unidad_construccion_inmuebles", foreignKey: "id_construccion"});
+  ct_infraestructura_area.belongsTo(ct_infraestructura_departamento, { as: "id_departamento_ct_infraestructura_departamento", foreignKey: "id_departamento"});
+  ct_infraestructura_departamento.hasMany(ct_infraestructura_area, { as: "ct_infraestructura_areas", foreignKey: "id_departamento"});
   ct_infraestructura_jefe_sector.belongsTo(ct_infraestructura_departamento, { as: "id_departamento_ct_infraestructura_departamento", foreignKey: "id_departamento"});
   ct_infraestructura_departamento.hasMany(ct_infraestructura_jefe_sector, { as: "ct_infraestructura_jefe_sectors", foreignKey: "id_departamento"});
   ct_infraestructura_supervisor.belongsTo(ct_infraestructura_departamento, { as: "id_departamento_ct_infraestructura_departamento", foreignKey: "id_departamento"});
@@ -482,10 +520,14 @@ export function initModels(sequelize: Sequelize) {
   rl_infraestructura_edificios.hasMany(ct_inventario, { as: "ct_inventarios", foreignKey: "id_edificios"});
 
   return {
+<<<<<<< HEAD
     ctUnidadAdmin: ctUnidadAdmin,
+=======
+>>>>>>> recupera-mis-cambios
     ct_accion: ct_accion,
     ct_infraestructura_almacenamiento_agua: ct_infraestructura_almacenamiento_agua,
     ct_infraestructura_antiguedad_inmueble: ct_infraestructura_antiguedad_inmueble,
+    ct_infraestructura_area: ct_infraestructura_area,
     ct_infraestructura_construccion_inmueble: ct_infraestructura_construccion_inmueble,
     ct_infraestructura_departamento: ct_infraestructura_departamento,
     ct_infraestructura_dimension_terreno: ct_infraestructura_dimension_terreno,
@@ -526,6 +568,10 @@ export function initModels(sequelize: Sequelize) {
     ct_localidad: ct_localidad,
     ct_municipio: ct_municipio,
     ct_usuario: ct_usuario,
+<<<<<<< HEAD
+=======
+    ctunidadadmin: ctunidadadmin,
+>>>>>>> recupera-mis-cambios
     dt_bitacora: dt_bitacora,
     migrations: migrations,
     rl_infraestructura_edificio_problema: rl_infraestructura_edificio_problema,

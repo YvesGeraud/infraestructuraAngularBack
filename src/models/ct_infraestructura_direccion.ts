@@ -7,17 +7,23 @@ export interface ct_infraestructura_direccionAttributes {
   id_direccion: number;
   nombre: string;
   id_puesto?: number;
+  estado?: number;
+  fecha_in?: Date;
+  fecha_at?: Date;
 }
 
 export type ct_infraestructura_direccionPk = "id_direccion";
 export type ct_infraestructura_direccionId = ct_infraestructura_direccion[ct_infraestructura_direccionPk];
-export type ct_infraestructura_direccionOptionalAttributes = "id_direccion" | "id_puesto";
+export type ct_infraestructura_direccionOptionalAttributes = "id_direccion" | "id_puesto" | "estado" | "fecha_in" | "fecha_at";
 export type ct_infraestructura_direccionCreationAttributes = Optional<ct_infraestructura_direccionAttributes, ct_infraestructura_direccionOptionalAttributes>;
 
 export class ct_infraestructura_direccion extends Model<ct_infraestructura_direccionAttributes, ct_infraestructura_direccionCreationAttributes> implements ct_infraestructura_direccionAttributes {
   id_direccion!: number;
   nombre!: string;
   id_puesto?: number;
+  estado?: number;
+  fecha_in?: Date;
+  fecha_at?: Date;
 
   // ct_infraestructura_direccion hasMany ct_infraestructura_departamento via id_direccion
   ct_infraestructura_departamentos!: ct_infraestructura_departamento[];
@@ -54,10 +60,25 @@ export class ct_infraestructura_direccion extends Model<ct_infraestructura_direc
     },
     nombre: {
       type: DataTypes.STRING(255),
-      allowNull: false
+      allowNull: false,
+      unique: "nombre"
     },
     id_puesto: {
       type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    estado: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: 1
+    },
+    fecha_in: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: Sequelize.Sequelize.fn('current_timestamp')
+    },
+    fecha_at: {
+      type: DataTypes.DATE,
       allowNull: true
     }
   }, {
@@ -71,6 +92,14 @@ export class ct_infraestructura_direccion extends Model<ct_infraestructura_direc
         using: "BTREE",
         fields: [
           { name: "id_direccion" },
+        ]
+      },
+      {
+        name: "nombre",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "nombre" },
         ]
       },
     ]

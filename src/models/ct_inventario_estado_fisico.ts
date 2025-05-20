@@ -2,21 +2,21 @@ import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
 import type { ct_inventario, ct_inventarioId } from './ct_inventario';
 
-export interface ct_inventario_materialAttributes {
-  id_material: number;
-  nombre_material: string;
+export interface ct_inventario_estado_fisicoAttributes {
+  id_estadoFisico: number;
+  descripcion: string;
 }
 
-export type ct_inventario_materialPk = "id_material";
-export type ct_inventario_materialId = ct_inventario_material[ct_inventario_materialPk];
-export type ct_inventario_materialOptionalAttributes = "id_material";
-export type ct_inventario_materialCreationAttributes = Optional<ct_inventario_materialAttributes, ct_inventario_materialOptionalAttributes>;
+export type ct_inventario_estado_fisicoPk = "id_estadoFisico";
+export type ct_inventario_estado_fisicoId = ct_inventario_estado_fisico[ct_inventario_estado_fisicoPk];
+export type ct_inventario_estado_fisicoOptionalAttributes = "id_estadoFisico";
+export type ct_inventario_estado_fisicoCreationAttributes = Optional<ct_inventario_estado_fisicoAttributes, ct_inventario_estado_fisicoOptionalAttributes>;
 
-export class ct_inventario_material extends Model<ct_inventario_materialAttributes, ct_inventario_materialCreationAttributes> implements ct_inventario_materialAttributes {
-  id_material!: number;
-  nombre_material!: string;
+export class ct_inventario_estado_fisico extends Model<ct_inventario_estado_fisicoAttributes, ct_inventario_estado_fisicoCreationAttributes> implements ct_inventario_estado_fisicoAttributes {
+  id_estadoFisico!: number;
+  descripcion!: string;
 
-  // ct_inventario_material hasMany ct_inventario via id_material
+  // ct_inventario_estado_fisico hasMany ct_inventario via id_estadoFisico
   ct_inventarios!: ct_inventario[];
   getCt_inventarios!: Sequelize.HasManyGetAssociationsMixin<ct_inventario>;
   setCt_inventarios!: Sequelize.HasManySetAssociationsMixin<ct_inventario, ct_inventarioId>;
@@ -29,22 +29,22 @@ export class ct_inventario_material extends Model<ct_inventario_materialAttribut
   hasCt_inventarios!: Sequelize.HasManyHasAssociationsMixin<ct_inventario, ct_inventarioId>;
   countCt_inventarios!: Sequelize.HasManyCountAssociationsMixin;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof ct_inventario_material {
-    return ct_inventario_material.init({
-    id_material: {
+  static initModel(sequelize: Sequelize.Sequelize): typeof ct_inventario_estado_fisico {
+    return ct_inventario_estado_fisico.init({
+    id_estadoFisico: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    nombre_material: {
-      type: DataTypes.STRING(255),
+    descripcion: {
+      type: DataTypes.STRING(50),
       allowNull: false,
-      unique: "unique_nombre_material"
+      unique: "unique_descripcion"
     }
   }, {
     sequelize,
-    tableName: 'ct_inventario_material',
+    tableName: 'ct_inventario_estado_fisico',
     timestamps: false,
     indexes: [
       {
@@ -52,15 +52,15 @@ export class ct_inventario_material extends Model<ct_inventario_materialAttribut
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "id_material" },
+          { name: "id_estadoFisico" },
         ]
       },
       {
-        name: "unique_nombre_material",
+        name: "unique_descripcion",
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "nombre_material" },
+          { name: "descripcion" },
         ]
       },
     ]

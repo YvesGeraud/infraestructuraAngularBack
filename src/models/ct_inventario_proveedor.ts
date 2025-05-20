@@ -2,21 +2,21 @@ import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
 import type { ct_inventario, ct_inventarioId } from './ct_inventario';
 
-export interface ct_inventario_materialAttributes {
-  id_material: number;
-  nombre_material: string;
+export interface ct_inventario_proveedorAttributes {
+  id_proveedor: number;
+  nombre_proveedor: string;
 }
 
-export type ct_inventario_materialPk = "id_material";
-export type ct_inventario_materialId = ct_inventario_material[ct_inventario_materialPk];
-export type ct_inventario_materialOptionalAttributes = "id_material";
-export type ct_inventario_materialCreationAttributes = Optional<ct_inventario_materialAttributes, ct_inventario_materialOptionalAttributes>;
+export type ct_inventario_proveedorPk = "id_proveedor";
+export type ct_inventario_proveedorId = ct_inventario_proveedor[ct_inventario_proveedorPk];
+export type ct_inventario_proveedorOptionalAttributes = "id_proveedor";
+export type ct_inventario_proveedorCreationAttributes = Optional<ct_inventario_proveedorAttributes, ct_inventario_proveedorOptionalAttributes>;
 
-export class ct_inventario_material extends Model<ct_inventario_materialAttributes, ct_inventario_materialCreationAttributes> implements ct_inventario_materialAttributes {
-  id_material!: number;
-  nombre_material!: string;
+export class ct_inventario_proveedor extends Model<ct_inventario_proveedorAttributes, ct_inventario_proveedorCreationAttributes> implements ct_inventario_proveedorAttributes {
+  id_proveedor!: number;
+  nombre_proveedor!: string;
 
-  // ct_inventario_material hasMany ct_inventario via id_material
+  // ct_inventario_proveedor hasMany ct_inventario via id_proveedor
   ct_inventarios!: ct_inventario[];
   getCt_inventarios!: Sequelize.HasManyGetAssociationsMixin<ct_inventario>;
   setCt_inventarios!: Sequelize.HasManySetAssociationsMixin<ct_inventario, ct_inventarioId>;
@@ -29,22 +29,22 @@ export class ct_inventario_material extends Model<ct_inventario_materialAttribut
   hasCt_inventarios!: Sequelize.HasManyHasAssociationsMixin<ct_inventario, ct_inventarioId>;
   countCt_inventarios!: Sequelize.HasManyCountAssociationsMixin;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof ct_inventario_material {
-    return ct_inventario_material.init({
-    id_material: {
+  static initModel(sequelize: Sequelize.Sequelize): typeof ct_inventario_proveedor {
+    return ct_inventario_proveedor.init({
+    id_proveedor: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    nombre_material: {
+    nombre_proveedor: {
       type: DataTypes.STRING(255),
       allowNull: false,
-      unique: "unique_nombre_material"
+      unique: "unique_nombre_proveedor"
     }
   }, {
     sequelize,
-    tableName: 'ct_inventario_material',
+    tableName: 'ct_inventario_proveedor',
     timestamps: false,
     indexes: [
       {
@@ -52,15 +52,15 @@ export class ct_inventario_material extends Model<ct_inventario_materialAttribut
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "id_material" },
+          { name: "id_proveedor" },
         ]
       },
       {
-        name: "unique_nombre_material",
+        name: "unique_nombre_proveedor",
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "nombre_material" },
+          { name: "nombre_proveedor" },
         ]
       },
     ]

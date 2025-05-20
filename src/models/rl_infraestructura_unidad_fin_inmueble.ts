@@ -47,7 +47,7 @@ export class rl_infraestructura_unidad_fin_inmueble extends Model<rl_infraestruc
       primaryKey: true,
       references: {
         model: 'ct_infraestructura_fin_inmueble',
-        key: 'id_infraestructura_fin'
+        key: 'id_fin'
       }
     },
     fin_otro: {

@@ -5,6 +5,7 @@ import type { ct_infraestructura_direccion, ct_infraestructura_direccionId } fro
 import type { ct_infraestructura_jefe_sector, ct_infraestructura_jefe_sectorId } from './ct_infraestructura_jefe_sector';
 import type { ct_infraestructura_supervisor, ct_infraestructura_supervisorId } from './ct_infraestructura_supervisor';
 import type { ct_infraestructura_unidad, ct_infraestructura_unidadId } from './ct_infraestructura_unidad';
+import type { ct_inventario, ct_inventarioId } from './ct_inventario';
 
 export interface rl_infraestructura_edificiosAttributes {
   id_edificios: number;
@@ -55,6 +56,18 @@ export class rl_infraestructura_edificios extends Model<rl_infraestructura_edifi
   getId_unidad_ct_infraestructura_unidad!: Sequelize.BelongsToGetAssociationMixin<ct_infraestructura_unidad>;
   setId_unidad_ct_infraestructura_unidad!: Sequelize.BelongsToSetAssociationMixin<ct_infraestructura_unidad, ct_infraestructura_unidadId>;
   createId_unidad_ct_infraestructura_unidad!: Sequelize.BelongsToCreateAssociationMixin<ct_infraestructura_unidad>;
+  // rl_infraestructura_edificios hasMany ct_inventario via id_edificios
+  ct_inventarios!: ct_inventario[];
+  getCt_inventarios!: Sequelize.HasManyGetAssociationsMixin<ct_inventario>;
+  setCt_inventarios!: Sequelize.HasManySetAssociationsMixin<ct_inventario, ct_inventarioId>;
+  addCt_inventario!: Sequelize.HasManyAddAssociationMixin<ct_inventario, ct_inventarioId>;
+  addCt_inventarios!: Sequelize.HasManyAddAssociationsMixin<ct_inventario, ct_inventarioId>;
+  createCt_inventario!: Sequelize.HasManyCreateAssociationMixin<ct_inventario>;
+  removeCt_inventario!: Sequelize.HasManyRemoveAssociationMixin<ct_inventario, ct_inventarioId>;
+  removeCt_inventarios!: Sequelize.HasManyRemoveAssociationsMixin<ct_inventario, ct_inventarioId>;
+  hasCt_inventario!: Sequelize.HasManyHasAssociationMixin<ct_inventario, ct_inventarioId>;
+  hasCt_inventarios!: Sequelize.HasManyHasAssociationsMixin<ct_inventario, ct_inventarioId>;
+  countCt_inventarios!: Sequelize.HasManyCountAssociationsMixin;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof rl_infraestructura_edificios {
     return rl_infraestructura_edificios.init({

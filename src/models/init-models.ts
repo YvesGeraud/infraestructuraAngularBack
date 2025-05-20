@@ -1,8 +1,12 @@
 import type { Sequelize } from "sequelize";
+import { ct_accion as _ct_accion } from "./ct_accion";
+import type { ct_accionAttributes, ct_accionCreationAttributes } from "./ct_accion";
 import { ct_infraestructura_almacenamiento_agua as _ct_infraestructura_almacenamiento_agua } from "./ct_infraestructura_almacenamiento_agua";
 import type { ct_infraestructura_almacenamiento_aguaAttributes, ct_infraestructura_almacenamiento_aguaCreationAttributes } from "./ct_infraestructura_almacenamiento_agua";
 import { ct_infraestructura_antiguedad_inmueble as _ct_infraestructura_antiguedad_inmueble } from "./ct_infraestructura_antiguedad_inmueble";
 import type { ct_infraestructura_antiguedad_inmuebleAttributes, ct_infraestructura_antiguedad_inmuebleCreationAttributes } from "./ct_infraestructura_antiguedad_inmueble";
+import { ct_infraestructura_area as _ct_infraestructura_area } from "./ct_infraestructura_area";
+import type { ct_infraestructura_areaAttributes, ct_infraestructura_areaCreationAttributes } from "./ct_infraestructura_area";
 import { ct_infraestructura_construccion_inmueble as _ct_infraestructura_construccion_inmueble } from "./ct_infraestructura_construccion_inmueble";
 import type { ct_infraestructura_construccion_inmuebleAttributes, ct_infraestructura_construccion_inmuebleCreationAttributes } from "./ct_infraestructura_construccion_inmueble";
 import { ct_infraestructura_departamento as _ct_infraestructura_departamento } from "./ct_infraestructura_departamento";
@@ -57,22 +61,36 @@ import { ct_infraestructura_tipo_escuela as _ct_infraestructura_tipo_escuela } f
 import type { ct_infraestructura_tipo_escuelaAttributes, ct_infraestructura_tipo_escuelaCreationAttributes } from "./ct_infraestructura_tipo_escuela";
 import { ct_infraestructura_unidad as _ct_infraestructura_unidad } from "./ct_infraestructura_unidad";
 import type { ct_infraestructura_unidadAttributes, ct_infraestructura_unidadCreationAttributes } from "./ct_infraestructura_unidad";
+import { ct_inventario as _ct_inventario } from "./ct_inventario";
+import type { ct_inventarioAttributes, ct_inventarioCreationAttributes } from "./ct_inventario";
+import { ct_inventario_clases as _ct_inventario_clases } from "./ct_inventario_clases";
+import type { ct_inventario_clasesAttributes, ct_inventario_clasesCreationAttributes } from "./ct_inventario_clases";
 import { ct_inventario_clasificacion as _ct_inventario_clasificacion } from "./ct_inventario_clasificacion";
 import type { ct_inventario_clasificacionAttributes, ct_inventario_clasificacionCreationAttributes } from "./ct_inventario_clasificacion";
 import { ct_inventario_color as _ct_inventario_color } from "./ct_inventario_color";
 import type { ct_inventario_colorAttributes, ct_inventario_colorCreationAttributes } from "./ct_inventario_color";
-import { ct_inventario_marca as _ct_inventario_marca } from "./ct_inventario_marca";
-import type { ct_inventario_marcaAttributes, ct_inventario_marcaCreationAttributes } from "./ct_inventario_marca";
+import { ct_inventario_estado_fisico as _ct_inventario_estado_fisico } from "./ct_inventario_estado_fisico";
+import type { ct_inventario_estado_fisicoAttributes, ct_inventario_estado_fisicoCreationAttributes } from "./ct_inventario_estado_fisico";
+import { ct_inventario_marcas as _ct_inventario_marcas } from "./ct_inventario_marcas";
+import type { ct_inventario_marcasAttributes, ct_inventario_marcasCreationAttributes } from "./ct_inventario_marcas";
 import { ct_inventario_material as _ct_inventario_material } from "./ct_inventario_material";
 import type { ct_inventario_materialAttributes, ct_inventario_materialCreationAttributes } from "./ct_inventario_material";
 import { ct_inventario_modelo as _ct_inventario_modelo } from "./ct_inventario_modelo";
 import type { ct_inventario_modeloAttributes, ct_inventario_modeloCreationAttributes } from "./ct_inventario_modelo";
+import { ct_inventario_proveedor as _ct_inventario_proveedor } from "./ct_inventario_proveedor";
+import type { ct_inventario_proveedorAttributes, ct_inventario_proveedorCreationAttributes } from "./ct_inventario_proveedor";
+import { ct_inventario_subclases as _ct_inventario_subclases } from "./ct_inventario_subclases";
+import type { ct_inventario_subclasesAttributes, ct_inventario_subclasesCreationAttributes } from "./ct_inventario_subclases";
 import { ct_localidad as _ct_localidad } from "./ct_localidad";
 import type { ct_localidadAttributes, ct_localidadCreationAttributes } from "./ct_localidad";
 import { ct_municipio as _ct_municipio } from "./ct_municipio";
 import type { ct_municipioAttributes, ct_municipioCreationAttributes } from "./ct_municipio";
 import { ct_usuario as _ct_usuario } from "./ct_usuario";
 import type { ct_usuarioAttributes, ct_usuarioCreationAttributes } from "./ct_usuario";
+import { ctunidadadmin as _ctunidadadmin } from "./ctunidadadmin";
+import type { ctunidadadminAttributes, ctunidadadminCreationAttributes } from "./ctunidadadmin";
+import { dt_bitacora as _dt_bitacora } from "./dt_bitacora";
+import type { dt_bitacoraAttributes, dt_bitacoraCreationAttributes } from "./dt_bitacora";
 import { migrations as _migrations } from "./migrations";
 import type { migrationsAttributes, migrationsCreationAttributes } from "./migrations";
 import { rl_infraestructura_edificio_problema as _rl_infraestructura_edificio_problema } from "./rl_infraestructura_edificio_problema";
@@ -101,8 +119,10 @@ import { rl_infraestructura_unidad_suministro_agua as _rl_infraestructura_unidad
 import type { rl_infraestructura_unidad_suministro_aguaAttributes, rl_infraestructura_unidad_suministro_aguaCreationAttributes } from "./rl_infraestructura_unidad_suministro_agua";
 
 export {
+  _ct_accion as ct_accion,
   _ct_infraestructura_almacenamiento_agua as ct_infraestructura_almacenamiento_agua,
   _ct_infraestructura_antiguedad_inmueble as ct_infraestructura_antiguedad_inmueble,
+  _ct_infraestructura_area as ct_infraestructura_area,
   _ct_infraestructura_construccion_inmueble as ct_infraestructura_construccion_inmueble,
   _ct_infraestructura_departamento as ct_infraestructura_departamento,
   _ct_infraestructura_dimension_terreno as ct_infraestructura_dimension_terreno,
@@ -130,14 +150,21 @@ export {
   _ct_infraestructura_tipo_descarga as ct_infraestructura_tipo_descarga,
   _ct_infraestructura_tipo_escuela as ct_infraestructura_tipo_escuela,
   _ct_infraestructura_unidad as ct_infraestructura_unidad,
+  _ct_inventario as ct_inventario,
+  _ct_inventario_clases as ct_inventario_clases,
   _ct_inventario_clasificacion as ct_inventario_clasificacion,
   _ct_inventario_color as ct_inventario_color,
-  _ct_inventario_marca as ct_inventario_marca,
+  _ct_inventario_estado_fisico as ct_inventario_estado_fisico,
+  _ct_inventario_marcas as ct_inventario_marcas,
   _ct_inventario_material as ct_inventario_material,
   _ct_inventario_modelo as ct_inventario_modelo,
+  _ct_inventario_proveedor as ct_inventario_proveedor,
+  _ct_inventario_subclases as ct_inventario_subclases,
   _ct_localidad as ct_localidad,
   _ct_municipio as ct_municipio,
   _ct_usuario as ct_usuario,
+  _ctunidadadmin as ctunidadadmin,
+  _dt_bitacora as dt_bitacora,
   _migrations as migrations,
   _rl_infraestructura_edificio_problema as rl_infraestructura_edificio_problema,
   _rl_infraestructura_edificios as rl_infraestructura_edificios,
@@ -154,10 +181,14 @@ export {
 };
 
 export type {
+  ct_accionAttributes,
+  ct_accionCreationAttributes,
   ct_infraestructura_almacenamiento_aguaAttributes,
   ct_infraestructura_almacenamiento_aguaCreationAttributes,
   ct_infraestructura_antiguedad_inmuebleAttributes,
   ct_infraestructura_antiguedad_inmuebleCreationAttributes,
+  ct_infraestructura_areaAttributes,
+  ct_infraestructura_areaCreationAttributes,
   ct_infraestructura_construccion_inmuebleAttributes,
   ct_infraestructura_construccion_inmuebleCreationAttributes,
   ct_infraestructura_departamentoAttributes,
@@ -212,22 +243,36 @@ export type {
   ct_infraestructura_tipo_escuelaCreationAttributes,
   ct_infraestructura_unidadAttributes,
   ct_infraestructura_unidadCreationAttributes,
+  ct_inventarioAttributes,
+  ct_inventarioCreationAttributes,
+  ct_inventario_clasesAttributes,
+  ct_inventario_clasesCreationAttributes,
   ct_inventario_clasificacionAttributes,
   ct_inventario_clasificacionCreationAttributes,
   ct_inventario_colorAttributes,
   ct_inventario_colorCreationAttributes,
-  ct_inventario_marcaAttributes,
-  ct_inventario_marcaCreationAttributes,
+  ct_inventario_estado_fisicoAttributes,
+  ct_inventario_estado_fisicoCreationAttributes,
+  ct_inventario_marcasAttributes,
+  ct_inventario_marcasCreationAttributes,
   ct_inventario_materialAttributes,
   ct_inventario_materialCreationAttributes,
   ct_inventario_modeloAttributes,
   ct_inventario_modeloCreationAttributes,
+  ct_inventario_proveedorAttributes,
+  ct_inventario_proveedorCreationAttributes,
+  ct_inventario_subclasesAttributes,
+  ct_inventario_subclasesCreationAttributes,
   ct_localidadAttributes,
   ct_localidadCreationAttributes,
   ct_municipioAttributes,
   ct_municipioCreationAttributes,
   ct_usuarioAttributes,
   ct_usuarioCreationAttributes,
+  ctunidadadminAttributes,
+  ctunidadadminCreationAttributes,
+  dt_bitacoraAttributes,
+  dt_bitacoraCreationAttributes,
   migrationsAttributes,
   migrationsCreationAttributes,
   rl_infraestructura_edificio_problemaAttributes,
@@ -257,8 +302,10 @@ export type {
 };
 
 export function initModels(sequelize: Sequelize) {
+  const ct_accion = _ct_accion.initModel(sequelize);
   const ct_infraestructura_almacenamiento_agua = _ct_infraestructura_almacenamiento_agua.initModel(sequelize);
   const ct_infraestructura_antiguedad_inmueble = _ct_infraestructura_antiguedad_inmueble.initModel(sequelize);
+  const ct_infraestructura_area = _ct_infraestructura_area.initModel(sequelize);
   const ct_infraestructura_construccion_inmueble = _ct_infraestructura_construccion_inmueble.initModel(sequelize);
   const ct_infraestructura_departamento = _ct_infraestructura_departamento.initModel(sequelize);
   const ct_infraestructura_dimension_terreno = _ct_infraestructura_dimension_terreno.initModel(sequelize);
@@ -286,14 +333,21 @@ export function initModels(sequelize: Sequelize) {
   const ct_infraestructura_tipo_descarga = _ct_infraestructura_tipo_descarga.initModel(sequelize);
   const ct_infraestructura_tipo_escuela = _ct_infraestructura_tipo_escuela.initModel(sequelize);
   const ct_infraestructura_unidad = _ct_infraestructura_unidad.initModel(sequelize);
+  const ct_inventario = _ct_inventario.initModel(sequelize);
+  const ct_inventario_clases = _ct_inventario_clases.initModel(sequelize);
   const ct_inventario_clasificacion = _ct_inventario_clasificacion.initModel(sequelize);
   const ct_inventario_color = _ct_inventario_color.initModel(sequelize);
-  const ct_inventario_marca = _ct_inventario_marca.initModel(sequelize);
+  const ct_inventario_estado_fisico = _ct_inventario_estado_fisico.initModel(sequelize);
+  const ct_inventario_marcas = _ct_inventario_marcas.initModel(sequelize);
   const ct_inventario_material = _ct_inventario_material.initModel(sequelize);
   const ct_inventario_modelo = _ct_inventario_modelo.initModel(sequelize);
+  const ct_inventario_proveedor = _ct_inventario_proveedor.initModel(sequelize);
+  const ct_inventario_subclases = _ct_inventario_subclases.initModel(sequelize);
   const ct_localidad = _ct_localidad.initModel(sequelize);
   const ct_municipio = _ct_municipio.initModel(sequelize);
   const ct_usuario = _ct_usuario.initModel(sequelize);
+  const ctunidadadmin = _ctunidadadmin.initModel(sequelize);
+  const dt_bitacora = _dt_bitacora.initModel(sequelize);
   const migrations = _migrations.initModel(sequelize);
   const rl_infraestructura_edificio_problema = _rl_infraestructura_edificio_problema.initModel(sequelize);
   const rl_infraestructura_edificios = _rl_infraestructura_edificios.initModel(sequelize);
@@ -312,8 +366,10 @@ export function initModels(sequelize: Sequelize) {
   ct_infraestructura_construccion_inmueble.belongsToMany(ct_infraestructura_unidad, { as: 'id_unidad_ct_infraestructura_unidad_rl_infraestructura_unidad_construccion_inmuebles', through: rl_infraestructura_unidad_construccion_inmueble, foreignKey: "id_construccion", otherKey: "id_unidad" });
   ct_infraestructura_edificio.belongsToMany(ct_infraestructura_problema_edificio, { as: 'id_problema_ct_infraestructura_problema_edificios', through: rl_infraestructura_edificio_problema, foreignKey: "id_edificio", otherKey: "id_problema" });
   ct_infraestructura_equipo_discapacidad.belongsToMany(ct_infraestructura_unidad, { as: 'id_unidad_ct_infraestructura_unidad_rl_infraestructura_unidad_equipo_discapacidads', through: rl_infraestructura_unidad_equipo_discapacidad, foreignKey: "id_equipo", otherKey: "id_unidad" });
+  ct_infraestructura_espacio_educativo.belongsToMany(ct_infraestructura_unidad, { as: 'id_unidad_ct_infraestructura_unidad_rl_infraestructura_unidad_espacios_educativos', through: rl_infraestructura_unidad_espacios_educativos, foreignKey: "id_espacio", otherKey: "id_unidad" });
   ct_infraestructura_espacio_inmueble.belongsToMany(ct_infraestructura_unidad, { as: 'id_unidad_ct_infraestructura_unidad_rl_infraestructura_unidad_espacio_inmuebles', through: rl_infraestructura_unidad_espacio_inmueble, foreignKey: "id_espacio", otherKey: "id_unidad" });
   ct_infraestructura_fin_inmueble.belongsToMany(ct_infraestructura_unidad, { as: 'id_unidad_ct_infraestructura_unidad_rl_infraestructura_unidad_fin_inmuebles', through: rl_infraestructura_unidad_fin_inmueble, foreignKey: "id_fin", otherKey: "id_unidad" });
+  ct_infraestructura_nivel_educativo.belongsToMany(ct_infraestructura_unidad, { as: 'id_unidad_ct_infraestructura_unidad_rl_infraestructura_unidad_nivels', through: rl_infraestructura_unidad_nivel, foreignKey: "id_nivel", otherKey: "id_unidad" });
   ct_infraestructura_obra_mantenimiento.belongsToMany(ct_infraestructura_unidad, { as: 'id_unidad_ct_infraestructura_unidad_rl_infraestructura_unidad_obra_mantenimientos', through: rl_infraestructura_unidad_obra_mantenimiento, foreignKey: "id_obra", otherKey: "id_unidad" });
   ct_infraestructura_problema_edificio.belongsToMany(ct_infraestructura_edificio, { as: 'id_edificio_ct_infraestructura_edificios', through: rl_infraestructura_edificio_problema, foreignKey: "id_problema", otherKey: "id_edificio" });
   ct_infraestructura_suministro_agua.belongsToMany(ct_infraestructura_unidad, { as: 'id_unidad_ct_infraestructura_unidad_rl_infraestructura_unidad_suministro_aguas', through: rl_infraestructura_unidad_suministro_agua, foreignKey: "id_suministro_agua", otherKey: "id_unidad" });
@@ -321,17 +377,23 @@ export function initModels(sequelize: Sequelize) {
   ct_infraestructura_unidad.belongsToMany(ct_infraestructura_almacenamiento_agua, { as: 'id_almacenamiento_ct_infraestructura_almacenamiento_aguas', through: rl_infraestructura_unidad_almacenamiento_agua, foreignKey: "id_unidad", otherKey: "id_almacenamiento" });
   ct_infraestructura_unidad.belongsToMany(ct_infraestructura_construccion_inmueble, { as: 'id_construccion_ct_infraestructura_construccion_inmuebles', through: rl_infraestructura_unidad_construccion_inmueble, foreignKey: "id_unidad", otherKey: "id_construccion" });
   ct_infraestructura_unidad.belongsToMany(ct_infraestructura_equipo_discapacidad, { as: 'id_equipo_ct_infraestructura_equipo_discapacidads', through: rl_infraestructura_unidad_equipo_discapacidad, foreignKey: "id_unidad", otherKey: "id_equipo" });
+  ct_infraestructura_unidad.belongsToMany(ct_infraestructura_espacio_educativo, { as: 'id_espacio_ct_infraestructura_espacio_educativos', through: rl_infraestructura_unidad_espacios_educativos, foreignKey: "id_unidad", otherKey: "id_espacio" });
   ct_infraestructura_unidad.belongsToMany(ct_infraestructura_espacio_inmueble, { as: 'id_espacio_ct_infraestructura_espacio_inmuebles', through: rl_infraestructura_unidad_espacio_inmueble, foreignKey: "id_unidad", otherKey: "id_espacio" });
   ct_infraestructura_unidad.belongsToMany(ct_infraestructura_fin_inmueble, { as: 'id_fin_ct_infraestructura_fin_inmuebles', through: rl_infraestructura_unidad_fin_inmueble, foreignKey: "id_unidad", otherKey: "id_fin" });
+  ct_infraestructura_unidad.belongsToMany(ct_infraestructura_nivel_educativo, { as: 'id_nivel_ct_infraestructura_nivel_educativos', through: rl_infraestructura_unidad_nivel, foreignKey: "id_unidad", otherKey: "id_nivel" });
   ct_infraestructura_unidad.belongsToMany(ct_infraestructura_obra_mantenimiento, { as: 'id_obra_ct_infraestructura_obra_mantenimientos', through: rl_infraestructura_unidad_obra_mantenimiento, foreignKey: "id_unidad", otherKey: "id_obra" });
   ct_infraestructura_unidad.belongsToMany(ct_infraestructura_suministro_agua, { as: 'id_suministro_agua_ct_infraestructura_suministro_aguas', through: rl_infraestructura_unidad_suministro_agua, foreignKey: "id_unidad", otherKey: "id_suministro_agua" });
   ct_infraestructura_unidad.belongsToMany(ct_infraestructura_tipo_construccion, { as: 'id_construccion_ct_infraestructura_tipo_construccions', through: rl_infraestructura_unidad_construccion, foreignKey: "id_unidad", otherKey: "id_construccion" });
+  ct_inventario.belongsTo(ct_accion, { as: "id_accion_ct_accion", foreignKey: "id_accion"});
+  ct_accion.hasMany(ct_inventario, { as: "ct_inventarios", foreignKey: "id_accion"});
   rl_infraestructura_unidad_almacenamiento_agua.belongsTo(ct_infraestructura_almacenamiento_agua, { as: "id_almacenamiento_ct_infraestructura_almacenamiento_agua", foreignKey: "id_almacenamiento"});
   ct_infraestructura_almacenamiento_agua.hasMany(rl_infraestructura_unidad_almacenamiento_agua, { as: "rl_infraestructura_unidad_almacenamiento_aguas", foreignKey: "id_almacenamiento"});
   ct_infraestructura_unidad.belongsTo(ct_infraestructura_antiguedad_inmueble, { as: "id_antiguedad_inmueble_ct_infraestructura_antiguedad_inmueble", foreignKey: "id_antiguedad_inmueble"});
   ct_infraestructura_antiguedad_inmueble.hasMany(ct_infraestructura_unidad, { as: "ct_infraestructura_unidads", foreignKey: "id_antiguedad_inmueble"});
   rl_infraestructura_unidad_construccion_inmueble.belongsTo(ct_infraestructura_construccion_inmueble, { as: "id_construccion_ct_infraestructura_construccion_inmueble", foreignKey: "id_construccion"});
   ct_infraestructura_construccion_inmueble.hasMany(rl_infraestructura_unidad_construccion_inmueble, { as: "rl_infraestructura_unidad_construccion_inmuebles", foreignKey: "id_construccion"});
+  ct_infraestructura_area.belongsTo(ct_infraestructura_departamento, { as: "id_departamento_ct_infraestructura_departamento", foreignKey: "id_departamento"});
+  ct_infraestructura_departamento.hasMany(ct_infraestructura_area, { as: "ct_infraestructura_areas", foreignKey: "id_departamento"});
   ct_infraestructura_jefe_sector.belongsTo(ct_infraestructura_departamento, { as: "id_departamento_ct_infraestructura_departamento", foreignKey: "id_departamento"});
   ct_infraestructura_departamento.hasMany(ct_infraestructura_jefe_sector, { as: "ct_infraestructura_jefe_sectors", foreignKey: "id_departamento"});
   ct_infraestructura_supervisor.belongsTo(ct_infraestructura_departamento, { as: "id_departamento_ct_infraestructura_departamento", foreignKey: "id_departamento"});
@@ -348,6 +410,8 @@ export function initModels(sequelize: Sequelize) {
   ct_infraestructura_edificio.hasMany(rl_infraestructura_edificio_problema, { as: "rl_infraestructura_edificio_problemas", foreignKey: "id_edificio"});
   rl_infraestructura_unidad_equipo_discapacidad.belongsTo(ct_infraestructura_equipo_discapacidad, { as: "id_equipo_ct_infraestructura_equipo_discapacidad", foreignKey: "id_equipo"});
   ct_infraestructura_equipo_discapacidad.hasMany(rl_infraestructura_unidad_equipo_discapacidad, { as: "rl_infraestructura_unidad_equipo_discapacidads", foreignKey: "id_equipo"});
+  rl_infraestructura_unidad_espacios_educativos.belongsTo(ct_infraestructura_espacio_educativo, { as: "id_espacio_ct_infraestructura_espacio_educativo", foreignKey: "id_espacio"});
+  ct_infraestructura_espacio_educativo.hasMany(rl_infraestructura_unidad_espacios_educativos, { as: "rl_infraestructura_unidad_espacios_educativos", foreignKey: "id_espacio"});
   rl_infraestructura_unidad_espacio_inmueble.belongsTo(ct_infraestructura_espacio_inmueble, { as: "id_espacio_ct_infraestructura_espacio_inmueble", foreignKey: "id_espacio"});
   ct_infraestructura_espacio_inmueble.hasMany(rl_infraestructura_unidad_espacio_inmueble, { as: "rl_infraestructura_unidad_espacio_inmuebles", foreignKey: "id_espacio"});
   rl_infraestructura_unidad_fin_inmueble.belongsTo(ct_infraestructura_fin_inmueble, { as: "id_fin_ct_infraestructura_fin_inmueble", foreignKey: "id_fin"});
@@ -398,18 +462,38 @@ export function initModels(sequelize: Sequelize) {
   ct_infraestructura_unidad.hasMany(rl_infraestructura_unidad_espacios_educativos, { as: "rl_infraestructura_unidad_espacios_educativos", foreignKey: "id_unidad"});
   rl_infraestructura_unidad_fin_inmueble.belongsTo(ct_infraestructura_unidad, { as: "id_unidad_ct_infraestructura_unidad", foreignKey: "id_unidad"});
   ct_infraestructura_unidad.hasMany(rl_infraestructura_unidad_fin_inmueble, { as: "rl_infraestructura_unidad_fin_inmuebles", foreignKey: "id_unidad"});
+  rl_infraestructura_unidad_nivel.belongsTo(ct_infraestructura_unidad, { as: "id_unidad_ct_infraestructura_unidad", foreignKey: "id_unidad"});
+  ct_infraestructura_unidad.hasMany(rl_infraestructura_unidad_nivel, { as: "rl_infraestructura_unidad_nivels", foreignKey: "id_unidad"});
   rl_infraestructura_unidad_obra_mantenimiento.belongsTo(ct_infraestructura_unidad, { as: "id_unidad_ct_infraestructura_unidad", foreignKey: "id_unidad"});
   ct_infraestructura_unidad.hasMany(rl_infraestructura_unidad_obra_mantenimiento, { as: "rl_infraestructura_unidad_obra_mantenimientos", foreignKey: "id_unidad"});
   rl_infraestructura_unidad_suministro_agua.belongsTo(ct_infraestructura_unidad, { as: "id_unidad_ct_infraestructura_unidad", foreignKey: "id_unidad"});
   ct_infraestructura_unidad.hasMany(rl_infraestructura_unidad_suministro_agua, { as: "rl_infraestructura_unidad_suministro_aguas", foreignKey: "id_unidad"});
+  ct_inventario_subclases.belongsTo(ct_inventario_clases, { as: "id_clase_ct_inventario_clase", foreignKey: "id_clase"});
+  ct_inventario_clases.hasMany(ct_inventario_subclases, { as: "ct_inventario_subclases", foreignKey: "id_clase"});
+  ct_inventario.belongsTo(ct_inventario_color, { as: "id_color_ct_inventario_color", foreignKey: "id_color"});
+  ct_inventario_color.hasMany(ct_inventario, { as: "ct_inventarios", foreignKey: "id_color"});
+  ct_inventario.belongsTo(ct_inventario_estado_fisico, { as: "id_estadoFisico_ct_inventario_estado_fisico", foreignKey: "id_estadoFisico"});
+  ct_inventario_estado_fisico.hasMany(ct_inventario, { as: "ct_inventarios", foreignKey: "id_estadoFisico"});
+  ct_inventario.belongsTo(ct_inventario_marcas, { as: "id_marca_ct_inventario_marca", foreignKey: "id_marca"});
+  ct_inventario_marcas.hasMany(ct_inventario, { as: "ct_inventarios", foreignKey: "id_marca"});
+  ct_inventario.belongsTo(ct_inventario_material, { as: "id_material_ct_inventario_material", foreignKey: "id_material"});
+  ct_inventario_material.hasMany(ct_inventario, { as: "ct_inventarios", foreignKey: "id_material"});
+  ct_inventario.belongsTo(ct_inventario_proveedor, { as: "id_proveedor_ct_inventario_proveedor", foreignKey: "id_proveedor"});
+  ct_inventario_proveedor.hasMany(ct_inventario, { as: "ct_inventarios", foreignKey: "id_proveedor"});
+  ct_inventario.belongsTo(ct_inventario_subclases, { as: "id_subclase_ct_inventario_subclase", foreignKey: "id_subclase"});
+  ct_inventario_subclases.hasMany(ct_inventario, { as: "ct_inventarios", foreignKey: "id_subclase"});
   ct_infraestructura_unidad.belongsTo(ct_localidad, { as: "id_localidad_ct_localidad", foreignKey: "id_localidad"});
   ct_localidad.hasMany(ct_infraestructura_unidad, { as: "ct_infraestructura_unidads", foreignKey: "id_localidad"});
   ct_localidad.belongsTo(ct_municipio, { as: "id_municipio_ct_municipio", foreignKey: "id_municipio"});
   ct_municipio.hasMany(ct_localidad, { as: "ct_localidads", foreignKey: "id_municipio"});
+  ct_inventario.belongsTo(rl_infraestructura_edificios, { as: "id_edificios_rl_infraestructura_edificio", foreignKey: "id_edificios"});
+  rl_infraestructura_edificios.hasMany(ct_inventario, { as: "ct_inventarios", foreignKey: "id_edificios"});
 
   return {
+    ct_accion: ct_accion,
     ct_infraestructura_almacenamiento_agua: ct_infraestructura_almacenamiento_agua,
     ct_infraestructura_antiguedad_inmueble: ct_infraestructura_antiguedad_inmueble,
+    ct_infraestructura_area: ct_infraestructura_area,
     ct_infraestructura_construccion_inmueble: ct_infraestructura_construccion_inmueble,
     ct_infraestructura_departamento: ct_infraestructura_departamento,
     ct_infraestructura_dimension_terreno: ct_infraestructura_dimension_terreno,
@@ -437,14 +521,21 @@ export function initModels(sequelize: Sequelize) {
     ct_infraestructura_tipo_descarga: ct_infraestructura_tipo_descarga,
     ct_infraestructura_tipo_escuela: ct_infraestructura_tipo_escuela,
     ct_infraestructura_unidad: ct_infraestructura_unidad,
+    ct_inventario: ct_inventario,
+    ct_inventario_clases: ct_inventario_clases,
     ct_inventario_clasificacion: ct_inventario_clasificacion,
     ct_inventario_color: ct_inventario_color,
-    ct_inventario_marca: ct_inventario_marca,
+    ct_inventario_estado_fisico: ct_inventario_estado_fisico,
+    ct_inventario_marcas: ct_inventario_marcas,
     ct_inventario_material: ct_inventario_material,
     ct_inventario_modelo: ct_inventario_modelo,
+    ct_inventario_proveedor: ct_inventario_proveedor,
+    ct_inventario_subclases: ct_inventario_subclases,
     ct_localidad: ct_localidad,
     ct_municipio: ct_municipio,
     ct_usuario: ct_usuario,
+    ctunidadadmin: ctunidadadmin,
+    dt_bitacora: dt_bitacora,
     migrations: migrations,
     rl_infraestructura_edificio_problema: rl_infraestructura_edificio_problema,
     rl_infraestructura_edificios: rl_infraestructura_edificios,

@@ -8,9 +8,13 @@ class ctSuministroDeAguaController {
         await ctSuministroDeAguaService.obtenerSuministrosDeAgua();
       res.status(200).json(suministrosDeAgua);
     } catch (error) {
-      res
-        .status(500)
-        .json({ error: "Error al obtener los suministros de agua controller" });
+      res.status(500).json({
+        error: "Error al obtener los suministros de agua controller",
+      });
+      console.error(
+        "Error al obtener los suministros de agua controller:",
+        error
+      );
     }
   }
 }

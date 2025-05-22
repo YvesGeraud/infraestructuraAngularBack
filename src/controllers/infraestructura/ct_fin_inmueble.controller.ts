@@ -9,10 +9,13 @@ class ctInfraestructuraFinInmuebleController {
         await ctInfraestructuraFinInmuebleService.obtenerTiposFinInmueble();
       res.status(200).json(tiposFinInmueble);
     } catch (error) {
-      console.error("Error al obtener tipos de fin de inmueble:", error);
-      res
-        .status(500)
-        .json({ error: "Error al obtener tipos de fin de inmueble" });
+      console.error(
+        "Error al obtener tipos de fin de inmueble controller:",
+        error
+      );
+      res.status(500).json({
+        error: "Error al obtener tipos de fin de inmueble controller",
+      });
     }
   }
 }

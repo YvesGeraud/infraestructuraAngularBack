@@ -9,10 +9,13 @@ class CtEspacioInmueblesController {
         await CtEspacioInmueblesService.obtenerEspaciosInmuebles();
       res.status(200).json(espaciosInmuebles);
     } catch (error) {
-      console.error("Error al obtener los espacios de inmuebles:", error);
-      res
-        .status(500)
-        .json({ error: "Error al obtener los espacios de inmuebles" });
+      console.error(
+        "Error al obtener los espacios de inmuebles controller:",
+        error
+      );
+      res.status(500).json({
+        error: "Error al obtener los espacios de inmuebles controller",
+      });
     }
   }
 }

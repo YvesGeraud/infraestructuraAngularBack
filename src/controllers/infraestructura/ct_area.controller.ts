@@ -7,7 +7,8 @@ export class CtAreaController {
       const area = await CtAreaService.obtenerArea();
       res.json(area);
     } catch (error) {
-      res.status(500).json({ error: "Error al obtener las áreas" });
+      res.status(500).json({ error: "Error al obtener las áreas controller" });
+      console.error("Error al obtener las áreas controller:", error);
     }
   }
 
@@ -17,7 +18,8 @@ export class CtAreaController {
       const area = await CtAreaService.obtenerAreaById(parseInt(id));
       res.json(area);
     } catch (error) {
-      res.status(500).json({ error: "Error al obtener la área" });
+      res.status(500).json({ error: "Error al obtener la área controller" });
+      console.error("Error al obtener la área controller:", error);
     }
   }
 }

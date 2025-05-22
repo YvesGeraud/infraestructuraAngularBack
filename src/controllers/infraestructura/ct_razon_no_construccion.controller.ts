@@ -3,9 +3,19 @@ import ctRazonNoConstruccionService from "../../services/infraestructura/ct_razo
 
 class ctRazonNoConstruccionController {
   async obtenerRazonesNoConstruccion(req: Request, res: Response) {
-    const razonesNoConstruccion =
-      await ctRazonNoConstruccionService.obtenerRazonesNoConstruccion();
-    res.status(200).json(razonesNoConstruccion);
+    try {
+      const razonesNoConstruccion =
+        await ctRazonNoConstruccionService.obtenerRazonesNoConstruccion();
+      res.status(200).json(razonesNoConstruccion);
+    } catch (error) {
+      console.error(
+        "Error al obtener las razones de no construcción controller:",
+        error
+      );
+      res.status(500).json({
+        error: "Error al obtener las razones de no construcción controller",
+      });
+    }
   }
 }
 

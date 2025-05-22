@@ -9,8 +9,10 @@ export class CtDepartamentoController {
       const departamentos = await CtDepartamentoService.obtenerDepartamentos();
       res.status(200).json(departamentos);
     } catch (error) {
-      console.error("Error al obtener departamentos:", error);
-      res.status(500).json({ error: "Error al obtener departamentos" });
+      console.error("Error al obtener departamentos controller:", error);
+      res
+        .status(500)
+        .json({ error: "Error al obtener departamentos controller" });
     }
   }
 
@@ -23,8 +25,10 @@ export class CtDepartamentoController {
       );
       res.status(200).json(departamento);
     } catch (error) {
-      console.error("Error al obtener el departamento:", error);
-      res.status(500).json({ error: "Error al obtener el departamento" });
+      console.error("Error al obtener el departamento controller:", error);
+      res
+        .status(500)
+        .json({ error: "Error al obtener el departamento controller" });
     }
   }
 
@@ -38,8 +42,10 @@ export class CtDepartamentoController {
         );
       res.status(200).json(departamento);
     } catch (error) {
-      console.error("Error al obtener el departamento:", error);
-      res.status(500).json({ error: "Error al obtener el departamento" });
+      console.error("Error al obtener el departamento controller:", error);
+      res
+        .status(500)
+        .json({ error: "Error al obtener el departamento controller" });
     }
   }
 }

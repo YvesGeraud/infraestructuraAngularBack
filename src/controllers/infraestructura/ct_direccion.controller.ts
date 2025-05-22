@@ -8,8 +8,10 @@ export class CtDireccionController {
       const direcciones = await CtDireccionService.obtenerDirecciones();
       res.status(200).json(direcciones);
     } catch (error) {
-      console.error("Error al obtener direcciones:", error);
-      res.status(500).json({ error: "Error al obtener direcciones" });
+      console.error("Error al obtener direcciones controller:", error);
+      res
+        .status(500)
+        .json({ error: "Error al obtener direcciones controller" });
     }
   }
 
@@ -22,8 +24,10 @@ export class CtDireccionController {
       );
       res.status(200).json(direccion);
     } catch (error) {
-      console.error("Error al obtener la dirección:", error);
-      res.status(500).json({ error: "Error al obtener la dirección" });
+      console.error("Error al obtener la dirección controller:", error);
+      res
+        .status(500)
+        .json({ error: "Error al obtener la dirección controller" });
     }
   }
 }

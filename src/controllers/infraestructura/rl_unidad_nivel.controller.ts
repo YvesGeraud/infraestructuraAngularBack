@@ -20,11 +20,11 @@ class rlUnidadNivelController {
           valor
         );
       res.status(200).json(nivelEducativo);
-    } catch (error: any) {
-      console.error("Error al actualizar nivel:", error);
-      res
-        .status(500)
-        .json({ error: error.message || "Error al actualizar nivel" });
+    } catch (error) {
+      res.status(500).json({
+        error: "Error al actualizar nivel controller",
+      });
+      console.error("Error al actualizar nivel controller:", error);
     }
   }
 }

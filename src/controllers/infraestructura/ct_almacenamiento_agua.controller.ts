@@ -10,7 +10,13 @@ export class CtAlmacenamientoAguaController {
     } catch (error) {
       res
         .status(500)
-        .json({ error: "Error al obtener el almacenamiento de agua" });
+        .json({
+          error: "Error al obtener el almacenamiento de agua controller",
+        });
+      console.error(
+        "Error al obtener el almacenamiento de agua controller:",
+        error
+      );
     }
   }
 }

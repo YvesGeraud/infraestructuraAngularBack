@@ -19,12 +19,18 @@ class ctNivelEducativoController {
   }
 
   async eliminarNivelAcademico(req: Request, res: Response) {
-    const { id_unidad, id_nivel } = req.params;
-    await ctNivelEducativoService.eliminarNivelAcademico(
-      parseInt(id_unidad),
-      parseInt(id_nivel)
-    );
-    res.status(200).json({ message: "Nivel académico eliminado" });
+    try {
+      const { id_unidad, id_nivel } = req.params;
+      await ctNivelEducativoService.eliminarNivelAcademico(
+        parseInt(id_unidad),
+        parseInt(id_nivel)
+      );
+      res.status(200).json({
+        message: "Nivel académico eliminado controller",
+      });
+    } catch (error) {
+      console.error("Error al eliminar el nivel académico controller:", error);
+    }
   }
 }
 

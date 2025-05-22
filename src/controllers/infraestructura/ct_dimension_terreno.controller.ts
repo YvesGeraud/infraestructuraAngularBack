@@ -8,9 +8,13 @@ export class CtDimencionTerrenoController {
         await CtDimencionTerrenoService.obtenerDimencionTerreno();
       res.json(dimencionTerreno);
     } catch (error) {
-      res
-        .status(500)
-        .json({ error: "Error al obtener las dimensiones del terreno" });
+      res.status(500).json({
+        error: "Error al obtener las dimensiones del terreno controller",
+      });
+      console.error(
+        "Error al obtener las dimensiones del terreno controller:",
+        error
+      );
     }
   }
 }

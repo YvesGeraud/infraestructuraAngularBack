@@ -143,7 +143,9 @@ export class ctInfraestructuraUnidadService {
       }
       return niveles;
     } catch (error) {
-      throw new Error("Error al obtener niveles educativos de la unidad");
+      throw new Error(
+        "Error al obtener niveles educativos de la unidad service"
+      );
     }
   }
 

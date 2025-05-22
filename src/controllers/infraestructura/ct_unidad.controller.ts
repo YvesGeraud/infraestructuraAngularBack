@@ -115,12 +115,12 @@ class ctInfraestructuraUnidadController {
       res.json(niveles);
     } catch (error) {
       console.error(
-        "Error al obtener niveles educativos de una unidad:",
+        "Error al obtener niveles educativos de una unidad controller:",
         error
       );
-      res
-        .status(500)
-        .json({ error: "Error al obtener niveles educativos de una unidad" });
+      res.status(500).json({
+        error: "Error al obtener niveles educativos de una unidad controller",
+      });
     }
   }
 
@@ -176,11 +176,9 @@ class ctInfraestructuraUnidadController {
         "Error al obtener almacenamiento de agua de una unidad:",
         error
       );
-      res
-        .status(500)
-        .json({
-          error: "Error al obtener almacenamiento de agua de una unidad",
-        });
+      res.status(500).json({
+        error: "Error al obtener almacenamiento de agua de una unidad",
+      });
     }
   }
 

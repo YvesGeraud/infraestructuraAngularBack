@@ -1,5 +1,5 @@
 import { Router } from "express";
-import ctSuministroDeAguaController from "../../controllers/infraestructura/ct_suministro_de_aguar.controller";
+import ctSuministroDeAguaController from "../../controllers/infraestructura/ct_suministro_de_agua.controller";
 import { authenticateJWT } from "../../middlewares/auth.middleware";
 
 const router = Router();

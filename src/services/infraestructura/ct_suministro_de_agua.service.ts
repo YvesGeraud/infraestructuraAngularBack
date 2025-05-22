@@ -1,4 +1,5 @@
-import { ct_infraestructura_suministro_agua } from "../../models/ct_infraestructura_suministro_agua";
+import { ct_infraestructura_suministro_agua } from "../../models";
+import { Op } from "sequelize";
 
 class ctSuministroDeAguaService {
   //* Obtener todos los suministros de agua

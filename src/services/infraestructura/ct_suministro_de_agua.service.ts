@@ -14,7 +14,7 @@ class ctSuministroDeAguaService {
       const suministrosDeAgua = await SuministroAgua.findAll();
       return suministrosDeAgua;
     } catch (error) {
-      console.error("Error al obtener los suministros de agua:", error);
+      console.error("Error al obtener los suministros de agua service:", error);
       throw error;
     }
   }

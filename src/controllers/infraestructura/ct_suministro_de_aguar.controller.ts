@@ -10,7 +10,7 @@ class ctSuministroDeAguaController {
     } catch (error) {
       res
         .status(500)
-        .json({ error: "Error al obtener los suministros de agua" });
+        .json({ error: "Error al obtener los suministros de agua controller" });
     }
   }
 }

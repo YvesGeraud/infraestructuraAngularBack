@@ -1,17 +1,11 @@
-import { initModels } from "../../models/init-models";
+import { rl_infraestructura_unidad_nivel } from "../../models/rl_infraestructura_unidad_nivel";
 import { sequelize } from "../../config/database";
-
-//! Inicializar los modelos
-const models = initModels(sequelize);
-
-//! Desestructurar los modelos que necesitamos
-const { rl_infraestructura_unidad_nivel: UnidadNivel } = models;
 
 class rlNivelEducativoService {
   //* Obtener todos los niveles educativos
   async obtenerNivelesEducativos() {
     try {
-      const nivelesEducativos = await UnidadNivel.findAll();
+      const nivelesEducativos = await rl_infraestructura_unidad_nivel.findAll();
       return nivelesEducativos;
     } catch (error) {
       console.error("Error al obtener niveles educativos:", error);
@@ -27,13 +21,13 @@ class rlNivelEducativoService {
   ) {
     try {
       if (valor === true) {
-        const nivelEducativo = await UnidadNivel.create({
+        const nivelEducativo = await rl_infraestructura_unidad_nivel.create({
           id_unidad: id_unidad,
           id_nivel: id_nivel,
         });
         return { message: "Nivel creado" };
       } else {
-        await UnidadNivel.destroy({
+        await rl_infraestructura_unidad_nivel.destroy({
           where: { id_unidad: id_unidad, id_nivel: id_nivel },
         });
         return { message: "Nivel eliminado" };

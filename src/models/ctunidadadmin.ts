@@ -1,7 +1,7 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
 
-export interface ctunidadadminAttributes {
+export interface ctUnidadAdminAttributes {
   id: number;
   idUnidadF?: number;
   idAmin?: number;
@@ -14,12 +14,12 @@ export interface ctunidadadminAttributes {
   ctStatus?: number;
 }
 
-export type ctunidadadminPk = "id";
-export type ctunidadadminId = ctunidadadmin[ctunidadadminPk];
-export type ctunidadadminOptionalAttributes = "id" | "idUnidadF" | "idAmin" | "idAnalista" | "techoO" | "techoG" | "techoRe" | "clasificador" | "ctStatus";
-export type ctunidadadminCreationAttributes = Optional<ctunidadadminAttributes, ctunidadadminOptionalAttributes>;
+export type ctUnidadAdminPk = "id";
+export type ctUnidadAdminId = ctUnidadAdmin[ctUnidadAdminPk];
+export type ctUnidadAdminOptionalAttributes = "id" | "idUnidadF" | "idAmin" | "idAnalista" | "techoO" | "techoG" | "techoRe" | "clasificador" | "ctStatus";
+export type ctUnidadAdminCreationAttributes = Optional<ctUnidadAdminAttributes, ctUnidadAdminOptionalAttributes>;
 
-export class ctunidadadmin extends Model<ctunidadadminAttributes, ctunidadadminCreationAttributes> implements ctunidadadminAttributes {
+export class ctUnidadAdmin extends Model<ctUnidadAdminAttributes, ctUnidadAdminCreationAttributes> implements ctUnidadAdminAttributes {
   id!: number;
   idUnidadF?: number;
   idAmin?: number;
@@ -32,8 +32,8 @@ export class ctunidadadmin extends Model<ctunidadadminAttributes, ctunidadadminC
   ctStatus?: number;
 
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof ctunidadadmin {
-    return ctunidadadmin.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof ctUnidadAdmin {
+    return ctUnidadAdmin.init({
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
@@ -79,7 +79,7 @@ export class ctunidadadmin extends Model<ctunidadadminAttributes, ctunidadadminC
     }
   }, {
     sequelize,
-    tableName: 'ctunidadadmin',
+    tableName: 'ctUnidadAdmin',
     timestamps: false,
     indexes: [
       {

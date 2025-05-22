@@ -110,15 +110,9 @@ export class ct_infraestructura_departamento extends Model<ct_infraestructura_de
       }
     },
     estado: {
-<<<<<<< HEAD
-      type: DataTypes.TINYINT,
-      allowNull: true,
-      defaultValue: 1
-=======
       type: DataTypes.BOOLEAN,
       allowNull: true,
       defaultValue: 0
->>>>>>> recupera-mis-cambios
     },
     fecha_in: {
       type: DataTypes.DATE,

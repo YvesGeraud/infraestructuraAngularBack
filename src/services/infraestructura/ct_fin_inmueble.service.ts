@@ -11,11 +11,19 @@ class ctInfraestructuraFinInmuebleService {
   //* Obtener todos los tipos de fin de inmueble
   async obtenerTiposFinInmueble() {
     try {
-      const tiposFinInmueble = await FinInmueble.findAll();
+      const tiposFinInmueble = await FinInmueble.findAll({
+        attributes: ["id_fin_inmueble", "descripcion"],
+      });
+      if (tiposFinInmueble.length === 0) {
+        throw new Error("No hay tipos de fin de inmueble");
+      }
       return tiposFinInmueble;
     } catch (error) {
-      console.error("Error al obtener los tipos de fin de inmueble:", error);
-      throw error;
+      console.error(
+        "Error al obtener los tipos de fin de inmueble service:",
+        error
+      );
+      throw new Error("Error al obtener los tipos de fin de inmueble service");
     }
   }
 }

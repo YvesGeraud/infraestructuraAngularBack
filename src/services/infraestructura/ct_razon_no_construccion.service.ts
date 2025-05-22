@@ -12,11 +12,21 @@ class ctRazonNoConstruccionService {
   //* Obtener todas las razones de no construcción
   async obtenerRazonesNoConstruccion() {
     try {
-      const razonesNoConstruccion = await RazonNoConstruccion.findAll();
+      const razonesNoConstruccion = await RazonNoConstruccion.findAll({
+        attributes: ["id_razon_no_construccion", "descripcion"],
+      });
+      if (razonesNoConstruccion.length === 0) {
+        throw new Error("No hay razones de no construcción");
+      }
       return razonesNoConstruccion;
     } catch (error) {
-      console.error("Error al obtener las razones de no construcción:", error);
-      throw error;
+      console.error(
+        "Error al obtener las razones de no construcción service:",
+        error
+      );
+      throw new Error(
+        "Error al obtener las razones de no construcción service"
+      );
     }
   }
 }

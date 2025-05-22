@@ -10,16 +10,26 @@ const {
   ct_infraestructura_direccion: Direccion,
 } = models;
 
+interface IDepartamento {
+  id_departamento?: number;
+  nombre: string;
+}
+
 export class CtDepartamentoService {
   //* Obtener todos los departamentos
 
   async obtenerDepartamentos() {
     try {
-      const departamentos = await Departamento.findAll();
+      const departamentos = await Departamento.findAll({
+        attributes: ["id_departamento", "nombre"],
+      });
+      if (departamentos.length === 0) {
+        throw new Error("No hay departamentos");
+      }
       return departamentos;
     } catch (error) {
-      console.error("Error al obtener departamentos:", error);
-      throw error;
+      console.error("Error al obtener departamentos service:", error);
+      throw new Error("Error al obtener departamentos service");
     }
   }
 
@@ -32,8 +42,8 @@ export class CtDepartamentoService {
       }
       return departamento;
     } catch (error) {
-      console.error("Error al obtener el departamento:", error);
-      throw error;
+      console.error("Error al obtener el departamento service:", error);
+      throw new Error("Error al obtener el departamento service");
     }
   }
 
@@ -68,8 +78,11 @@ export class CtDepartamentoService {
       }
       return [];
     } catch (error) {
-      console.error("Error al obtener departamentos por dirección:", error);
-      throw error;
+      console.error(
+        "Error al obtener departamentos por dirección service:",
+        error
+      );
+      throw new Error("Error al obtener departamentos por dirección service");
     }
   }
 }

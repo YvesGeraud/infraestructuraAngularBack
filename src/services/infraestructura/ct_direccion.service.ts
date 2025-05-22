@@ -11,11 +11,16 @@ export class CtDireccionService {
   //* Obtener todas las direcciones
   async obtenerDirecciones() {
     try {
-      const direcciones = await Direccion.findAll();
+      const direcciones = await Direccion.findAll({
+        attributes: ["id_direccion", "descripcion"],
+      });
+      if (direcciones.length === 0) {
+        throw new Error("No hay direcciones");
+      }
       return direcciones;
     } catch (error) {
-      console.error("Error al obtener direcciones:", error);
-      throw error;
+      console.error("Error al obtener direcciones service:", error);
+      throw new Error("Error al obtener direcciones service");
     }
   }
 
@@ -28,8 +33,8 @@ export class CtDireccionService {
       }
       return direccion;
     } catch (error) {
-      console.error("Error al obtener la dirección:", error);
-      throw error;
+      console.error("Error al obtener la dirección service:", error);
+      throw new Error("Error al obtener la dirección service");
     }
   }
 }

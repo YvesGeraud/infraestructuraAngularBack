@@ -11,11 +11,16 @@ class ctLocalidadService {
   //* Obtener todas las localidades
   async obtenerLocalidades() {
     try {
-      const localidades = await Localidad.findAll();
+      const localidades = await Localidad.findAll({
+        attributes: ["id_localidad", "descripcion"],
+      });
+      if (localidades.length === 0) {
+        throw new Error("No hay localidades");
+      }
       return localidades;
     } catch (error) {
       console.error("Error al obtener localidades:", error);
-      throw error;
+      throw new Error("Error al obtener localidades");
     }
   }
 
@@ -29,7 +34,7 @@ class ctLocalidadService {
       return localidad;
     } catch (error) {
       console.error("Error al obtener la localidad por ID:", error);
-      throw error;
+      throw new Error("Error al obtener la localidad por ID");
     }
   }
 }

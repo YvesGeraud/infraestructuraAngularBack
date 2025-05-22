@@ -13,11 +13,16 @@ class rlUnidadAlmacenamientoAguaService {
   //* Obtener todos los almacenamientos de agua
   async obtenerAlmacenamientoAgua() {
     try {
-      const almacenamientoAgua = await UnidadAlmacenamientoAgua.findAll();
+      const almacenamientoAgua = await UnidadAlmacenamientoAgua.findAll({
+        attributes: ["id_unidad_almacenamiento_agua", "descripcion"],
+      });
+      if (almacenamientoAgua.length === 0) {
+        throw new Error("No hay almacenamientos de agua");
+      }
       return almacenamientoAgua;
     } catch (error) {
       console.error("Error al obtener almacenamiento de agua:", error);
-      throw error;
+      throw new Error("Error al obtener almacenamiento de agua");
     }
   }
 }

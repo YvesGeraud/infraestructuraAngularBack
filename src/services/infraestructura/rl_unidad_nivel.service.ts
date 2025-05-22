@@ -1,42 +1,63 @@
-import { rl_infraestructura_unidad_nivel } from "../../models/rl_infraestructura_unidad_nivel";
+import { initModels } from "../../models/init-models";
 import { sequelize } from "../../config/database";
+import { Op } from "sequelize";
 
-class rlNivelEducativoService {
-  //* Obtener todos los niveles educativos
+//! Inicializar los modelos
+const models = initModels(sequelize);
+
+//! Desestructurar los modelos que necesitamos
+const {
+  rl_infraestructura_unidad_nivel: UnidadNivel,
+  ct_infraestructura_nivel_educativo: NivelEducativo,
+} = models;
+
+class rlUnidadNivelService {
+  //? No se usa por ahora
   async obtenerNivelesEducativos() {
     try {
-      const nivelesEducativos = await rl_infraestructura_unidad_nivel.findAll();
+      const nivelesEducativos = await UnidadNivel.findAll({
+        include: [
+          {
+            model: NivelEducativo,
+            as: "id_nivel_ct_infraestructura_nivel_educativo",
+            attributes: ["id_nivel", "descripcion"],
+          },
+        ],
+      });
       return nivelesEducativos;
     } catch (error) {
-      console.error("Error al obtener niveles educativos:", error);
-      throw error;
+      throw new Error("Error al obtener los niveles educativos");
     }
   }
 
-  //* Actualizar el nivel de la unidad
+  //* Actualizar un nivel educativo de una unidad
   async actualizarNivelUnidad(
     id_unidad: number,
     id_nivel: number,
     valor: boolean
   ) {
     try {
-      if (valor === true) {
-        const nivelEducativo = await rl_infraestructura_unidad_nivel.create({
-          id_unidad: id_unidad,
-          id_nivel: id_nivel,
+      if (valor) {
+        // Si el valor es true, crear la relación
+        await UnidadNivel.create({
+          id_unidad,
+          id_nivel,
         });
-        return { message: "Nivel creado" };
+        return { message: "Nivel educativo agregado correctamente" };
       } else {
-        await rl_infraestructura_unidad_nivel.destroy({
-          where: { id_unidad: id_unidad, id_nivel: id_nivel },
+        // Si el valor es false, eliminar la relación
+        await UnidadNivel.destroy({
+          where: {
+            id_unidad,
+            id_nivel,
+          },
         });
-        return { message: "Nivel eliminado" };
+        return { message: "Nivel educativo eliminado correctamente" };
       }
-    } catch (error) {
-      console.error("Error al actualizar el nivel de la unidad:", error);
-      throw error;
+    } catch (error: any) {
+      throw new Error("Error al actualizar nivel: " + error.message);
     }
   }
 }
 
-export default new rlNivelEducativoService();
+export default new rlUnidadNivelService();

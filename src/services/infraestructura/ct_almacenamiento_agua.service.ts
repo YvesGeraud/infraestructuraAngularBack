@@ -1,6 +1,6 @@
 import { initModels } from "../../models/init-models";
-import { Op } from "sequelize";
 import { sequelize } from "../../config/database";
+import { Op } from "sequelize";
 
 //! Inicializar los modelos
 const models = initModels(sequelize);
@@ -12,11 +12,16 @@ export class CtAlmacenamientoAguaService {
   //* Obtener todos los almacenamientos de agua
   async obtenerAlmacenamientoAgua() {
     try {
-      const almacenamientoAgua = await AlmacenamientoAgua.findAll();
+      const almacenamientoAgua = await AlmacenamientoAgua.findAll({
+        attributes: ["id_almacenamiento_agua", "descripcion"],
+      });
+      if (almacenamientoAgua.length === 0) {
+        throw new Error("No hay almacenamientos de agua");
+      }
       return almacenamientoAgua;
     } catch (error) {
       console.error("Error al obtener almacenamiento de agua:", error);
-      throw error;
+      throw new Error("Error al obtener almacenamiento de agua");
     }
   }
 }

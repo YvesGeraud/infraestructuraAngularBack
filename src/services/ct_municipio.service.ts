@@ -11,11 +11,16 @@ class ctMunicipiosService {
   //* Obtener todos los municipios
   async obtenerMunicipios() {
     try {
-      const municipios = await Municipio.findAll();
+      const municipios = await Municipio.findAll({
+        attributes: ["id_municipio", "descripcion"],
+      });
+      if (municipios.length === 0) {
+        throw new Error("No hay municipios");
+      }
       return municipios;
     } catch (error) {
       console.error("Error al obtener municipios:", error);
-      throw error;
+      throw new Error("Error al obtener municipios");
     }
   }
 }

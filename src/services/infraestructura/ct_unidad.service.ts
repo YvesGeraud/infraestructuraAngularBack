@@ -65,22 +65,22 @@ export class ctInfraestructuraUnidadService {
         include: [
           {
             model: Sostenimiento,
-            as: "ct_infraestructura_sostenimiento",
+            as: "id_sostenimiento_ct_infraestructura_sostenimiento",
             attributes: ["id_sostenimiento", "sostenimiento"],
           },
           {
             model: TipoEscuela,
-            as: "ct_infraestructura_tipo_escuela",
+            as: "id_tipo_escuela_ct_infraestructura_tipo_escuela",
             attributes: ["id_tipo_escuela", "tipo_escuela"],
           },
           {
             model: Localidad,
-            as: "ct_localidad",
+            as: "id_localidad_ct_localidad",
             attributes: ["id_localidad", "localidad"],
             include: [
               {
                 model: Municipio,
-                as: "ct_municipio",
+                as: "id_municipio_ct_municipio",
                 attributes: ["id_municipio", "nombre"],
               },
             ],
@@ -101,24 +101,24 @@ export class ctInfraestructuraUnidadService {
         include: [
           {
             model: Localidad,
-            as: "ct_localidad",
+            as: "id_localidad_ct_localidad",
             where: { id_municipio: idMunicipio },
             include: [
               {
                 model: Municipio,
-                as: "ct_municipio",
+                as: "id_municipio_ct_municipio",
                 attributes: ["id_municipio", "nombre"],
               },
             ],
           },
           {
             model: Sostenimiento,
-            as: "ct_infraestructura_sostenimiento",
+            as: "id_sostenimiento_ct_infraestructura_sostenimiento",
             attributes: ["id_sostenimiento", "sostenimiento"],
           },
           {
             model: TipoEscuela,
-            as: "ct_infraestructura_tipo_escuela",
+            as: "id_tipo_escuela_ct_infraestructura_tipo_escuela",
             attributes: ["id_tipo_escuela", "tipo_escuela"],
           },
         ],
@@ -152,10 +152,20 @@ export class ctInfraestructuraUnidadService {
           },
         ],
       });
-      if (!niveles) {
-        return null;
+      if (niveles) {
+        return {
+          id_unidad: niveles.id_unidad,
+          niveles: niveles.rl_infraestructura_unidad_nivels.map((nivel) => ({
+            nivel: {
+              id_nivel:
+                nivel.id_nivel_ct_infraestructura_nivel_educativo.id_nivel,
+              descripcion:
+                nivel.id_nivel_ct_infraestructura_nivel_educativo.descripcion,
+            },
+          })),
+        };
       }
-      return niveles;
+      return null;
     } catch (error) {
       console.error(
         "Error al obtener niveles educativos de la unidad service:",
@@ -241,10 +251,25 @@ export class ctInfraestructuraUnidadService {
           },
         ],
       });
-      if (!almacenamientoAgua) {
-        return null;
+      if (almacenamientoAgua) {
+        return {
+          id_unidad: almacenamientoAgua.id_unidad,
+          almacenamientos:
+            almacenamientoAgua.rl_infraestructura_unidad_almacenamiento_aguas.map(
+              (almacenamiento) => ({
+                id_almacenamiento:
+                  almacenamiento
+                    .id_almacenamiento_ct_infraestructura_almacenamiento_agua
+                    .id_almacenamiento,
+                descripcion:
+                  almacenamiento
+                    .id_almacenamiento_ct_infraestructura_almacenamiento_agua
+                    .descripcion,
+              })
+            ),
+        };
       }
-      return almacenamientoAgua;
+      return null;
     } catch (error) {
       console.error(
         "Error al obtener almacenamiento de agua de la unidad service:",

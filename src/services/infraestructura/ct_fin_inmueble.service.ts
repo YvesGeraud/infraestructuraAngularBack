@@ -12,7 +12,7 @@ class ctInfraestructuraFinInmuebleService {
   async obtenerTiposFinInmueble() {
     try {
       const tiposFinInmueble = await FinInmueble.findAll({
-        attributes: ["id_fin_inmueble", "descripcion"],
+        attributes: ["id_fin", "descripcion"],
       });
       if (tiposFinInmueble.length === 0) {
         throw new Error("No hay tipos de fin de inmueble");

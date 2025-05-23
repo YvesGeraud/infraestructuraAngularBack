@@ -15,7 +15,7 @@ class ctNivelEducativoService {
   async obtenerNivelesEducativos() {
     try {
       const nivelesEducativos = await NivelEducativo.findAll({
-        attributes: ["id_nivel_educativo", "descripcion"],
+        attributes: ["id_nivel", "descripcion"],
       });
       if (nivelesEducativos.length === 0) {
         throw new Error("No hay niveles educativos");

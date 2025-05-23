@@ -13,7 +13,7 @@ class ctRazonNoConstruccionService {
   async obtenerRazonesNoConstruccion() {
     try {
       const razonesNoConstruccion = await RazonNoConstruccion.findAll({
-        attributes: ["id_razon_no_construccion", "descripcion"],
+        attributes: ["id_razon", "descripcion"],
       });
       if (razonesNoConstruccion.length === 0) {
         throw new Error("No hay razones de no construcción");

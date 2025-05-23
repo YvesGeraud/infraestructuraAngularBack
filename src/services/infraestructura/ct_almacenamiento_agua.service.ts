@@ -13,7 +13,7 @@ export class CtAlmacenamientoAguaService {
   async obtenerAlmacenamientoAgua() {
     try {
       const almacenamientoAgua = await AlmacenamientoAgua.findAll({
-        attributes: ["id_almacenamiento_agua", "descripcion"],
+        attributes: ["id_almacenamiento", "descripcion"],
       });
       if (almacenamientoAgua.length === 0) {
         throw new Error("No hay almacenamientos de agua");

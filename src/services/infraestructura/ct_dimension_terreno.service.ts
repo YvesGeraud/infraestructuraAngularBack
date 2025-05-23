@@ -12,7 +12,7 @@ export class CtDimencionTerrenoService {
   async obtenerDimencionTerreno() {
     try {
       const dimencionTerreno = await DimensionTerreno.findAll({
-        attributes: ["id_dimension_terreno", "descripcion"],
+        attributes: ["id_dimension", "descripcion"],
       });
       if (dimencionTerreno.length === 0) {
         throw new Error("No hay dimensiones de terreno");

@@ -12,7 +12,7 @@ export class CtEspacioInmueblesService {
   async obtenerEspaciosInmuebles() {
     try {
       const espaciosInmuebles = await EspacioInmueble.findAll({
-        attributes: ["id_espacio_inmueble", "descripcion"],
+        attributes: ["id_espacio", "descripcion"],
       });
       if (espaciosInmuebles.length === 0) {
         throw new Error("No hay espacios de inmuebles");

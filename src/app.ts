@@ -24,6 +24,9 @@ import almacenamientoAguaRoutes from "./routes/infraestructura/ct_almacenamiento
 import direccionRoutes from "./routes/infraestructura/ct_direccion.routes";
 import departamentoRoutes from "./routes/infraestructura/ct_departamento.routes";
 import areaRoutes from "./routes/infraestructura/ct_area.routes";
+import suministroEnergiaRoutes from "./routes/infraestructura/ct_suministro_de_energia.routes";
+import suministroGasRoutes from "./routes/infraestructura/ct_suministro_de_gas.routes";
+import tipoDescargaRoutes from "./routes/infraestructura/ct_tipo_descarga.routes";
 import "./models";
 
 // Configurar variables de entorno
@@ -96,6 +99,21 @@ app.use(
 app.use(
   `${process.env.HOST}api/departamentos`,
   /*authenticateJWT,*/ departamentoRoutes
+);
+
+app.use(
+  `${process.env.HOST}api/suministroEnergia`,
+  /*authenticateJWT,*/ suministroEnergiaRoutes
+);
+
+app.use(
+  `${process.env.HOST}api/suministroGas`,
+  /*authenticateJWT,*/ suministroGasRoutes
+);
+
+app.use(
+  `${process.env.HOST}api/tipoDescarga`,
+  /*authenticateJWT,*/ tipoDescargaRoutes
 );
 
 // Mostrar información de configuración de la base de datos

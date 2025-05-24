@@ -27,6 +27,11 @@ import areaRoutes from "./routes/infraestructura/ct_area.routes";
 import suministroEnergiaRoutes from "./routes/infraestructura/ct_suministro_de_energia.routes";
 import suministroGasRoutes from "./routes/infraestructura/ct_suministro_de_gas.routes";
 import tipoDescargaRoutes from "./routes/infraestructura/ct_tipo_descarga.routes";
+import obraMantenimientoRoutes from "./routes/infraestructura/ct_obra_mantenimiento.routes";
+import tipoConstruccionRoutes from "./routes/infraestructura/ct_tipo_construccion.routes";
+import frecuenciaLimpiezaRoutes from "./routes/infraestructura/ct_frecuencia_limpieza.routes";
+import pautaSeguridadRoutes from "./routes/infraestructura/ct_pauta_de_seguridad.routes";
+import construccionInmuebleRoutes from "./routes/infraestructura/ct_construccion_inmueble.routes";
 import "./models";
 
 // Configurar variables de entorno
@@ -114,6 +119,31 @@ app.use(
 app.use(
   `${process.env.HOST}api/tipoDescarga`,
   /*authenticateJWT,*/ tipoDescargaRoutes
+);
+
+app.use(
+  `${process.env.HOST}api/obraMantenimiento`,
+  /*authenticateJWT,*/ obraMantenimientoRoutes
+);
+
+app.use(
+  `${process.env.HOST}api/tipoConstruccion`,
+  /*authenticateJWT,*/ tipoConstruccionRoutes
+);
+
+app.use(
+  `${process.env.HOST}api/frecuenciaLimpieza`,
+  /*authenticateJWT,*/ frecuenciaLimpiezaRoutes
+);
+
+app.use(
+  `${process.env.HOST}api/pautaSeguridad`,
+  /*authenticateJWT,*/ pautaSeguridadRoutes
+);
+
+app.use(
+  `${process.env.HOST}api/construccionInmueble`,
+  /*authenticateJWT,*/ construccionInmuebleRoutes
 );
 
 // Mostrar información de configuración de la base de datos

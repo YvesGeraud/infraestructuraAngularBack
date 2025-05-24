@@ -39,6 +39,8 @@ import { ct_infraestructura_nivel_educativo as _ct_infraestructura_nivel_educati
 import type { ct_infraestructura_nivel_educativoAttributes, ct_infraestructura_nivel_educativoCreationAttributes } from "./ct_infraestructura_nivel_educativo";
 import { ct_infraestructura_obra_mantenimiento as _ct_infraestructura_obra_mantenimiento } from "./ct_infraestructura_obra_mantenimiento";
 import type { ct_infraestructura_obra_mantenimientoAttributes, ct_infraestructura_obra_mantenimientoCreationAttributes } from "./ct_infraestructura_obra_mantenimiento";
+import { ct_infraestructura_pauta_de_seguridad as _ct_infraestructura_pauta_de_seguridad } from "./ct_infraestructura_pauta_de_seguridad";
+import type { ct_infraestructura_pauta_de_seguridadAttributes, ct_infraestructura_pauta_de_seguridadCreationAttributes } from "./ct_infraestructura_pauta_de_seguridad";
 import { ct_infraestructura_problema_edificio as _ct_infraestructura_problema_edificio } from "./ct_infraestructura_problema_edificio";
 import type { ct_infraestructura_problema_edificioAttributes, ct_infraestructura_problema_edificioCreationAttributes } from "./ct_infraestructura_problema_edificio";
 import { ct_infraestructura_razon_no_construccion as _ct_infraestructura_razon_no_construccion } from "./ct_infraestructura_razon_no_construccion";
@@ -137,6 +139,7 @@ export {
   _ct_infraestructura_material_techo as ct_infraestructura_material_techo,
   _ct_infraestructura_nivel_educativo as ct_infraestructura_nivel_educativo,
   _ct_infraestructura_obra_mantenimiento as ct_infraestructura_obra_mantenimiento,
+  _ct_infraestructura_pauta_de_seguridad as ct_infraestructura_pauta_de_seguridad,
   _ct_infraestructura_problema_edificio as ct_infraestructura_problema_edificio,
   _ct_infraestructura_razon_no_construccion as ct_infraestructura_razon_no_construccion,
   _ct_infraestructura_sostenimiento as ct_infraestructura_sostenimiento,
@@ -218,6 +221,8 @@ export type {
   ct_infraestructura_nivel_educativoCreationAttributes,
   ct_infraestructura_obra_mantenimientoAttributes,
   ct_infraestructura_obra_mantenimientoCreationAttributes,
+  ct_infraestructura_pauta_de_seguridadAttributes,
+  ct_infraestructura_pauta_de_seguridadCreationAttributes,
   ct_infraestructura_problema_edificioAttributes,
   ct_infraestructura_problema_edificioCreationAttributes,
   ct_infraestructura_razon_no_construccionAttributes,
@@ -317,6 +322,7 @@ export function initModels(sequelize: Sequelize) {
   const ct_infraestructura_material_techo = _ct_infraestructura_material_techo.initModel(sequelize);
   const ct_infraestructura_nivel_educativo = _ct_infraestructura_nivel_educativo.initModel(sequelize);
   const ct_infraestructura_obra_mantenimiento = _ct_infraestructura_obra_mantenimiento.initModel(sequelize);
+  const ct_infraestructura_pauta_de_seguridad = _ct_infraestructura_pauta_de_seguridad.initModel(sequelize);
   const ct_infraestructura_problema_edificio = _ct_infraestructura_problema_edificio.initModel(sequelize);
   const ct_infraestructura_razon_no_construccion = _ct_infraestructura_razon_no_construccion.initModel(sequelize);
   const ct_infraestructura_sostenimiento = _ct_infraestructura_sostenimiento.initModel(sequelize);
@@ -504,6 +510,7 @@ export function initModels(sequelize: Sequelize) {
     ct_infraestructura_material_techo: ct_infraestructura_material_techo,
     ct_infraestructura_nivel_educativo: ct_infraestructura_nivel_educativo,
     ct_infraestructura_obra_mantenimiento: ct_infraestructura_obra_mantenimiento,
+    ct_infraestructura_pauta_de_seguridad: ct_infraestructura_pauta_de_seguridad,
     ct_infraestructura_problema_edificio: ct_infraestructura_problema_edificio,
     ct_infraestructura_razon_no_construccion: ct_infraestructura_razon_no_construccion,
     ct_infraestructura_sostenimiento: ct_infraestructura_sostenimiento,
